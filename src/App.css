@@ -1,0 +1,9 @@
+.top {
+  margin-top: 56px;
+}
+
+@media (min-width: 605px) {
+  .side {
+    margin-left: 300px;
+  }
+}

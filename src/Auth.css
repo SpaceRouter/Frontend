@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f3f5;
+}
+
+.icon {
+  margin-bottom: 30px;
+  color: black;
+}
