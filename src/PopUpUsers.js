@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Modal, Pagination, Button } from "react-bootstrap";
+import { Table, Modal, Pagination, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import { updateIndexUser } from "./redux/action.js";
@@ -26,25 +26,27 @@ class PopUpUsers extends Component {
           <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}> Utilisateur </h3>
           <Table responsive>
             <tbody>
-              <tr style={{ borderWidth: 0 }}>
+              <tr>
                 <td className="data">ID</td>
                 <td> </td>
-                <td className="user">{users[indexUser].id}</td>
+                <td className="user">
+                  <Form.Control style={{width: "auto"}} type="text" placeholder={users[indexUser].id} />
+                </td>
               </tr>
               <tr>
                 <td className="data">EMAIL</td>
                 <td> </td>
-                <td className="user">{users[indexUser].email}</td>
+                <td className="user"><Form.Control style={{width: "auto"}} type="text" placeholder={users[indexUser].email} /></td>
               </tr>
               <tr>
                 <td className="data">NOM</td>
                 <td> </td>
-                <td className="user">{users[indexUser].nom}</td>
+                <td className="user"><Form.Control style={{width: "auto"}} type="text" placeholder={users[indexUser].nom} /></td>
               </tr>
               <tr>
                 <td className="data">PRENOM</td>
                 <td> </td>
-                <td className="user">{users[indexUser].prenom}</td>
+                <td className="user"><Form.Control style={{width: "auto"}} type="text" placeholder={users[indexUser].prenom} /></td>
               </tr>
               <tr>
                 <td className="data">GROUPES</td>
