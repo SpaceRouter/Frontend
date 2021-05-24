@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Navigation from "./Navigation";
 import Home from "./Home";
 import Auth from "./Auth";
+import Users from "./Users";
 import "./App.css";
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
         <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
           <Navigation />
           <Route exact path="/" component={Home} />
+          <Route path="/users" component={Users} />
         </div>
       </Switch>
     );

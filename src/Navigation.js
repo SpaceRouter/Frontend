@@ -30,10 +30,10 @@ class Navigation extends Component {
         </Row>
         <Navbar.Collapse>
           <Nav.Link className="nav-link" href="/">
-            Home
+            Page d'accueil
           </Nav.Link>
-          <Nav.Link className="nav-link" href="/auth">
-            Auth
+          <Nav.Link className="nav-link" href="/users">
+            Utilisateurs
           </Nav.Link>
         </Navbar.Collapse>
       </Navbar>
