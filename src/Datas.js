@@ -32,7 +32,7 @@ export const users = [
     email: "louis.desplanche@edu.esiee.fr",
     nom: "Desplanche",
     prenom: "Louis",
-    groupes: "SUPER-ADMIN",
+    groupes: "SUPER ADMIN",
 },
 {
     id: "barons",

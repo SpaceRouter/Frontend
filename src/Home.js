@@ -7,7 +7,7 @@ import "./Home.css";
 
 class Home extends Component {
   render() {
-    this.props.updateTitlePage("Home");
+    this.props.updateTitlePage("Page d'accueil");
     return (
       <Container fluid>
         <h2>Home</h2>
@@ -16,6 +16,6 @@ class Home extends Component {
   }
 }
 
-export default connect("", {
-  updateTitlePage: updateTitlePage,
+export default connect(null, {
+  updateTitlePage,
 })(Home);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 
 import Navigation from "./Navigation";
@@ -11,14 +12,19 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <Switch>
+      <Router>
         <Route path="/auth" component={Auth} />
         <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
-          <Navigation />
-          <Route exact path="/" component={Home} />
-          <Route path="/users" component={Users} />
+          <Route exact path="/">
+            <Navigation />
+            <Home />{" "}
+          </Route>
+          <Route exact path="/users">
+            <Navigation />
+            <Users />{" "}
+          </Route>
         </div>
-      </Switch>
+      </Router>
     );
   }
 }

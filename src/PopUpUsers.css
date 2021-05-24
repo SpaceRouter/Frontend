@@ -1,9 +1,15 @@
 .data {
-    text-align: left;
-    color: #6C757D;
+  text-align: left;
+  color: #6c757d;
 }
 
 .user {
-    text-align: right;
-    margin-top: 50px;
+  text-align: right;
+  margin-top: 50px;
+}
+
+.next-arrow {
+  margin-right: 17px;
+  position: absolute;
+  right: 0;
 }
