@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Form, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "./redux/action.js";
@@ -10,7 +10,112 @@ class Home extends Component {
     this.props.updateTitlePage("Page d'accueil");
     return (
       <Container fluid>
-        <h2>Home</h2>
+        <Row className="justify-content-md-center">
+          <div className="heimdall">
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="truc">
+            <Card.Body>
+              <Card.Text>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+              </Card.Text>
+            </Card.Body>
+          </Card>
+
+          
+          </div>
+        </Row>
+        <Row className="justify-content-md-center">
+          <div className="block1">
+            <div className="usage"></div> 
+            <div className="services"></div> 
+          </div>
+        </Row>
+        <Row className="justify-content-md-center">
+          <div className="block2">
+            <div className="routeur"></div> 
+            <div className="cpu"></div> 
+          </div>
+        </Row>
       </Container>
     );
   }

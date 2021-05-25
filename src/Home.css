@@ -1,0 +1,82 @@
+.heimdall {
+    position: absolute;
+    width: 60%;
+    height: 270px;
+    margin: auto;
+    top: 85px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.truc {
+    width: 23%;
+    height: 43%;
+    margin: auto;
+    background-color: #F2F3F5;
+    border: none;
+    text-align: center;
+    
+}
+
+.block1 {
+    position: absolute;
+    width: 60%;
+    height: 270px;
+    margin: auto;
+    top: 385px;
+    background: #F2F3F5;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.usage {
+    width: 58%;
+    margin: auto;
+    height: 100%;
+    margin-left: 0;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.services {
+    width: 38%;
+    margin: auto;
+    height: 100%;
+    margin-right: 0;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.block2 {
+    position: absolute;
+    width: 60%;
+    height: 270px;
+    margin: auto;
+    top: 690px;
+    background: #F2F3F5;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.routeur {
+    width: 38%;
+    margin: auto;
+    height: 100%;
+    margin-left: 0;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.cpu {
+    width: 58%;
+    margin: auto;
+    height: 100%;
+    margin-right: 0;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
