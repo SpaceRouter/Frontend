@@ -1,6 +1,14 @@
 .data {
   text-align: left;
-  color: #6c757d; 
+  color: #6c757d;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content{
+  border: 0px solid;
 }
 
 .user {

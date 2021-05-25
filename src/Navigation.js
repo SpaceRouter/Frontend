@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Nav, Row } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { FaPowerOff } from "react-icons/fa";
 
@@ -32,9 +32,9 @@ class Navigation extends Component {
           <Nav.Link className="nav-link" href="/">
             Page d'accueil
           </Nav.Link>
-          <Nav.Link className="nav-link" href="/users">
-            Utilisateurs
-          </Nav.Link>
+          <NavDropdown title="Administration">
+            <NavDropdown.Item className="nav-link-dropdown" href="/users">Utilisateurs</NavDropdown.Item>
+          </NavDropdown>
         </Navbar.Collapse>
       </Navbar>
     );

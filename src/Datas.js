@@ -1,44 +1,46 @@
 export const users = [
-{
-    id: "cocheta",
+  {
+    username: "cocheta",
     email: "axel.cochet@edu.esiee.fr",
-    nom: "Cochet",
-    prenom: "Axel",
-    groupes: "ADMIN",
-},
-{
-    id: "hugerv",
+    lastName: "Cochet",
+    firstName: "Axel",
+    group: "ADMIN",
+  },
+  {
+    username: "hugerv",
     email: "victor.huger@edu.esiee.fr",
-    nom: "Huger",
-    prenom: "Victor",
-    groupes: "ADMIN",
-},
-{
-    id: "lefevt",
+    lastName: "Huger",
+    firstName: "Victor",
+    group: "ADMIN",
+  },
+  {
+    username: "lefevt",
     email: "theo.lefevre@edu.esiee.fr",
-    nom: "Lefevre",
-    prenom: "Theo",
-    groupes: "USER",
-},
-{
-    id: "henryg",
+    lastName: "Lefevre",
+    firstName: "Theo",
+    group: "USER",
+  },
+  {
+    username: "henryg",
     email: "guillaume.henry@edu.esiee.fr",
-    nom: "Henry",
-    prenom: "Guillaume",
-    groupes: "USER",
-},
-{
-    id: "desplanchl",
+    lastName: "Henry",
+    firstName: "Guillaume",
+    group: "USER",
+  },
+  {
+    username: "desplanchl",
     email: "louis.desplanche@edu.esiee.fr",
-    nom: "Desplanche",
-    prenom: "Louis",
-    groupes: "SUPER ADMIN",
-},
-{
-    id: "barons",
+    lastName: "Desplanche",
+    firstName: "Louis",
+    group: "SUPER ADMIN",
+  },
+  {
+    username: "barons",
     email: "samuel.baron@edu.esiee.fr",
-    nom: "Baron",
-    prenom: "Samuel",
-    groupes: "USER",
-}
-]; 
+    lastName: "Baron",
+    firstName: "Samuel",
+    group: "USER",
+  },
+];
+
+export const groupsList = ["ADMIN", "SUPER ADMIN", "USER"];

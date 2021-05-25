@@ -2,7 +2,7 @@ html {
     background-color: #F2F3F5;
 }
 
-@media screen and (max-width: 605px){
+@media screen and (max-width: 690px){
     .tel{
         display: none;
     }
@@ -39,7 +39,7 @@ html {
     margin-bottom: 2%;
 }
 
-.bttn {
+.button {
     margin: 0;
     margin-left: 20px;
     top: 500px;
@@ -47,14 +47,14 @@ html {
     text-align: left;
 }
 
-.btn1 {
+.button1 {
     width: 15ch;
     background-color: #0B3862;
     border: none;
     Border-radius: 5px; 
 }
 
-.btn2 {
+.button2 {
     width: 15ch;
     background-color: #FFFFFF;
     color: #0B3862;
@@ -62,20 +62,6 @@ html {
     Border-radius: 5px; 
 }
 
-.bttn:hover {
+.button:hover, .button:focus, .button:active {
     background-color: rgba(11, 56, 98, 0.8);
-}
-
-.bttn:active {
-    background-color: rgba(11, 56, 98, 0.8);
-}
-
-.data {
-    text-align: left;
-    color: #6C757D;
-}
-
-.user {
-    text-align: right;
-    margin-top: 50px;
 }
