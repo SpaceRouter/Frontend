@@ -4,104 +4,37 @@ import { connect } from "react-redux";
 
 import { updateTitlePage } from "./redux/action.js";
 import "./Home.css";
+import { app } from "./Datas.js";
 
 class Home extends Component {
+  state = {
+    appList: [],
+    index: "0",
+  }
+
+  getUsersInfo() {
+    this.setState({ appList: app });
+  }
+
+  componentDidMount() {
+    this.getUsersInfo();
+  }
+
   render() {
     this.props.updateTitlePage("Page d'accueil");
     return (
       <Container fluid>
         <Row className="justify-content-md-center">
           <div className="heimdall">
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="truc">
-            <Card.Body>
-              <Card.Text>
-              <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
-          
+            {this.state.appList.map((app, index) => (
+              <Card style={{ width: '9rem', backgroundColor: "#F2F3F5", height: "250px", margin: "auto" }} key={app.nom}>
+              <Card.Img variant="top" src={app.photo} />
+              <Card.Body>
+                <Card.Title>{app.nom}</Card.Title>
+                <Form.Check type="switch" id="custom-switch" label="On / Off"/>
+              </Card.Body>
+              </Card>
+              ))}
           </div>
         </Row>
         <Row className="justify-content-md-center">

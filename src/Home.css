@@ -1,7 +1,66 @@
+html {
+    background-color: #F2F3F5;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+  
+body {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+.container {
+    background-color: #F2F3F5;
+}
+
+@media screen and (max-width: 768px){
+    body {
+        margin-left: 20% !important; 
+    }
+}
+
+@media screen and (max-width: 720px){
+    body {
+        margin-left: 10% !important;
+    }
+    .heimdall {
+        height: 850px !important; 
+        width: 80% !important;
+    }
+    .block1 {
+        width: 80% !important;
+        top: 975px !important;
+    }
+    .block2 {
+        top: 1600px !important;
+        width: 80% !important;
+    }
+    .usage {
+        width: 100% !important;
+        margin: auto;
+    }
+    .services {
+        width: 100% !important;
+        margin: auto;
+        margin-top: 45px !important;
+    }
+    .routeur {
+        width: 100% !important;
+        margin: auto;
+    }
+    .cpu {
+        width: 100% !important;
+        margin: auto;
+        margin-top: 45px !important;
+    }
+}
+
 .heimdall {
     position: absolute;
     width: 60%;
-    height: 270px;
+    height: 550px;
     margin: auto;
     top: 85px;
     background: #FFFFFF;
@@ -13,12 +72,12 @@
 
 .truc {
     width: 23%;
-    height: 43%;
+    height: 110px;
     margin: auto;
     background-color: #F2F3F5;
     border: none;
-    text-align: center;
-    
+    text-align: center; 
+    border-radius: 10px;
 }
 
 .block1 {
@@ -26,7 +85,7 @@
     width: 60%;
     height: 270px;
     margin: auto;
-    top: 385px;
+    top: 675px;
     background: #F2F3F5;
     border-radius: 10px;
     display: flex;
@@ -43,7 +102,7 @@
 }
 
 .services {
-    width: 38%;
+    width: 39%;
     margin: auto;
     height: 100%;
     margin-right: 0;
@@ -56,7 +115,7 @@
     width: 60%;
     height: 270px;
     margin: auto;
-    top: 690px;
+    top: 990px;
     background: #F2F3F5;
     border-radius: 10px;
     display: flex;
@@ -64,7 +123,7 @@
 }
 
 .routeur {
-    width: 38%;
+    width: 39%;
     margin: auto;
     height: 100%;
     margin-left: 0;

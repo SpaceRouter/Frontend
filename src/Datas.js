@@ -44,3 +44,30 @@ export const users = [
 ];
 
 export const groupsList = ["ADMIN", "SUPER ADMIN", "USER"];
+
+export const app = [
+  {
+    photo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
+    nom: "NextCloud"
+  },
+  {
+    photo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
+    nom: "NextCloud"
+  },
+  {
+    photo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
+    nom: "FirstCloud"
+  },
+  {
+    photo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
+    nom: "FirstCloud"
+  },
+  {
+    photo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
+    nom: "NextCloud"
+  },
+  {
+    photo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
+    nom: "FirstCloud"
+  },
+];
