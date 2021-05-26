@@ -21,6 +21,13 @@ nav .navbar-collapse.show {
   left: 0;
 }
 
+.dropdown-menu {
+  position: static;
+  width: 280px;
+  background-color: #679ecb;
+  border: 0px solid;
+}
+
 .nav-link {
   margin-top: 10px;
   font-size: 1.5em;
@@ -28,5 +35,16 @@ nav .navbar-collapse.show {
 }
 
 .nav-link:hover {
-  color: #C2C5CC;
+  color: #c2c5cc;
+}
+
+.nav-link-dropdown {
+  font-size: 1.5em;
+  color: white;
+  margin-left: 20px;
+}
+
+.nav-link-dropdown:hover {
+  background-color: #679ecb;
+  color: #c2c5cc;
 }

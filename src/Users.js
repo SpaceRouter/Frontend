@@ -4,7 +4,7 @@ import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 import { connect } from "react-redux";
 
-import { updateTitlePage, updateIndexUser, updateUsers } from "./redux/action.js";
+import { updateTitlePage } from "./redux/action.js";
 import PopUpUsers from "./PopUpUsers.js";
 import { users } from "./Datas.js";
 import "./Users.css";
@@ -12,29 +12,24 @@ import "./Users.css";
 class Users extends Component {
   state = {
     modalVisible: false,
+    usersList: [],
+    index: -1, 
   };
 
   modificationPen(index) {
     return (
       <>
-        <Button
-          border="none"
-          style={{ backgroundColor: "#FFFFFF", border: "none" }}
-          onClick={() => {
-            this.props.updateIndexUser(index);                       
-            this.setState({ modalVisible: true });
-          }}
-        >
+        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.setState({ modalVisible: true, index: index })}>
           <FaPen className="modification" size="15px" />
         </Button>
 
-        <PopUpUsers show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />
+        <PopUpUsers show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} usersList={this.state.usersList} indexUser={this.state.index} />
       </>
     );
   }
 
   getUsersInfo() {
-    this.props.updateUsers(users); 
+    this.setState({usersList: users});
   }
 
   componentDidMount() {
@@ -53,20 +48,20 @@ class Users extends Component {
                 <th>EMAIL</th>
                 <th className="tel">NOM</th>
                 <th className="tel">PRENOM</th>
-                <th className="tel">GROUPES</th>
+                <th className="tel">GROUPE</th>
                 <th> </th>
               </tr>
             </thead>
             <tbody>
-              {this.props.users.map((user, index) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
+              {this.state.usersList.map((user, index) => (
+                <tr key={user.username}>
+                  <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td className="tel">{user.nom}</td>
-                  <td className="tel">{user.prenom}</td>
+                  <td className="tel">{user.firstName}</td>
+                  <td className="tel">{user.lastName}</td>
                   <td className="tel">
                     <Button variant="outline-dark" disabled>
-                      {user.groupes}
+                      {user.group}
                     </Button>
                   </td>
                   <td>{this.modificationPen(index)}</td>
@@ -76,12 +71,12 @@ class Users extends Component {
           </Table>
         </Row>
         <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%" }}>
-          <Button type="submit" className="bttn btn1">
+          <Button type="submit" className="button button1">
             <MdAddCircle size="20px" className="add" />
             AJOUTER
           </Button>
 
-          <Button type="submit" className="bttn btn2">
+          <Button type="submit" className="button button2">
             <MdDelete size="20px" className="delete" />
             SUPPRIMER
           </Button>
@@ -91,12 +86,6 @@ class Users extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  users: state.users,
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   updateTitlePage,
-  updateIndexUser,
-  updateUsers,
 })(Users);
