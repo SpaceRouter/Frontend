@@ -4,9 +4,9 @@ import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "./redux/action.js";
-import PopUpUsers from "./PopUpUsers.js";
-import { users } from "./Datas.js";
+import { updateTitlePage } from "../redux/action.js";
+import PopUpUsers from "../PopUpUsers.js";
+import { users } from "../Datas.js";
 import "./Users.css";
 
 class Users extends Component {

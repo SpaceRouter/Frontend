@@ -30,12 +30,13 @@ nav .navbar-collapse.show {
 
 .nav-link {
   margin-top: 10px;
+  margin-left: 15px;
   font-size: 1.5em;
-  color: white;
+  color: white !important;
 }
 
 .nav-link:hover {
-  color: #c2c5cc;
+  color: #c2c5cc !important;
 }
 
 .dropdown-item {

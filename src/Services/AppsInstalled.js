@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "./redux/action.js";
-import "./Marketplace.css";
+import { updateTitlePage } from "../redux/action.js";
+import "./AppsInstalled.css";
 
-class Marketplace extends Component {
+class AppsInstalled extends Component {
   render() {
-    this.props.updateTitlePage("Magasin d'application");
+    this.props.updateTitlePage("Applications installées");
     return (
       <Container fluid>
-        Marketplace
+        <h3>Applications installées</h3>
       </Container>
     );
   }
@@ -18,4 +18,4 @@ class Marketplace extends Component {
 
 export default connect(null, {
   updateTitlePage,
-})(Marketplace);
+})(AppsInstalled);

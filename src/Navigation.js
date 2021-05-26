@@ -29,19 +29,27 @@ class Navigation extends Component {
           <FaPowerOff className="topbar-icon" size="30px" color="white" />
         </Row>
         <Navbar.Collapse>
-          <Nav.Link className="nav-link" href="/">
-            Page d'accueil
-          </Nav.Link>
-          <NavDropdown title="Administration">
-            <NavDropdown.Item href="/users">
-              Utilisateurs
-            </NavDropdown.Item>
-          </NavDropdown>
-          <NavDropdown title="Services">
-            <NavDropdown.Item href="/marketplace">
-              Magasin d'application
-            </NavDropdown.Item>
-          </NavDropdown>
+          <Nav>
+            <Nav.Link href="/">
+              Page d'accueil
+            </Nav.Link>
+
+            <NavDropdown title="Administration">
+              <NavDropdown.Item href="/users">Utilisateurs</NavDropdown.Item>
+              <NavDropdown.Item href="/groups">Groupes</NavDropdown.Item>
+            </NavDropdown>
+
+            <NavDropdown title="Réseau">
+              <NavDropdown.Item href="/dhcp">DHCP</NavDropdown.Item>
+              <NavDropdown.Item href="/dns">DNS</NavDropdown.Item>
+              <NavDropdown.Item href="/firewall">Firewall</NavDropdown.Item>
+            </NavDropdown>
+
+            <NavDropdown title="Services">
+              <NavDropdown.Item href="/marketplace">Magasin d'applications</NavDropdown.Item>
+              <NavDropdown.Item href="/appsinstalled">Applications installées</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
