@@ -13,23 +13,45 @@ class Users extends Component {
   state = {
     modalVisible: false,
     usersList: [],
-    index: -1, 
+    index: "-1",
+    delete: false,
   };
 
-  modificationPen(index) {
-    return (
-      <>
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.setState({ modalVisible: true, index: index })}>
-          <FaPen className="modification" size="15px" />
+  modificationOrDelete(index) {
+    if (this.state.delete) {
+      return (
+        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.usersList[index])}>
+          <MdDelete className="modification" size="20px" />
         </Button>
+      );
+    } else {
+      return (
+        <>
+          <Button
+            border="none"
+            style={{ backgroundColor: "#FFFFFF", border: "none" }}
+            onClick={() => this.setState({ modalVisible: true, index: index })}
+          >
+            <FaPen className="modification" size="15px" />
+          </Button>
 
-        <PopUpUsers show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} usersList={this.state.usersList} indexUser={this.state.index} />
-      </>
-    );
+          <PopUpUsers
+            show={this.state.modalVisible}
+            onHide={() => this.setState({ modalVisible: false })}
+            usersList={this.state.usersList}
+            indexUser={this.state.index}
+          />
+        </>
+      );
+    }
+  }
+
+  addButton() {
+    return <PopUpUsers show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
   }
 
   getUsersInfo() {
-    this.setState({usersList: users});
+    this.setState({ usersList: users });
   }
 
   componentDidMount() {
@@ -64,19 +86,25 @@ class Users extends Component {
                       {user.group}
                     </Button>
                   </td>
-                  <td>{this.modificationPen(index)}</td>
+                  <td>{this.modificationOrDelete(index)}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
         </Row>
         <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%" }}>
-          <Button type="submit" className="button button1">
+          <Button
+            className="button button1"
+            onClick={() => {
+              this.setState({ modalVisible: true });
+              this.addButton();
+            }}
+          >
             <MdAddCircle size="20px" className="add" />
             AJOUTER
           </Button>
 
-          <Button type="submit" className="button button2">
+          <Button className="button button2" onClick={() => this.setState({ delete: !this.state.delete })}>
             <MdDelete size="20px" className="delete" />
             SUPPRIMER
           </Button>

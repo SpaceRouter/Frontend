@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import { Table, Modal, Pagination, Form } from "react-bootstrap";
+import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
 import { groupsList } from "./Datas.js";
 import "./PopUpUsers.css";
 
+const initialState = {
+  index: "",
+  username: "",
+  email: "",
+  lastName: "",
+  firstName: "",
+  group: "ADMIN",
+};
+
 export default class PopUpUsers extends Component {
-  state = {
-    index: "",
-    username: "",
-    email: "",
-    lastName: "",
-    firstName: "",
-    group: "",
-  };
+  state = initialState;
 
   handleUsernameUpdate = (username) => {
     this.setState({ username: username.target.value });
@@ -36,6 +38,7 @@ export default class PopUpUsers extends Component {
 
   prevPage = () => {
     if (this.state.index > 0) {
+      console.log(this.state);
       this.setState({ index: this.state.index - 1 });
     }
   };
@@ -45,6 +48,12 @@ export default class PopUpUsers extends Component {
       console.log(this.state);
       this.setState({ index: this.state.index + 1 });
     }
+  };
+
+  addUser = () => {
+    console.log(this.state);
+    this.setState({ ...initialState });
+    this.props.onHide();
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -60,7 +69,7 @@ export default class PopUpUsers extends Component {
         group: usersList[indexUser].group,
       });
     }
-    if (index !== prevState.index) {
+    if (index !== "" && index !== prevState.index) {
       this.setState({
         index: index,
         username: usersList[index].username,
@@ -74,7 +83,15 @@ export default class PopUpUsers extends Component {
 
   render() {
     return (
-      <Modal show={this.props.show} onHide={this.props.onHide} size="576px" centered>
+      <Modal
+        show={this.props.show}
+        onHide={() => {
+          this.setState({ ...initialState });
+          this.props.onHide();
+        }}
+        size="576px"
+        centered
+      >
         <Modal.Body>
           <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}> Utilisateur </h3>
           <Table responsive>
@@ -120,10 +137,19 @@ export default class PopUpUsers extends Component {
               </tr>
             </tbody>
           </Table>
-          <Pagination>
-            <Pagination.Prev onClick={this.prevPage} />
-            <Pagination.Next className="next-arrow" onClick={this.nextPage} />
-          </Pagination>
+          {this.state.index !== "" && (
+            <Pagination className="arrow">
+              <Pagination.Prev onClick={this.prevPage} />
+              <Pagination.Next className="next-arrow" onClick={this.nextPage} />
+            </Pagination>
+          )}
+          {this.state.index === "" && (
+            <div className="button-center" >
+            <Button className="button-add" onClick={this.addUser}>
+              AJOUTER
+            </Button>
+            </div>
+          )}
         </Modal.Body>
       </Modal>
     );

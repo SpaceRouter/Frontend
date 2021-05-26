@@ -17,13 +17,13 @@ class Navigation extends Component {
         <Row>
           <Navbar.Toggle className="topbar-icon" onClick={this.handleClick} />
           {this.props.isOpenSideBar && (
-            <Navbar.Brand className="d-none d-sm-block" href="/">
+            <Navbar.Brand className="d-none d-sm-block brand" href="/">
               SpaceRouter
             </Navbar.Brand>
           )}
         </Row>
         <Row>
-          <Navbar.Brand>{this.props.titlePage}</Navbar.Brand>
+          <Navbar.Brand className={this.props.isOpenSideBar ? "title" : ""}>{this.props.titlePage}</Navbar.Brand>
         </Row>
         <Row>
           <FaPowerOff className="topbar-icon" size="30px" color="white" />
@@ -33,7 +33,14 @@ class Navigation extends Component {
             Page d'accueil
           </Nav.Link>
           <NavDropdown title="Administration">
-            <NavDropdown.Item className="nav-link-dropdown" href="/users">Utilisateurs</NavDropdown.Item>
+            <NavDropdown.Item href="/users">
+              Utilisateurs
+            </NavDropdown.Item>
+          </NavDropdown>
+          <NavDropdown title="Services">
+            <NavDropdown.Item href="/marketplace">
+              Magasin d'application
+            </NavDropdown.Item>
           </NavDropdown>
         </Navbar.Collapse>
       </Navbar>

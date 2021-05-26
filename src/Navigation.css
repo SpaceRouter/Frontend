@@ -38,13 +38,22 @@ nav .navbar-collapse.show {
   color: #c2c5cc;
 }
 
-.nav-link-dropdown {
+.dropdown-item {
   font-size: 1.5em;
   color: white;
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
-.nav-link-dropdown:hover {
+.dropdown-item:hover {
   background-color: #679ecb;
   color: #c2c5cc;
+}
+
+.title {
+  margin-left: 300px;
+}
+
+.brand {
+  position: absolute;
+  margin-left: 90px;
 }

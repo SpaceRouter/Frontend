@@ -7,6 +7,7 @@ import Navigation from "./Navigation";
 import Home from "./Home";
 import Auth from "./Auth";
 import Users from "./Users";
+import Marketplace from "./Marketplace";
 import "./App.css";
 
 class App extends Component {
@@ -17,11 +18,15 @@ class App extends Component {
         <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
           <Route exact path="/">
             <Navigation />
-            <Home />{" "}
+            <Home />
           </Route>
           <Route exact path="/users">
             <Navigation />
-            <Users />{" "}
+            <Users />
+          </Route>
+          <Route exact path="/marketplace">
+            <Navigation />
+            <Marketplace />
           </Route>
         </div>
       </Router>

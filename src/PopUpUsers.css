@@ -15,8 +15,28 @@
   text-align: right;
 }
 
+.arrow {
+  margin-top: 15px;
+}
+
 .next-arrow {
   margin-right: 17px;
   position: absolute;
   right: 0;
+}
+
+.button-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.button-add {
+  background-color: #0B3862;
+  border: none;
+  Border-radius: 5px; 
+}
+
+.button-add:hover, .button-add:focus, .button-add:active {
+  background-color: rgba(11, 56, 98, 0.8);
 }
