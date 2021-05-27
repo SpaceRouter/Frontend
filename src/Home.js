@@ -27,11 +27,11 @@ class Home extends Component {
         <Row className="justify-content-md-center">
           <div className="heimdall">
             {this.state.appList.map((app, index) => (
-              <Card style={{ width: '9rem', backgroundColor: "#F2F3F5", height: "250px", margin: "auto" }} key={app.nom}>
-              <Card.Img variant="top" src={app.photo} />
+              <Card style={{ width: '9rem', backgroundColor: "#F2F3F5", height: "250px", margin: "auto", borderRadius: "10px" }} key={app.id}>
+              <Card.Img className="img" variant="top" src={app.photo} />
               <Card.Body>
                 <Card.Title>{app.nom}</Card.Title>
-                <Form.Check type="switch" id="custom-switch" label="On / Off"/>
+                <Form.Check type="switch" id={app.id} label="On / Off"/>
               </Card.Body>
               </Card>
               ))}
