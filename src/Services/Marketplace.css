@@ -2,9 +2,46 @@ html {
     background-color: #f2f3f5;
 }
 
-.form {
+
+@media screen and (max-width: 690px){
+    body {
+        margin-left: 25% !important;
+    }
+    .formSearch {
+        width: 60% !important; 
+    }
+}
+
+@media screen and (max-width: 768px){
+    body {
+        margin-left: 20% !important; 
+    }
+}
+
+
+.formSearch {
     background-color: #f2f3f5;
     position: absolute;
+    width: 400px;
+    top: 100px;
+}
+
+.block {
+    position: absolute;
+    width: 60%;
+    top: 225px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.appli {
+    width: 19rem;
+    background-Color: #FFFFFF;
+    height: 350px; 
+    margin: auto;
+    border-radius: 10px; 
+    margin-bottom: 50px; 
 }
 
 .img {
@@ -15,14 +52,11 @@ html {
     margin-top: 5px;
 }
 
-.search {
-    width: 30%;
+.titre {
+    text-align: center;
 }
 
-.appli {
-    position: absolute;
-    width: '15rem';
-    background-Color: "#F2F3F5";
-    height: "400px"; margin: "auto";
-    border-radius: "10px"; 
+.text {
+    margin: auto;
+    text-align: center;
 }

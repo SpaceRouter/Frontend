@@ -1,43 +1,76 @@
 import React, { Component } from "react";
-import { Container, Form, Row, Card } from "react-bootstrap";
+import { Container, Form, Row, Card, InputGroup, FormControl } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
 import { updateTitlePage } from "../redux/action.js";
 import "./Marketplace.css";
+import { appli } from "../Datas.js";
 
 class Marketplace extends Component {
   state = {
     search: "",
+    appliList: [],
+    index: 0,
+    appsFiltered: [],
   };
 
-  handleSearchUpdate = (search) => {
-    this.setState({ search: search.target.value });
+  getAppliInfo() {
+    this.setState({ appliList: appli });
+  }
+
+  componentDidMount() {
+    this.getAppliInfo();
+  }
+
+  SearchFilterFunction(search) {
+    console.log(search)
+    const newData = this.state.appliList.filter((item) => {
+        const itemData = item.nom.toUpperCase()
+        const textData = search.toUpperCase()
+        return itemData.indexOf(textData) > -1
+    })
+    this.setState({ appliList: newData });
   };
+
+  applisRender() {
+    return(
+      this.state.appliList.map((appli, index) => (
+        <Card className="appli" key={appli.id}>
+            <Card.Img className="img" variant="top" src={appli.logo} />
+          <div className="titre">
+            <Card.Title>{appli.nom}</Card.Title>
+            <Card.Subtitle>{appli.auteur}</Card.Subtitle>
+          </div>
+          <Card.Body className="text">
+            {appli.description}
+          </Card.Body>
+        </Card>
+      ))
+    )
+  }
 
   render() {
     this.props.updateTitlePage("Magasin d'applications");
     return (
       <Container fluid>
         <Row className="justify-content-md-center">
-          <div>
-          <Form className="form">
-            <Form.Group style={{ width: 700 }}>
-              <MdSearch size="25px"/> 
-              <Form.Control className="search" type="text" placeholder="Rechercher" value={this.state.search} onChange={this.handleSearchUpdate}/>
-            </Form.Group>
+          <Form className="formSearch">
+            <Form.Label onChange={(search) => this.SearchFilterFunction(search)} htmlFor="inlineFormInputGroup" srOnly>
+              Rechercher
+            </Form.Label>
+            <InputGroup >
+              <InputGroup.Prepend>
+                <InputGroup.Text><MdSearch size="25px"/></InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl id="inlineFormInputGroupUsername2" placeholder="Rechercher" />
+            </InputGroup>
           </Form>
-          </div>
         </Row>
         <Row className="justify-content-md-center"> 
-          <Card className="appli">
-          <Card.Img className="img" variant="top" src="https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png" />
-          <Card.Title>NextCloud</Card.Title>
-          <Card.Subtitle>Cocheta</Card.Subtitle>
-          <Card.Text>
-                Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.
-          </Card.Text>
-          </Card>
+          <div className="block">
+            {this.applisRender()}
+          </div>
         </Row>
       </Container>
     );
