@@ -1,0 +1,28 @@
+html {
+    background-color: #f2f3f5;
+}
+
+.form {
+    background-color: #f2f3f5;
+    position: absolute;
+}
+
+.img {
+    width: 130px;
+    max-width: 100%;
+	height: auto;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.search {
+    width: 30%;
+}
+
+.appli {
+    position: absolute;
+    width: '15rem';
+    background-Color: "#F2F3F5";
+    height: "400px"; margin: "auto";
+    border-radius: "10px"; 
+}
