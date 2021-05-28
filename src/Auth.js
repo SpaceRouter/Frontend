@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
+import { connect } from "react-redux";
 
+import { updateAuth } from "./redux/action.js";
 import "./Auth.css";
 
-export default class Auth extends Component {
+class Auth extends Component {
   state = {
     username: "",
     password: "",
@@ -28,8 +31,8 @@ export default class Auth extends Component {
       }),
     });
     let json = await response.json();
-    if (response.status === 200 && json.ok) {
-      console.log("Oui ça marche trop cool c'est super je suis vraiment content !!!! UwU");
+    if (response.status === 200 && json.Ok) {
+      this.props.updateAuth(true);
     }
   };
 
@@ -53,7 +56,14 @@ export default class Auth extends Component {
         <Button style={{ width: 175, backgroundColor: "#679ecb", border: "none" }} onClick={this.handleSubmit}>
           Connexion
         </Button>
+        {this.props.auth && < Redirect to="/" />}
       </Form>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { updateAuth })(Auth);

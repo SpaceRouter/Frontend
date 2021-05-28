@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 
@@ -20,6 +20,7 @@ class App extends Component {
     return (
       <Router>
         <Route path="/auth" component={Auth} />
+
         <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
           <Route exact path="/">
             <Navigation />
@@ -56,8 +57,9 @@ class App extends Component {
             <Navigation />
             <AppsInstalled />
           </Route>
-
         </div>
+
+        {!this.props.auth && <Redirect to="/auth" />}
       </Router>
     );
   }
@@ -65,6 +67,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   isOpenSideBar: state.isOpenSideBar,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(App);

@@ -62,5 +62,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  updateSideBarState: updateSideBarState,
+  updateSideBarState,
 })(Navigation);
