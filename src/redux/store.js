@@ -1,14 +1,6 @@
 import { createStore, combineReducers } from "redux";
-import { persistStore, persistReducer } from "redux-persist"
-import storage from 'redux-persist/lib/storage';
 
 import { isOpenSideBar, titlePage, auth } from "./reducer";
-
-const persistConfig = {
-  key: "auth",
-  storage: storage,
-  whitelist: ["auth"]
-};
 
 const rootReducer = combineReducers({
   isOpenSideBar: isOpenSideBar,
@@ -16,7 +8,4 @@ const rootReducer = combineReducers({
   auth: auth,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = createStore(persistedReducer);
-export const persistor = persistStore(store);
+export const store = createStore(rootReducer);

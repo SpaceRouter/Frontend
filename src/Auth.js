@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import Cookies from "universal-cookie";
 import { FaUser } from "react-icons/fa";
 import { connect } from "react-redux";
 
@@ -11,6 +11,7 @@ class Auth extends Component {
   state = {
     username: "",
     password: "",
+    error: false,
   };
 
   handleUsernameUpdate = (username) => {
@@ -22,6 +23,7 @@ class Auth extends Component {
   };
 
   handleSubmit = async () => {
+    const cookies = new Cookies();
     const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -32,13 +34,17 @@ class Auth extends Component {
     });
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
+      cookies.set("jwt_token", json.Token, { path: "/" });
       this.props.updateAuth(true);
+      this.props.history.push("/");
+    } else {
+      this.setState({ error: true });
     }
   };
 
   render() {
     return (
-      <Form className="form">
+      <Form className="form-auth">
         {/*Icon user*/}
         <FaUser className="icon" size="100px" />
 
@@ -56,14 +62,15 @@ class Auth extends Component {
         <Button style={{ width: 175, backgroundColor: "#679ecb", border: "none" }} onClick={this.handleSubmit}>
           Connexion
         </Button>
-        {this.props.auth && < Redirect to="/" />}
+
+        {this.state.error && (
+          <div className="error alert alert-danger" role="alert">
+            Identifiants non corrects.
+          </div>
+        )}
       </Form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { updateAuth })(Auth);
+export default connect(null, { updateAuth })(Auth);

@@ -1,4 +1,4 @@
-.form {
+.form-auth {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -11,4 +11,9 @@
 .icon {
   margin-bottom: 30px;
   color: black;
+}
+
+.error {
+  margin-top: 20px;
+  color: red;
 }

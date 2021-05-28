@@ -4,7 +4,7 @@ import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 import { connect } from "react-redux";
 
-import { updateTitlePage, updateAuth } from "../redux/action.js";
+import { updateTitlePage } from "../redux/action.js";
 import PopUpUsers from "./PopUpUsers.js";
 import { users } from "../Datas.js";
 import "./Users.css";
@@ -104,7 +104,7 @@ class Users extends Component {
             AJOUTER
           </Button>
 
-          <Button className="button button2" onClick={() => this.props.updateAuth(false)}>
+          <Button className="button button2" onClick={() => this.setState({ delete: !this.state.delete })}>
             <MdDelete size="20px" className="delete" />
             SUPPRIMER
           </Button>
@@ -116,5 +116,4 @@ class Users extends Component {
 
 export default connect(null, {
   updateTitlePage,
-  updateAuth,
 })(Users);

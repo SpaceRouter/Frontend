@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import Cookies from "universal-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 
@@ -16,50 +17,65 @@ import AppsInstalled from "./Services/AppsInstalled";
 import "./App.css";
 
 class App extends Component {
+  isAuthentificated() {
+    const cookies = new Cookies();
+    if (cookies.get("jwt_token")) {
+      return true;
+    } else return true; //false
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.auth !== prevProps.auth) {
+      this.isAuthentificated();
+    }
+  }
+
   render() {
     return (
       <Router>
         <Route path="/auth" component={Auth} />
 
-        <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
-          <Route exact path="/">
-            <Navigation />
-            <Home />
-          </Route>
+        {this.isAuthentificated() ? (
+          <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
+            <Route exact path="/">
+              <Navigation />
+              <Home />
+            </Route>
 
-          <Route exact path="/users">
-            <Navigation />
-            <Users />
-          </Route>
-          <Route exact path="/groups">
-            <Navigation />
-            <Groups />
-          </Route>
+            <Route exact path="/users">
+              <Navigation />
+              <Users />
+            </Route>
+            <Route exact path="/groups">
+              <Navigation />
+              <Groups />
+            </Route>
 
-          <Route exact path="/dhcp">
-            <Navigation />
-            <DHCP />
-          </Route>
-          <Route exact path="/dns">
-            <Navigation />
-            <DNS />
-          </Route>
-          <Route exact path="/firewall">
-            <Navigation />
-            <Firewall />
-          </Route>
+            <Route exact path="/dhcp">
+              <Navigation />
+              <DHCP />
+            </Route>
+            <Route exact path="/dns">
+              <Navigation />
+              <DNS />
+            </Route>
+            <Route exact path="/firewall">
+              <Navigation />
+              <Firewall />
+            </Route>
 
-          <Route exact path="/marketplace">
-            <Navigation />
-            <Marketplace />
-          </Route>
-          <Route exact path="/appsinstalled">
-            <Navigation />
-            <AppsInstalled />
-          </Route>
-        </div>
-
-        {!this.props.auth && <Redirect to="/auth" />}
+            <Route exact path="/marketplace">
+              <Navigation />
+              <Marketplace />
+            </Route>
+            <Route exact path="/appsinstalled">
+              <Navigation />
+              <AppsInstalled />
+            </Route>
+          </div>
+        ) : (
+          <Redirect to="/auth" />
+        )}
       </Router>
     );
   }
