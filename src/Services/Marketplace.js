@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Form, Row, Card, InputGroup, FormControl } from "react-bootstrap";
+import { Container, Row, Card, InputGroup, FormControl } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
@@ -15,39 +15,35 @@ class Marketplace extends Component {
     appsFiltered: [],
   };
 
+  SearchFilterFunction = (search) => {
+    const onWriting = search.target.value;
+    const newData = this.state.appliList.filter((item) => {
+      const itemData = item.nom.toUpperCase();
+      const textData = onWriting.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({ appsFiltered: newData });
+  };
+
+  applisRender() {
+    return this.state.appsFiltered.map((appli, index) => (
+      <Card className="appli" key={appli.id}>
+        <Card.Img className="img" variant="top" src={appli.logo} />
+        <div className="titre">
+          <Card.Title>{appli.nom}</Card.Title>
+          <Card.Subtitle>{appli.auteur}</Card.Subtitle>
+        </div>
+        <Card.Body className="text">{appli.description}</Card.Body>
+      </Card>
+    ));
+  }
+
   getAppliInfo() {
-    this.setState({ appliList: appli });
+    this.setState({ appliList: appli, appsFiltered: appli });
   }
 
   componentDidMount() {
     this.getAppliInfo();
-  }
-
-  SearchFilterFunction(search) {
-    console.log(search)
-    const newData = this.state.appliList.filter((item) => {
-        const itemData = item.nom.toUpperCase()
-        const textData = search.toUpperCase()
-        return itemData.indexOf(textData) > -1
-    })
-    this.setState({ appliList: newData });
-  };
-
-  applisRender() {
-    return(
-      this.state.appliList.map((appli, index) => (
-        <Card className="appli" key={appli.id}>
-            <Card.Img className="img" variant="top" src={appli.logo} />
-          <div className="titre">
-            <Card.Title>{appli.nom}</Card.Title>
-            <Card.Subtitle>{appli.auteur}</Card.Subtitle>
-          </div>
-          <Card.Body className="text">
-            {appli.description}
-          </Card.Body>
-        </Card>
-      ))
-    )
   }
 
   render() {
@@ -55,22 +51,17 @@ class Marketplace extends Component {
     return (
       <Container fluid>
         <Row className="justify-content-md-center">
-          <Form className="formSearch">
-            <Form.Label onChange={(search) => this.SearchFilterFunction(search)} htmlFor="inlineFormInputGroup" srOnly>
-              Rechercher
-            </Form.Label>
-            <InputGroup >
-              <InputGroup.Prepend>
-                <InputGroup.Text><MdSearch size="25px"/></InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl id="inlineFormInputGroupUsername2" placeholder="Rechercher" />
-            </InputGroup>
-          </Form>
+          <InputGroup className="search-bar">
+            <InputGroup.Prepend>
+              <InputGroup.Text>
+                <MdSearch size="23px" />
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl onChange={this.SearchFilterFunction} placeholder="Rechercher" />
+          </InputGroup>
         </Row>
-        <Row className="justify-content-md-center"> 
-          <div className="block">
-            {this.applisRender()}
-          </div>
+        <Row className="justify-content-md-center">
+          <div className="block">{this.applisRender()}</div>
         </Row>
       </Container>
     );
