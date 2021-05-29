@@ -5,6 +5,7 @@
 .topbar-icon {
   margin-left: 15px;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 nav .navbar-collapse {

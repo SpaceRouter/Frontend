@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavDropdown, Row } from "react-bootstrap";
+import Cookies from "universal-cookie";
 import { connect } from "react-redux";
 import { FaPowerOff } from "react-icons/fa";
 
-import { updateSideBarState } from "./redux/action.js";
+import { updateSideBarState, updateAuth } from "./redux/action.js";
 import "./Navigation.css";
 
 class Navigation extends Component {
   handleClick = () => {
     this.props.updateSideBarState(!this.props.isOpenSideBar);
+  };
+
+  logout = () => {
+    const cookies = new Cookies();
+    cookies.remove("jwt_token");
+    this.props.updateAuth(0);
   };
 
   render() {
@@ -26,13 +33,11 @@ class Navigation extends Component {
           <Navbar.Brand className={this.props.isOpenSideBar ? "title" : ""}>{this.props.titlePage}</Navbar.Brand>
         </Row>
         <Row>
-          <FaPowerOff className="topbar-icon" size="30px" color="white" />
+          <FaPowerOff className="topbar-icon" size="30px" color="white" onClick={this.logout} />
         </Row>
         <Navbar.Collapse>
           <Nav>
-            <Nav.Link href="/">
-              Page d'accueil
-            </Nav.Link>
+            <Nav.Link href="/">Page d'accueil</Nav.Link>
 
             <NavDropdown title="Administration">
               <NavDropdown.Item href="/users">Utilisateurs</NavDropdown.Item>
@@ -63,4 +68,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   updateSideBarState,
+  updateAuth,
 })(Navigation);

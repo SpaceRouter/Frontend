@@ -20,7 +20,7 @@ class Users extends Component {
   modificationOrDelete(index) {
     if (this.state.delete) {
       return (
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.usersList[index])}>
+        <Button style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.usersList[index])}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
@@ -28,7 +28,6 @@ class Users extends Component {
       return (
         <>
           <Button
-            border="none"
             style={{ backgroundColor: "#FFFFFF", border: "none" }}
             onClick={() => this.setState({ modalVisible: true, index: index })}
           >
