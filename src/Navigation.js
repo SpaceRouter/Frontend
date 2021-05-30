@@ -30,7 +30,7 @@ class Navigation extends Component {
           )}
         </Row>
         <Row>
-          <Navbar.Brand className={this.props.isOpenSideBar ? "title" : ""}>{this.props.titlePage}</Navbar.Brand>
+          <Navbar.Brand className="title">{this.props.titlePage}</Navbar.Brand>
         </Row>
         <Row>
           <FaPowerOff className="topbar-icon" size="30px" color="white" onClick={this.logout} />

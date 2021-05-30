@@ -78,8 +78,8 @@ class Users extends Component {
                 <tr key={user.username}>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td className="tel">{user.firstName}</td>
                   <td className="tel">{user.lastName}</td>
+                  <td className="tel">{user.firstName}</td>
                   <td className="tel">
                     <Button variant="outline-dark" disabled>
                       {user.group}
