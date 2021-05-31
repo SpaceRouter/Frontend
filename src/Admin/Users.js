@@ -55,10 +55,10 @@ class Users extends Component {
 
   componentDidMount() {
     this.getUsersInfo();
+    this.props.updateTitlePage("Utilisateurs");
   }
 
-  render() {
-    this.props.updateTitlePage("Utilisateurs");
+  render() {    
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-md-center">

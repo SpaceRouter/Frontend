@@ -6,8 +6,11 @@ import { updateTitlePage } from "../redux/action.js";
 import "./Firewall.css";
 
 class Firewall extends Component {
-  render() {
+  componentDidMount() {
     this.props.updateTitlePage("Firewall");
+  }
+
+  render() {
     return (
       <Container fluid>
         <h3>Firewall</h3>

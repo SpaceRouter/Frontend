@@ -6,8 +6,11 @@ import { updateTitlePage } from "../redux/action.js";
 import "./DNS.css";
 
 class DNS extends Component {
-  render() {
+  componentDidMount() {
     this.props.updateTitlePage("DNS");
+  }
+
+  render() {
     return (
       <Container fluid>
         <h3>DNS</h3>

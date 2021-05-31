@@ -6,8 +6,11 @@ import { updateTitlePage } from "../redux/action.js";
 import "./DHCP.css";
 
 class DHCP extends Component {
-  render() {
+  componentDidMount() {
     this.props.updateTitlePage("DHCP");
+  }
+
+  render() {
     return (
       <Container fluid>
         <h3>DHCP</h3>

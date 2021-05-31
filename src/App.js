@@ -13,6 +13,7 @@ import DHCP from "./Network/DHCP";
 import DNS from "./Network/DNS";
 import Firewall from "./Network/Firewall";
 import Marketplace from "./Services/Marketplace";
+import MarketplaceDetails from "./Services/MarketplaceDetails";
 import AppsInstalled from "./Services/AppsInstalled";
 import "./App.css";
 
@@ -37,41 +38,19 @@ class App extends Component {
 
         {this.isAuthentificated() ? (
           <div className={"top " + (this.props.isOpenSideBar ? "side" : "")}>
-            <Route exact path="/">
-              <Navigation />
-              <Home />
-            </Route>
+            <Navigation />
+            <Route exact path="/" component={Home} />
 
-            <Route exact path="/users">
-              <Navigation />
-              <Users />
-            </Route>
-            <Route exact path="/groups">
-              <Navigation />
-              <Groups />
-            </Route>
+            <Route exact path="/users" component={Users} />
+            <Route exact path="/groups" component={Groups} />
 
-            <Route exact path="/dhcp">
-              <Navigation />
-              <DHCP />
-            </Route>
-            <Route exact path="/dns">
-              <Navigation />
-              <DNS />
-            </Route>
-            <Route exact path="/firewall">
-              <Navigation />
-              <Firewall />
-            </Route>
+            <Route exact path="/dhcp" component={DHCP} />
+            <Route exact path="/dns" component={DNS} />
+            <Route exact path="/firewall" component={Firewall} />
 
-            <Route exact path="/marketplace">
-              <Navigation />
-              <Marketplace />
-            </Route>
-            <Route exact path="/appsinstalled">
-              <Navigation />
-              <AppsInstalled />
-            </Route>
+            <Route exact path="/marketplace" component={Marketplace} />
+            <Route exact path="/marketplace-details" component={MarketplaceDetails} />
+            <Route exact path="/appsinstalled" component={AppsInstalled} />
           </div>
         ) : (
           <Redirect to="/auth" />

@@ -18,10 +18,10 @@ class Home extends Component {
 
   componentDidMount() {
     this.getUsersInfo();
+    this.props.updateTitlePage("Page d'accueil");
   }
 
   render() {
-    this.props.updateTitlePage("Page d'accueil");
     return (
       <Container fluid>
         <Row className="justify-content-md-center">

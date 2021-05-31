@@ -42,6 +42,7 @@ html {
     margin: auto;
     border-radius: 10px; 
     margin-bottom: 50px; 
+    cursor: pointer;
 }
 
 .img {
