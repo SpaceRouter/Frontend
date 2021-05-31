@@ -19,11 +19,11 @@ class DHCP extends Component {
   }
 
   componentDidMount() {
+    this.props.updateTitlePage("DHCP");
     this.getDhcpInfo();
   }
 
   render() {
-    this.props.updateTitlePage("DHCP");
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>   
         <Row className="justify-content-center">

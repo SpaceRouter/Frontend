@@ -16,19 +16,9 @@ class Marketplace extends Component {
     appsFiltered: [],
   };
 
-  SearchFilterFunction = (search) => {
-    const onWriting = search.target.value;
-    const newData = this.state.appliList.filter((item) => {
-      const itemData = item.nom.toUpperCase();
-      const textData = onWriting.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({ appsFiltered: newData });
-  };
-
   applisRender() {
-    return this.state.appsFiltered.map((appli, index) => (
-      <Card className="appli" key={appli.id}>
+    return this.state.appsFiltered.map((appli) => (
+      <Card className="appli" key={appli.id} onClick={() => this.marketplaceDetails(appli)}>
         <Card.Img className="img" variant="top" src={appli.logo} />
         <div className="titre">
           <Card.Title>{appli.nom}</Card.Title>
@@ -39,16 +29,30 @@ class Marketplace extends Component {
     ));
   }
 
-  getAppliInfo() {
+  searchFilterFunction = (search) => {
+    const onWriting = search.target.value;
+    const newData = this.state.appliList.filter((item) => {
+      const itemData = item.nom.toUpperCase();
+      const textData = onWriting.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({ appsFiltered: newData });
+  };
+
+  marketplaceDetails(appli) {
+    this.props.history.push({ pathname: "/marketplace-details", state: { appli: appli } });
+  }
+
+  getApplisInfo() {
     this.setState({ appliList: appli, appsFiltered: appli });
   }
 
   componentDidMount() {
-    this.getAppliInfo();
+    this.getApplisInfo();
+    this.props.updateTitlePage("Magasin d'applications");
   }
 
   render() {
-    this.props.updateTitlePage("Magasin d'applications");
     return (
       <Container fluid className="market">
         <Row className="justify-content-center">
@@ -58,7 +62,7 @@ class Marketplace extends Component {
                 <MdSearch size="23px" />
               </InputGroup.Text>
             </InputGroup.Prepend>
-            <FormControl onChange={this.SearchFilterFunction} placeholder="Rechercher" />
+            <FormControl onChange={this.searchFilterFunction} placeholder="Rechercher" />
           </InputGroup>
         </Row>
         <Row className="justify-content-center">

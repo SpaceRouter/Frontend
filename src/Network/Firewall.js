@@ -16,13 +16,7 @@ class Firewall extends Component {
     delete: false,
   }
 
-  getFirewallInfo() {
-    this.setState({ firewallList: firewall });
-  }
-
-  componentDidMount() {
-    this.getFirewallInfo();
-  }
+  
 
   modificationOrDelete(index) {
     if (this.state.delete) {
@@ -46,8 +40,16 @@ class Firewall extends Component {
     }
   }
 
-  render() {
+  getFirewallInfo() {
+    this.setState({ firewallList: firewall });
+  }
+
+  componentDidMount() {
     this.props.updateTitlePage("Firewall");
+    this.getFirewallInfo();
+  }
+
+  render() {
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>       
         <Row className="justify-content-center">

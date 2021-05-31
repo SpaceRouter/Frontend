@@ -6,8 +6,11 @@ import { updateTitlePage } from "../redux/action.js";
 import "./Groups.css";
 
 class Groups extends Component {
-  render() {
+  componentDidMount() {
     this.props.updateTitlePage("Groupes");
+  }
+
+  render() {
     return (
       <Container fluid>
         <h3>Groupes</h3>

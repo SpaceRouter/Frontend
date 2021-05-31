@@ -6,8 +6,11 @@ import { updateTitlePage } from "../redux/action.js";
 import "./AppsInstalled.css";
 
 class AppsInstalled extends Component {
-  render() {
+  componentDidMount() {
     this.props.updateTitlePage("Applications installées");
+  }
+
+  render() {
     return (
       <Container fluid>
         <h3>Applications installées</h3>
