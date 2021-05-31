@@ -1,32 +1,10 @@
-html {
-    background-color: #F2F3F5;
+.button1 {
+    background-color: #0B3862;
 }
 
-@media screen and (max-width: 690px){
-    .tel{
-        display: none;
-    }
-}
-
-.table {
-    margin: auto;
+.button2 {
     background-color: #FFFFFF;
-    align-items: center;
-    text-align: center;
-    font-weight: lighter;
-    width: 60%;
-}
-
-.head {
-    background-color: #679ECB;
-    color:#FFFFFF;
-    font-style: normal;
-    font-weight: lighter;
-}
-
-.modification {
-    Color: #000000 ;
-    margin-bottom: 5px;
+    color: #0B3862;
 }
 
 .add {
@@ -39,29 +17,7 @@ html {
     margin-bottom: 2%;
 }
 
-.button {
-    margin: 0;
-    margin-left: 20px;
-    top: 500px;
-    align-items: center;
-    text-align: left;
-}
-
-.button1 {
-    width: 15ch;
-    background-color: #0B3862;
-    border: none;
-    Border-radius: 5px; 
-}
-
-.button2 {
-    width: 15ch;
-    background-color: #FFFFFF;
-    color: #0B3862;
-    border: none;
-    Border-radius: 5px; 
-}
-
-.button:hover, .button:focus, .button:active {
-    background-color: rgba(11, 56, 98, 0.8);
+.modification {
+    Color: #000000 ;
+    margin-bottom: 5px;
 }

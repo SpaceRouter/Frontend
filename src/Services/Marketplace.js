@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
 import { updateTitlePage } from "../redux/action.js";
+import "../global.css";
 import "./Marketplace.css";
 import { appli } from "../Datas.js";
 
@@ -33,7 +34,7 @@ class Marketplace extends Component {
           <Card.Title>{appli.nom}</Card.Title>
           <Card.Subtitle>{appli.auteur}</Card.Subtitle>
         </div>
-        <Card.Body className="text">{appli.description}</Card.Body>
+        <Card.Body className="description">{appli.description}</Card.Body>
       </Card>
     ));
   }
@@ -49,8 +50,8 @@ class Marketplace extends Component {
   render() {
     this.props.updateTitlePage("Magasin d'applications");
     return (
-      <Container fluid>
-        <Row className="justify-content-md-center">
+      <Container fluid className="market">
+        <Row className="justify-content-center">
           <InputGroup className="search-bar">
             <InputGroup.Prepend>
               <InputGroup.Text>
@@ -60,8 +61,8 @@ class Marketplace extends Component {
             <FormControl onChange={this.SearchFilterFunction} placeholder="Rechercher" />
           </InputGroup>
         </Row>
-        <Row className="justify-content-md-center">
-          <div className="block">{this.applisRender()}</div>
+        <Row className="justify-content-center">
+          <div className="blockMarketplace">{this.applisRender()}</div>
         </Row>
       </Container>
     );

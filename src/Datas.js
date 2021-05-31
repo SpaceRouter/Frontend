@@ -164,3 +164,39 @@ export const appli = [
     id: "12",
   },
 ];
+
+export const firewall = [
+  {
+    protocoles: "TCP",
+    port_entree: "3389",
+    port_destination: "3389",
+    ip: "192.168.1.51",
+  },
+  {
+    protocoles: "TCP",
+    port_entree: "3389",
+    port_destination: "3389",
+    ip: "192.168.1.52",
+  },
+  {
+    protocoles: "TCP",
+    port_entree: "3389",
+    port_destination: "3389",
+    ip: "192.168.1.53",
+  },
+  {
+    protocoles: "TCP",
+    port_entree: "3389",
+    port_destination: "3389",
+    ip: "192.168.1.54",
+  },
+];
+ 
+export const dhcp = [
+  {
+    sous_reseau: "192.168.1.0",
+    masque: "255.255.255.0",
+    ip_debut: "192.168.1.10",
+    ip_fin: "192.168.1.200",
+  },
+];

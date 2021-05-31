@@ -44,7 +44,7 @@ class Auth extends Component {
 
   render() {
     return (
-      <Form className="form-auth">
+      <Form className="auth">
         {/*Icon user*/}
         <FaUser className="icon" size="100px" />
 

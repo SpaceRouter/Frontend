@@ -1,0 +1,100 @@
+html {
+    background-color: #F2F3F5;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+  
+body {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+
+@media screen and (max-width: 1500px){
+    .heimdall {
+        height: 550px !important; 
+    }
+    .block1 {
+        top: 655px !important;
+    }
+    .block2 {
+        top: 940px !important;
+    }
+}
+
+
+@media screen and (max-width: 720px){
+    
+    .heimdall {
+        height: 850px !important; 
+        width: 80% !important;
+    }
+    .block1 {
+        width: 80% !important;
+        top: 975px !important;
+    }
+    .block2 {
+        top: 1600px !important;
+        width: 80% !important;
+    }
+    .usage {
+        width: 100% !important;
+        margin: auto;
+    }
+    .services {
+        width: 100% !important;
+        margin: auto;
+        margin-top: 45px !important;
+    }
+    .routeur {
+        width: 100% !important;
+        margin: auto;
+    }
+    .cpu {
+        width: 100% !important;
+        margin: auto;
+        margin-top: 45px !important;
+    }
+}
+
+@media screen and (max-width: 690px){
+    .search-bar {
+        width: 60% !important; 
+    }
+    .tel{
+        display: none;
+    }
+}
+
+.table {
+    margin: auto;
+    background-color: #FFFFFF;
+    align-items: center;
+    text-align: center;
+    font-weight: lighter;
+    width: 60%;
+}
+
+.head {
+    background-color: #679ECB;
+    color:#FFFFFF;
+    font-style: normal;
+    font-weight: lighter;
+}
+
+.button {
+    margin: 0;
+    margin-left: 20px;
+    top: 500px;
+    align-items: center;
+    text-align: left;
+    border: none;
+    Border-radius: 5px; 
+    width: 15ch;
+}
+
+.button:hover, .button:focus, .button:active {
+    background-color: rgba(11, 56, 98, 0.8);
+}

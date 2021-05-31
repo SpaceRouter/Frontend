@@ -8,6 +8,7 @@ import { updateTitlePage } from "../redux/action.js";
 import PopUpUsers from "./PopUpUsers.js";
 import { users } from "../Datas.js";
 import "./Users.css";
+import "../global.css"
 
 class Users extends Component {
   state = {
@@ -61,8 +62,8 @@ class Users extends Component {
     this.props.updateTitlePage("Utilisateurs");
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
-        <Row className="justify-content-md-center">
-          <Table responsive className="table">
+        <Row className="justify-content-center">
+          <Table responsive >
             <thead className="head">
               <tr>
                 <th>ID</th>
