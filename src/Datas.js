@@ -191,6 +191,8 @@ export const firewall = [
     ip: "192.168.1.54",
   },
 ];
+
+export const protocolesList = ["TCP", "UDP", "TCP/UDP"];
  
 export const dhcp = [
   {

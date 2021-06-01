@@ -4,6 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "../redux/action.js";
+import "../global.css"
 import "./MarketplaceDetails.css";
 
 class MarketplaceDetails extends Component {

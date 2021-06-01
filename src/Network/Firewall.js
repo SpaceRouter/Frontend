@@ -5,23 +5,23 @@ import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 
 import { updateTitlePage } from "../redux/action.js";
+import PopUpFirewall from "./PopUpFirewall.js";
 import "./Firewall.css";
 import "../global.css";
 import { firewall } from "../Datas.js";
 
 class Firewall extends Component {
   state = {
+    modalVisible: false,
     firewallList: [],
     index: "-1",
     delete: false,
   }
 
-  
-
   modificationOrDelete(index) {
     if (this.state.delete) {
       return (
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.usersList[index])}>
+        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.firewallList[index])}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
@@ -35,9 +35,20 @@ class Firewall extends Component {
           >
             <FaPen className="modification" size="15px" />
           </Button>
+
+          <PopUpFirewall
+            show={this.state.modalVisible}
+            onHide={() => this.setState({ modalVisible: false })}
+            firewallList={this.state.firewallList}
+            indexFirewall={this.state.index}
+          />
         </>
       );
     }
+  }
+
+  addButton() {
+    return <PopUpFirewall show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
   }
 
   getFirewallInfo() {
@@ -45,8 +56,8 @@ class Firewall extends Component {
   }
 
   componentDidMount() {
-    this.props.updateTitlePage("Firewall");
     this.getFirewallInfo();
+    this.props.updateTitlePage("Firewall");
   }
 
   render() {
@@ -67,7 +78,9 @@ class Firewall extends Component {
             <tbody>
                 {this.state.firewallList.map((firewall, index) => (
                   <tr key={firewall.ip}>
-                    <td className="tel">{firewall.protocoles}</td>
+                    <td className="tel"><Button variant="outline-dark" disabled>
+                      {firewall.protocoles}
+                    </Button></td>
                     <td>{firewall.port_entree}</td>
                     <td className="tel">{firewall.port_destination}</td>
                     <td>{firewall.ip}</td>
@@ -80,7 +93,10 @@ class Firewall extends Component {
         <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%" }}>
           <Button
             className="button button1"
-            
+            onClick={() => {
+              this.setState({ modalVisible: true });
+              this.addButton();
+            }}
           >
             <MdAddCircle size="20px" className="add" />
             AJOUTER
