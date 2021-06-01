@@ -43,9 +43,15 @@ class Marketplace extends Component {
     this.props.history.push({ pathname: "/marketplace-details", state: { appli: appli } });
   }
 
-  getApplisInfo() {
+  getApplisInfo = async () => {
     this.setState({ appliList: appli, appsFiltered: appli });
-  }
+
+    /* const response = await fetch("https://sr-marketplace.esieespace.fr/v1/stacks");
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      console.log(json);
+    }*/
+  };
 
   componentDidMount() {
     this.getApplisInfo();
@@ -54,7 +60,7 @@ class Marketplace extends Component {
 
   render() {
     return (
-      <Container fluid className="market">
+      <Container fluid>
         <Row className="justify-content-center">
           <InputGroup className="search-bar">
             <InputGroup.Prepend>
