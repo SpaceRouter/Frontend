@@ -12,8 +12,24 @@ class MarketplaceDetails extends Component {
   };
 
   componentDidMount() {
-    this.props.updateTitlePage(this.props.location.state.appli.nom);
+    this.props.updateTitlePage(this.props.location.state.appli.Name);
   }
+
+  getDate = (givenDate) => {
+    const date = new Date(givenDate);
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+
+    return day + "-" + month + "-" + year;
+  };
 
   render() {
     const { appli } = this.props.location.state;
@@ -23,17 +39,19 @@ class MarketplaceDetails extends Component {
           <div className="appli-details">
             <FaArrowLeft className="back-icon" size="30px" color="black" onClick={this.goBack} />
             <Row style={{ margin: "0 auto" }}>
-              <Card.Img className="img-details" src={appli.logo} />
+              <Card.Img className="img-details" src={appli.Icon} />
               <Col style={{ margin: "auto" }}>
-                <h2 style={{ marginBottom: 20 }}>{appli.nom}</h2>
-                <p className="text-appli">{appli.auteur}</p>
+                <h2 style={{ marginBottom: 20 }}>{appli.Name}</h2>
+                <p className="text-appli">{appli.Developer.Name}</p>
               </Col>
             </Row>
-            <Row style={{ margin: "0 auto" }}> 
-              <p className="text-appli" style={{marginRight: 50}}>Création : {appli.dateCreation}</p>
-              <p className="text-appli">Dernière mise à jour : {appli.dateUpdate}</p>
+            <Row style={{ margin: "0 auto" }}>
+              <p className="text-appli" style={{ marginRight: 50 }}>
+                Création : {this.getDate(appli.Developer.CreatedAt)}
+              </p>
+              <p className="text-appli">Dernière mise à jour : {this.getDate(appli.Developer.UpdatedAt)}</p>
             </Row>
-            <p className="description-appli">{appli.description}</p>
+            <p className="description-appli">{appli.Description}</p>
           </div>
         </Row>
       </Container>
