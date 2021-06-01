@@ -6,25 +6,23 @@ import { MdSearch } from "react-icons/md";
 import { updateTitlePage } from "../redux/action.js";
 import "../global.css";
 import "./Marketplace.css";
-import { appli } from "../Datas.js";
 
 class Marketplace extends Component {
   state = {
     search: "",
     appliList: [],
-    index: 0,
-    appsFiltered: [],
+    appsFiltered: [], 
   };
 
   applisRender() {
     return this.state.appsFiltered.map((appli) => (
-      <Card className="appli" key={appli.id} onClick={() => this.marketplaceDetails(appli)}>
-        <Card.Img className="img" variant="top" src={appli.logo} />
+      <Card className="appli" key={appli.ID} onClick={() => this.marketplaceDetails(appli)}>
+        <Card.Img className="img" variant="top" src={appli.Icon} />
         <div className="titre">
-          <Card.Title>{appli.nom}</Card.Title>
-          <Card.Subtitle>{appli.auteur}</Card.Subtitle>
+          <Card.Title>{appli.Name}</Card.Title>
+          <Card.Subtitle>{appli.Developer.Name}</Card.Subtitle>
         </div>
-        <Card.Body className="description">{appli.description}</Card.Body>
+        <Card.Body className="description">{appli.Description}</Card.Body>
       </Card>
     ));
   }
@@ -32,7 +30,7 @@ class Marketplace extends Component {
   searchFilterFunction = (search) => {
     const onWriting = search.target.value;
     const newData = this.state.appliList.filter((item) => {
-      const itemData = item.nom.toUpperCase();
+      const itemData = item.Name.toUpperCase();
       const textData = onWriting.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -43,9 +41,13 @@ class Marketplace extends Component {
     this.props.history.push({ pathname: "/marketplace-details", state: { appli: appli } });
   }
 
-  getApplisInfo() {
-    this.setState({ appliList: appli, appsFiltered: appli });
-  }
+  getApplisInfo = async () => {
+    const response = await fetch("https://sr-marketplace.esieespace.fr/v1/stacks");
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      this.setState({ appliList: json.Stacks, appsFiltered: json.Stacks });
+    }
+  };
 
   componentDidMount() {
     this.getApplisInfo();
@@ -54,7 +56,7 @@ class Marketplace extends Component {
 
   render() {
     return (
-      <Container fluid className="market">
+      <Container fluid>
         <Row className="justify-content-center">
           <InputGroup className="search-bar">
             <InputGroup.Prepend>

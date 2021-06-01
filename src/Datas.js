@@ -84,6 +84,8 @@ export const appli = [
     nom: "NextCloud",
     auteur: "Cocheta",
     description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
+    dateCreation: "27/10/2000",
+    dateUpdate: "20/10/2000",
     id: "1",
   },
   {

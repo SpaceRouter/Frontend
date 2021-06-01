@@ -1,5 +1,36 @@
 .back-icon {
-    margin-top: 10px;
-    margin-left: 16px;
-    cursor: pointer;
+  margin-top: 40px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.appli-details {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 60%;
+  height: 80%;
+  margin-top: 60px;
+  background-color: white;
+}
+
+.img-details {
+  width: 200px;
+  max-width: 100%;
+  margin-right: 100px;
+}
+
+.text-appli {
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+.description-appli {
+  margin: 0 auto;
+  margin-top: 70px;
+  width: 70%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: lighter;
 }
