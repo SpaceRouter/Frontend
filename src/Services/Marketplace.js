@@ -50,8 +50,8 @@ class Marketplace extends Component {
   };
 
   componentDidMount() {
-    this.getApplisInfo();
     this.props.updateTitlePage("Magasin d'applications");
+    this.getApplisInfo();
   }
 
   render() {
