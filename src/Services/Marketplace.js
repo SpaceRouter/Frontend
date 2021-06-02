@@ -17,7 +17,7 @@ class Marketplace extends Component {
   applisRender() {
     return this.state.appsFiltered.map((appli) => (
       <Card className="appli" key={appli.ID} onClick={() => this.marketplaceDetails(appli)}>
-        <Card.Img className="img" variant="top" src={appli.Icon} />
+        <Card.Img className="img-market" variant="top" src={appli.Icon} />
         <div className="titre">
           <Card.Title>{appli.Name}</Card.Title>
           <Card.Subtitle>{appli.Developer.Name}</Card.Subtitle>
