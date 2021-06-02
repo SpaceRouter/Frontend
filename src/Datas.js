@@ -204,3 +204,28 @@ export const dhcp = [
     ip_fin: "192.168.1.200",
   },
 ];
+
+export const baux_dhcp = [
+  {
+    ip: "192.168.1.50",
+    starts: "2021/06/01 13:01:23",
+    ends: "2021/06/02 13:01:23",
+    mac: "4e:65:fd:62:c7:31",
+    hostname: "Safe-Router-LAN"
+ },
+ {
+    ip: "192.168.1.51",
+    starts: "2021/06/01 22:54:39",
+    ends: "2021/06/02 22:54:39",
+    mac: "4a:9a:25:4d:07:19",
+    hostname: "Safe-Router-LAN1"
+ },
+];
+
+export const baux_dhcp_static = [
+  {
+    hostname: "saferouteur-Standard-PC-i440FX-PIIX-1996",
+    mac: "76:e6:a2:4b:b2:62",
+    ip:"192.168.1.60"
+  },
+]
