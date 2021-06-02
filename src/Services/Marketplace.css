@@ -25,11 +25,13 @@
 }
 
 .img {
-    width: 130px;
+    width: 160px;
     max-width: 100%;
 	height: auto;
     margin: auto;
-    margin-top: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 90px;
 }
 
 .titre {

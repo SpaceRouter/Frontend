@@ -18,7 +18,9 @@
 .img-details {
   width: 200px;
   max-width: 100%;
+  height: auto;
   margin-right: 100px;
+  border-radius: 100px;
 }
 
 .text-appli {
