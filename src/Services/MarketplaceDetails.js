@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
 import { connect } from "react-redux";
 
@@ -10,6 +10,26 @@ import "./MarketplaceDetails.css";
 class MarketplaceDetails extends Component {
   state = {
     appli: { Services: [] },
+  };
+
+  handleImagesUpdate = (Image) => {
+    this.setState({ Image: Image.target.value });
+  };
+
+  handleImageVersionUpdate = (ImageVersion) => {
+    this.setState({ ImageVersion: ImageVersion.target.value });
+  };
+
+  handleVolumeMountPointUpdate = (Volume) => {
+    this.setState({ Volume: Volume.target.value });
+  };
+
+  handleEnvValueUpdate = (EnvValue) => {
+    this.setState({ EnvValue: EnvValue.target.value });
+  };
+
+  handleEnvNameUpdate = (EnvName) => {
+    this.setState({ EnvName: EnvName.target.value });
   };
 
   goBack = () => {
@@ -35,26 +55,27 @@ class MarketplaceDetails extends Component {
   getServicesInfos() {
     const { appli } = this.state;
     return appli.Services.map((service) => (
-      <div key={service.ID}>
-        <p>Image : {service.Image}</p>
-        <p>Version : {service.ImageVersion}</p>
+      <div key={service.ID} className="services-details">
+        <p><p>Image : <Form.Control className="modif" type="text" value={service.Image} onChange={this.handleImagesUpdate}/></p>
+        <p>Version :  <Form.Control className="modif" type="text" value={service.ImageVersion} onChange={this.handleImageVersionUpdate}/></p>
         <p>Variable(s) d'environnement(s) : </p>
         {service.Envs.map((env) => (
-          <p key={env.ID}>
-            {env.Name} : {env.DefaultValue}
+          <p key={env.ID} style={{ marginLeft: "15px"}}>
+            <Form.Control className="modif" type="text" value={env.Name} onChange={this.handleEnvNameUpdate}/> : 
+            <Form.Control className="modif" type="text" value={env.DefaultValue} onChange={this.handleEnvValueUpdate}/>
           </p>
-        ))}
+        ))}<Button className="button" style={{ marginLeft:"15px", marginBottom:"10px", backgroundColor: "#0B3862" }}>Ajouter</Button><Button className="button" style={{ marginLeft:"15px", marginBottom:"10px", backgroundColor: "#0B3862" }}>Supprimer</Button>
         <p>Volume(s) : </p>
         {service.Volumes.map((volume) => (
-          <div key={volume.ID}>
+          <div key={volume.ID} style={{ marginLeft: "15px"}}>
             <p>Nom: {volume.Name}</p>
-            <p>Point de montage : {volume.MountPoint}</p>
+            <p>Point de montage : <Form.Control className="modif" type="text" value={volume.MountPoint} onChange={this.handleVolumeMountPointUpdate}/></p>
           </div>
         ))}
         <p>Réseau(x) : </p>
         {service.Networks.map((network) => (
-          <p key={network.ID}>{network.Name}</p>
-        ))}
+          <p key={network.ID} style={{ marginLeft: "15px"}}>{network.Name}</p>
+        ))}</p>
       </div>
     ));
   }
@@ -77,25 +98,29 @@ class MarketplaceDetails extends Component {
     const { appli } = this.state;
     return (
       <Container fluid>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center" style={{ marginBottom:"50px" }}>
           <div className="appli-details">
             <FaArrowLeft className="back-icon" size="30px" color="black" onClick={this.goBack} />
-            <Row style={{ margin: "0 auto" }}>
+            <Row style={{ margin: "0 auto", marginLeft: "50px" }}>
               <Card.Img className="img-details" src={appli.Icon} />
-              <Col style={{ margin: "auto" }}>
+              <Col className="info-appli">
                 <h2 style={{ marginBottom: 20 }}>{appli.Name}</h2>
                 <p className="text-appli">{this.props.location.state.appli.Developer.Name}</p>
               </Col>
             </Row>
-            <Row style={{ margin: "0 auto" }}>
-              <p className="text-appli" style={{ marginRight: 50 }}>
+            <Row style={{ margin: "0 auto", marginTop: "50px" }}>
+              <p className="text-appli" style={{ marginRight: 150 }}>
                 Création : {this.getDate(appli.CreatedAt)}
               </p>
               <p className="text-appli">Dernière mise à jour : {this.getDate(appli.UpdatedAt)}</p>
             </Row>
             <p className="description-appli">{appli.Description}</p>
-            <h3>Services :</h3>
-            {this.getServicesInfos()}
+            <div className="services-appli">
+              <h4 style={{ marginBottom:"25px" }}>Services :</h4>
+              <div style={{ marginLeft:"35px" }}>
+                {this.getServicesInfos()}
+              </div>
+            </div>
           </div>
         </Row>
       </Container>
