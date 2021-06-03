@@ -6,23 +6,22 @@ import { FaPen } from "react-icons/fa";
 
 import { updateTitlePage } from "../redux/action.js";
 import PopUpDHCP from "./PopUpDHCP.js";
-import { dhcp, baux_dhcp, baux_dhcp_static } from "../Datas.js";
 import "./DHCP.css";
 import "../global.css";
 
 class DHCP extends Component {
   state = {
     modalVisible: false,
-    dhcpList: [],
-    index: "-1",
-    baux_dhcpList: [],
-    baux_dhcp_staticList: [],
-  }
+    index: "",
+    dhcp: { free: [], fixed: [], staging: [] },
+    delete: false,
+  };
 
   modificationOrDelete(index) {
     if (this.state.delete) {
+      const { hostname, mac } = this.state.dhcp.fixed[index];
       return (
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.baux_dhcp_staticList[index])}>
+        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.deleteDhcp(hostname, mac)}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
@@ -39,8 +38,11 @@ class DHCP extends Component {
 
           <PopUpDHCP
             show={this.state.modalVisible}
-            onHide={() => this.setState({ modalVisible: false })}
-            baux_dhcp_staticList={this.state.baux_dhcp_staticList}
+            onHide={() => {
+              this.getDhcpInfo();
+              this.setState({ modalVisible: false, index: "" });
+            }}
+            baux_dhcp_staticList={this.state.dhcp.fixed}
             indexBauxDHCPStatic={this.state.index}
           />
         </>
@@ -52,59 +54,73 @@ class DHCP extends Component {
     return <PopUpDHCP show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
   }
 
-  getDhcpInfo() {
-    this.setState({ dhcpList: dhcp });
-  }
+  deleteDhcp = async (hostname, mac) => {
+    const response = await fetch("http://192.168.10.151:8080/deletefix", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        hostname: hostname,
+        mac: mac,
+      }),
+    });
+    if (response.status === 200) {
+      this.getDhcpInfo();
+    }
+  };
 
-  getBauxDhcpInfo() {
-    this.setState({ baux_dhcpList: baux_dhcp });
-  }
-
-  getBauxDhcpStaticInfo() {
-    this.setState({ baux_dhcp_staticList: baux_dhcp_static });
-  }
+  getDhcpInfo = async () => {
+    const response = await fetch("http://192.168.10.151:8080/data.json");
+    let json = await response.json();
+    if (response.status === 200) {
+      this.setState({ dhcp: json });
+    }
+  };
 
   componentDidMount() {
     this.props.updateTitlePage("DHCP");
     this.getDhcpInfo();
-    this.getBauxDhcpInfo();
-    this.getBauxDhcpStaticInfo();
   }
 
   render() {
     return (
-      <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>   
+      <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-center">
-        <h2 style={{marginBottom:"20px"}}>Serveur DHCP</h2>
-        <Table responsive className="table" style={{marginBottom:"100px", width:"40%"}}>
-        {this.state.dhcpList.map((dhcp, index) => (
-        <tbody key={dhcp.sous_reseau}>
+          <h2 style={{ marginBottom: "20px" }}>Serveur DHCP</h2>
+          <Table responsive className="table" style={{ marginBottom: "100px", width: "40%" }}>
+            <tbody>
               <tr>
-                <td className="data" style={{backgroundColor:"#679ECB", color:"#FFFFFF"}}>Sous-réseau</td>
-                <td className="user">{dhcp.sous_reseau}</td>
+                <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF" }}>
+                  Sous-réseau
+                </td>
+                <td className="user">192.168.1.0</td>
               </tr>
               <tr>
-                <td className="data" style={{backgroundColor:"#679ECB", color:"#FFFFFF"}}>Masque</td>
-                <td className="user">{dhcp.masque}</td>
+                <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF" }}>
+                  Masque
+                </td>
+                <td className="user">255.25.255.0</td>
               </tr>
               <tr>
-                <td className="data" style={{backgroundColor:"#679ECB", color:"#FFFFFF"}}>IP début</td>
-                <td className="user">{dhcp.ip_debut}</td>
+                <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF" }}>
+                  IP début
+                </td>
+                <td className="user">192.168.1.50</td>
               </tr>
               <tr>
-                <td className="data" style={{backgroundColor:"#679ECB", color:"#FFFFFF"}}>IP fin</td>
-                <td className="user">{dhcp.ip_fin}</td>
+                <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF" }}>
+                  IP fin
+                </td>
+                <td className="user">192.168.1.150</td>
               </tr>
             </tbody>
-            ))}
-        </Table>
-        </Row>    
+          </Table>
+        </Row>
         <Row className="justify-content-center">
-        <h2 style={{marginBottom:"20px", textAlign:"center"}}>Baux DHCP</h2>
-          <Table responsive className="table" style={{marginBottom:"100px"}}>
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP</h2>
+          <Table responsive className="table" style={{ marginBottom: "100px" }}>
             <thead className="head">
               <tr>
-                <th >IP</th>
+                <th>IP</th>
                 <th>HOSTNAME</th>
                 <th className="tel">MAC</th>
                 <th className="tel">START</th>
@@ -113,39 +129,39 @@ class DHCP extends Component {
               </tr>
             </thead>
             <tbody>
-                {this.state.baux_dhcpList.map((baux_dhcp, index) => (
-                  <tr key={baux_dhcp.ip}>
-                    <td>{baux_dhcp.ip}</td>
-                    <td>{baux_dhcp.hostname}</td>
-                    <td className="tel">{baux_dhcp.mac}</td>
-                    <td className="tel">{baux_dhcp.starts}</td>
-                    <td className="tel">{baux_dhcp.ends}</td>
-                    <td></td>
-                  </tr>
-                ))}
+              {this.state.dhcp.staging.map((baux_dhcp) => (
+                <tr key={baux_dhcp.ip}>
+                  <td>{baux_dhcp.ip}</td>
+                  <td>{baux_dhcp.hostname}</td>
+                  <td className="tel">{baux_dhcp.mac}</td>
+                  <td className="tel">{baux_dhcp.starts}</td>
+                  <td className="tel">{baux_dhcp.ends}</td>
+                  <td></td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Row>
         <Row className="justify-content-center">
-        <h2 style={{marginBottom:"20px"}}>Baux DHCP statiques</h2>
+          <h2 style={{ marginBottom: "20px" }}>Baux DHCP statiques</h2>
           <Table responsive className="table">
             <thead className="head">
               <tr>
-                <th >IP</th>
+                <th>IP</th>
                 <th>HOSTNAME</th>
                 <th className="tel">MAC</th>
                 <th> </th>
               </tr>
             </thead>
             <tbody>
-                {this.state.baux_dhcp_staticList.map((baux_dhcp_static, index) => (
-                  <tr key={baux_dhcp_static.ip}>
-                    <td>{baux_dhcp_static.ip}</td>
-                    <td>{baux_dhcp_static.hostname}</td>
-                    <td className="tel">{baux_dhcp_static.mac}</td>
-                    <td>{this.modificationOrDelete(index)}</td>
-                  </tr>
-                ))}
+              {this.state.dhcp.fixed.map((baux_dhcp_static, index) => (
+                <tr key={baux_dhcp_static.ip}>
+                  <td>{baux_dhcp_static.ip}</td>
+                  <td>{baux_dhcp_static.hostname}</td>
+                  <td className="tel">{baux_dhcp_static.mac}</td>
+                  <td>{this.modificationOrDelete(index)}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Row>

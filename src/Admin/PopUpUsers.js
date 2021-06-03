@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
 import { groupsList } from "../Datas.js";
-import "./PopUpUsers.css";
+import "../PopUp.css";
 
 const initialState = {
   index: "",
