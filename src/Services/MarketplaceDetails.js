@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
+import { MdDelete, MdAddCircle, MdFileDownload } from "react-icons/md";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "../redux/action.js";
@@ -54,28 +55,30 @@ class MarketplaceDetails extends Component {
 
   getServicesInfos() {
     const { appli } = this.state;
-    return appli.Services.map((service) => (
+    return appli.Services.map((service) => (    
       <div key={service.ID} className="services-details">
-        <p><p>Image : <Form.Control className="modif" type="text" value={service.Image} onChange={this.handleImagesUpdate}/></p>
+        <p>Image : <Form.Control className="modif" type="text" value={service.Image} onChange={this.handleImagesUpdate}/></p>
         <p>Version :  <Form.Control className="modif" type="text" value={service.ImageVersion} onChange={this.handleImageVersionUpdate}/></p>
         <p>Variable(s) d'environnement(s) : </p>
         {service.Envs.map((env) => (
-          <p key={env.ID} style={{ marginLeft: "15px"}}>
+          <p key={env.ID} style={{ marginLeft: "25px"}}>
             <Form.Control className="modif" type="text" value={env.Name} onChange={this.handleEnvNameUpdate}/> : 
             <Form.Control className="modif" type="text" value={env.DefaultValue} onChange={this.handleEnvValueUpdate}/>
           </p>
-        ))}<Button className="button" style={{ marginLeft:"15px", marginBottom:"10px", backgroundColor: "#0B3862" }}>Ajouter</Button><Button className="button" style={{ marginLeft:"15px", marginBottom:"10px", backgroundColor: "#0B3862" }}>Supprimer</Button>
+        ))}
+        <Button className="button" style={{ marginLeft:"30px", marginBottom:"10px", backgroundColor: "#0B3862" }}><MdAddCircle size="20px" className="add" />Ajouter</Button>
+        <Button className="button" style={{ marginLeft: "30px", marginBottom:"10px", backgroundColor: "#0B3862" }}><MdDelete size="20px" className="delete" />Supprimer</Button>
         <p>Volume(s) : </p>
         {service.Volumes.map((volume) => (
-          <div key={volume.ID} style={{ marginLeft: "15px"}}>
+          <div key={volume.ID} style={{ marginLeft: "25px"}}>
             <p>Nom: {volume.Name}</p>
             <p>Point de montage : <Form.Control className="modif" type="text" value={volume.MountPoint} onChange={this.handleVolumeMountPointUpdate}/></p>
           </div>
         ))}
         <p>Réseau(x) : </p>
         {service.Networks.map((network) => (
-          <p key={network.ID} style={{ marginLeft: "15px"}}>{network.Name}</p>
-        ))}</p>
+          <p key={network.ID} style={{ marginLeft: "25px"}}>{network.Name}</p>
+        ))}
       </div>
     ));
   }
@@ -115,12 +118,14 @@ class MarketplaceDetails extends Component {
               <p className="text-appli">Dernière mise à jour : {this.getDate(appli.UpdatedAt)}</p>
             </Row>
             <p className="description-appli">{appli.Description}</p>
+            <h4 style={{ marginBottom:"15px", marginLeft:"15px" }}>Services :</h4>  
             <div className="services-appli">
-              <h4 style={{ marginBottom:"25px" }}>Services :</h4>
-              <div style={{ marginLeft:"35px" }}>
                 {this.getServicesInfos()}
-              </div>
             </div>
+            <Button className="download">
+              <MdFileDownload size="20px" />
+              Télécharger
+            </Button>
           </div>
         </Row>
       </Container>

@@ -12,6 +12,7 @@
   width: 60%;
   height: auto;
   margin-top: 60px;
+  margin-bottom: 60px;
   background-color: white;
 }
 
@@ -45,22 +46,33 @@
 }
 
 .services-appli {
-  margin-left: 25px;
-  width: 60%;
-  height: auto;
+  padding-left: 25px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .services-details {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-left: 10px;
-  margin-bottom: 50px;
+  margin: auto;
 }
 
 .modif {
   display: inline;
-  width: 150px;
+  width: 175px;
   height: 30px;
   margin-left: 5px;
+}
+
+.download {
+  height: 50px;
+  width: 60%;
+  margin: auto;
+  background-color: #0B3862 ;
+  color: #FFFFFF;
+  margin-top: 100px;
+  margin-bottom: 75px;
+}
+
+.download:hover, .download:focus, .download:active {
+  background-color: rgba(11, 56, 98, 0.8);
 }

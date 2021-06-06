@@ -228,4 +228,30 @@ export const baux_dhcp_static = [
     mac: "76:e6:a2:4b:b2:62",
     ip:"192.168.1.60"
   },
-]
+];
+
+export const dns = [
+  {
+    Answer: "ns",
+    Hostname: "@",
+    RecordType: "2",
+    TTL: "604800"
+  }, 
+  {
+    Answer: "192.168.1.1",
+    Hostname: "ns",
+    RecordType: 1,
+    TTL: 604800
+  }, 
+  {
+    Answer: "192.168.1.50",
+    Hostname: "test",
+    RecordType: 1,
+    TTL: 604800
+  }, 
+  {
+    Answer: "192.168.1.51",
+    Hostname: "test1",
+    RecordType: 1,
+    TTL: 604800
+}]
