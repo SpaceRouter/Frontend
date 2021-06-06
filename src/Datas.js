@@ -78,95 +78,6 @@ export const app = [
   },
 ];
 
-export const appli = [
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "NextCloud",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    dateCreation: "27/10/2000",
-    dateUpdate: "20/10/2000",
-    id: "1",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "PreviousCloud",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "2",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Cloud",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "3",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Mot",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "4",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Odke",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "5",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Jijbiuguy",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "6",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Buturut",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "7",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Vhfuhfu",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "8",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Vehdiuheu",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "9",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Madesftrh",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "10",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Jujujul",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "11",
-  },
-  {
-    logo: "https://wiki.zaclys.com/images/thumb/8/87/Nextcloud_logo_blanc.png/100px-Nextcloud_logo_blanc.png",
-    nom: "Gims",
-    auteur: "Cocheta",
-    description: "Cogeto ergum iefheifh sudum expediormus efieoif legardium leviosa sectum sempra avada kedavra imperium ejfe platon descartes.",
-    id: "12",
-  },
-];
-
 export const firewall = [
   {
     protocoles: "TCP",
@@ -191,42 +102,6 @@ export const firewall = [
     port_entree: "3389",
     port_destination: "3389",
     ip: "192.168.1.54",
-  },
-];
-
-export const protocolesList = ["TCP", "UDP", "TCP/UDP"];
- 
-export const dhcp = [
-  {
-    sous_reseau: "192.168.1.0",
-    masque: "255.255.255.0",
-    ip_debut: "192.168.1.10",
-    ip_fin: "192.168.1.200",
-  },
-];
-
-export const baux_dhcp = [
-  {
-    ip: "192.168.1.50",
-    starts: "2021/06/01 13:01:23",
-    ends: "2021/06/02 13:01:23",
-    mac: "4e:65:fd:62:c7:31",
-    hostname: "Safe-Router-LAN"
- },
- {
-    ip: "192.168.1.51",
-    starts: "2021/06/01 22:54:39",
-    ends: "2021/06/02 22:54:39",
-    mac: "4a:9a:25:4d:07:19",
-    hostname: "Safe-Router-LAN1"
- },
-];
-
-export const baux_dhcp_static = [
-  {
-    hostname: "saferouteur-Standard-PC-i440FX-PIIX-1996",
-    mac: "76:e6:a2:4b:b2:62",
-    ip:"192.168.1.60"
   },
 ];
 
@@ -255,3 +130,4 @@ export const dns = [
     RecordType: 1,
     TTL: 604800
 }]
+export const protocolesList = ["TCP", "UDP", "TCP/UDP"];

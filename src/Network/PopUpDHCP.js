@@ -4,7 +4,9 @@ import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 const initialState = {
   index: "",
   hostname: "",
+  hostnameBack: "",
   mac: "",
+  macBack: "",
   ip: "",
 };
 
@@ -25,44 +27,79 @@ export default class PopUpDHCP extends Component {
 
   prevPage = () => {
     if (this.state.index > 0) {
-      console.log(this.state);
       this.setState({ index: this.state.index - 1 });
     }
   };
 
   nextPage = () => {
     if (this.state.index < this.props.baux_dhcp_staticList.length - 1) {
-      console.log(this.state);
       this.setState({ index: this.state.index + 1 });
     }
   };
 
-  addBauxDCHPStatic = () => {
-    console.log(this.state);
-    this.setState({ ...initialState });
-    this.props.onHide();
+  addDhcp = async () => {
+    const response = await fetch("http://192.168.10.151:8080/addfix", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        hostname: this.state.hostname,
+        mac: this.state.mac,
+        ip: this.state.ip,
+      }),
+    });
+    if (response.status === 200) {
+      this.props.onHide();
+    }
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  modifyDhcp = async () => {
+    const { hostname, hostnameBack, mac, macBack, ip } = this.state;
+    const response = await fetch("http://192.168.10.151:8080/deletefix", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        hostname: hostnameBack,
+        mac: macBack,
+      }),
+    });
+    if (response.status === 200) {
+      await fetch("http://192.168.10.151:8080/addfix", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          hostname: hostname,
+          mac: mac,
+          ip: ip,
+        }),
+      });
+    }
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
     const { baux_dhcp_staticList, indexBauxDHCPStatic } = this.props;
     const { index } = this.state;
-    if (indexBauxDHCPStatic !== prevProps.indexBauxDHCPStatic) {
+    if (indexBauxDHCPStatic !== "" && indexBauxDHCPStatic !== prevProps.indexBauxDHCPStatic) {
       this.setState({
         index: indexBauxDHCPStatic,
         hostname: baux_dhcp_staticList[indexBauxDHCPStatic].hostname,
+        hostnameBack: baux_dhcp_staticList[indexBauxDHCPStatic].hostname,
         mac: baux_dhcp_staticList[indexBauxDHCPStatic].mac,
-        port_destination: baux_dhcp_staticList[indexBauxDHCPStatic].port_destination,
+        macBack: baux_dhcp_staticList[indexBauxDHCPStatic].mac,
         ip: baux_dhcp_staticList[indexBauxDHCPStatic].ip,
       });
     }
     if (index !== "" && index !== prevState.index) {
-      this.setState({
-        index: index,
-        hostname: baux_dhcp_staticList[index].hostname,
-        mac: baux_dhcp_staticList[index].mac,
-        port_destination: baux_dhcp_staticList[index].port_destination,
-        ip: baux_dhcp_staticList[index].ip,
-      });
+      const response = await fetch("http://192.168.10.151:8080/data.json");
+      let json = await response.json();
+      if (response.status === 200) {
+        this.setState({
+          hostname: json.fixed[index].hostname,
+          hostnameBack: json.fixed[index].hostname,
+          mac: json.fixed[index].mac,
+          macBack: json.fixed[index].mac,
+          ip: json.fixed[index].ip,
+        });
+      }
     }
   }
 
@@ -78,18 +115,18 @@ export default class PopUpDHCP extends Component {
         centered
       >
         <Modal.Body>
-          <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}> NAT / PAT </h3>
+          <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}>DHCP statique</h3>
           <Table responsive>
             <tbody>
               <tr>
-                <td className="data">hostname</td>
+                <td className="data">Hostname</td>
                 <td> </td>
                 <td className="user">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.hostname} onChange={this.handleHostnameUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">mac</td>
+                <td className="data">MAC</td>
                 <td> </td>
                 <td className="user">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.mac} onChange={this.handleMacUpdate} />
@@ -107,14 +144,17 @@ export default class PopUpDHCP extends Component {
           {this.state.index !== "" && (
             <Pagination className="arrow">
               <Pagination.Prev onClick={this.prevPage} />
+              <Button className="button-validate" onClick={this.modifyDhcp}>
+                VALIDER
+              </Button>
               <Pagination.Next className="next-arrow" onClick={this.nextPage} />
             </Pagination>
           )}
           {this.state.index === "" && (
-            <div className="button-center" >
-            <Button className="button-add" onClick={this.addBauxDCHPStatic}>
-              AJOUTER
-            </Button>
+            <div className="button-center">
+              <Button className="button-add" onClick={this.addDhcp}>
+                AJOUTER
+              </Button>
             </div>
           )}
         </Modal.Body>

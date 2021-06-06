@@ -34,9 +34,23 @@
 .button-add {
   background-color: #0B3862;
   border: none;
-  Border-radius: 5px; 
+  border-radius: 5px; 
 }
 
 .button-add:hover, .button-add:focus, .button-add:active {
+  background-color: rgba(11, 56, 98, 0.8);
+}
+
+.button-validate {
+  height: 37px;
+  position: absolute;
+  left: 50%;  
+  transform: translate(-50%);
+  background-color: #0B3862;
+  border: none;
+  border-radius: 5px;   
+}
+
+.button-validate:hover, .button-validate:focus, .button-validate:active {
   background-color: rgba(11, 56, 98, 0.8);
 }
