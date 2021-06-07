@@ -51,7 +51,24 @@ class DHCP extends Component {
   }
 
   addButton() {
-    return <PopUpDHCP show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
+    return (
+      <>
+        <Button className="button button1" onClick={() => this.setState({ modalVisible: true })}>
+          <MdAddCircle size="20px" className="add" />
+          AJOUTER
+        </Button>
+
+        <PopUpDHCP
+          show={this.state.modalVisible}
+          onHide={() => {
+            this.getDhcpInfo();
+            this.setState({ modalVisible: false, index: "" });
+          }}
+          baux_dhcp_staticList={this.state.dhcp.fixed}
+          indexBauxDHCPStatic={this.state.index}
+        />
+      </>
+    );
   }
 
   deleteDhcp = async (hostname, mac) => {
@@ -166,16 +183,7 @@ class DHCP extends Component {
           </Table>
         </Row>
         <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%", marginBottom: "100px" }}>
-          <Button
-            className="button button1"
-            onClick={() => {
-              this.setState({ modalVisible: true });
-              this.addButton();
-            }}
-          >
-            <MdAddCircle size="20px" className="add" />
-            AJOUTER
-          </Button>
+          {this.addButton()}
 
           <Button className="button button2" onClick={() => this.setState({ delete: !this.state.delete })}>
             <MdDelete size="20px" className="delete" />

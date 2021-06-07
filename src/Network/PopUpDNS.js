@@ -3,71 +3,91 @@ import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
 const initialState = {
   index: "",
-  Hostname: "",
-  TTL: "",
-  RecordType: "",
-  Answer: "",
+  answer: "",
+  hostname: "",
+  recordType: "",
+  ttl: "",
 };
 
-export default class PopUpDHCP extends Component {
+export default class PopUpDNS extends Component {
   state = initialState;
 
-  handleHostnameUpdate = (Hostname) => {
-    this.setState({ Hostname: Hostname.target.value });
+  handleIpUpdate = (answer) => {
+    this.setState({ answer: answer.target.value });
   };
 
-  handleTtlUpdate = (TTL) => {
-    this.setState({ TTL: TTL.target.value });
+  handleTypeUpdate = (recordType) => {
+    this.setState({ recordType: recordType.target.value });
   };
 
-  handleTypeUpdate = (RecordType) => {
-    this.setState({ RecordType: RecordType.target.value });
-  };
-
-  handleIpUpdate = (Answer) => {
-    this.setState({ Answer: Answer.target.value });
+  handleTtlUpdate = (ttl) => {
+    this.setState({ ttl: ttl.target.value });
   };
 
   prevPage = () => {
     if (this.state.index > 0) {
-      console.log(this.state);
       this.setState({ index: this.state.index - 1 });
     }
   };
 
   nextPage = () => {
     if (this.state.index < this.props.DNSList.length - 1) {
-      console.log(this.state);
       this.setState({ index: this.state.index + 1 });
     }
   };
 
-  addDNS = () => {
-    console.log(this.state);
-    this.setState({ ...initialState });
-    this.props.onHide();
+  addDns = async () => {
+    const response = await fetch("http://192.168.10.151:8090/add", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        Answer: this.state.answer,
+        Hostname: this.state.hostname + ".safe.lan",
+        RecordType: this.state.recordType,
+        TTL: this.state.ttl,
+      }),
+    });
+    if (response.status === 200) {
+      this.props.onHide();
+    }
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  modifyDns = async () => {
+    await fetch("http://192.168.10.151:8090/update", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        Answer: this.state.answer,
+        Hostname: this.state.hostname + ".safe.lan",
+        RecordType: this.state.recordType,
+        TTL: this.state.ttl,
+      }),
+    });
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
     const { DNSList, indexDns } = this.props;
     const { index } = this.state;
-    if (indexDns !== prevProps.indexDns) {
+    if (indexDns !== "" && indexDns !== prevProps.indexDns) {
       this.setState({
         index: indexDns,
-        Hostname: DNSList[indexDns].Hostname,
-        TTL: DNSList[indexDns].TTL,
-        RecordType: DNSList[indexDns].RecordType,
-        Answer: DNSList[indexDns].Answer,
+        hostname: DNSList[indexDns].Hostname,
+        ttl: DNSList[indexDns].TTL,
+        recordType: DNSList[indexDns].RecordType,
+        answer: DNSList[indexDns].Answer,
       });
     }
     if (index !== "" && index !== prevState.index) {
-      this.setState({
-        index: index,
-        Hostname: DNSList[index].Hostname,
-        TTL: DNSList[index].TTL,
-        RecordType: DNSList[index].RecordType,
-        Answer: DNSList[index].Answer,
-      });
+      const response = await fetch("http://192.168.10.151:8090/zone");
+      let json = await response.json();
+      if (response.status === 200) {
+        this.setState({
+          hostname: json["safe.lan."][index].Hostname,
+          ttl: json["safe.lan."][index].TTL,
+          recordType: json["safe.lan."][index].RecordType,
+          answer: json["safe.lan."][index].Answer,
+        });
+      }
     }
   }
 
@@ -90,28 +110,28 @@ export default class PopUpDHCP extends Component {
                 <td className="data">IP</td>
                 <td> </td>
                 <td className="user">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.Answer} onChange={this.handleIpUpdate} />
+                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.answer} onChange={this.handleIpUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">hostname</td>
+                <td className="data">Hostname</td>
                 <td> </td>
                 <td className="user">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.Hostname} onChange={this.handleHostnameUpdate} />
+                  <p>{this.state.hostname}</p>
                 </td>
               </tr>
               <tr>
-                <td className="data">ttl</td>
+                <td className="data">TTL</td>
                 <td> </td>
                 <td className="user">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.TTL} onChange={this.handleTtlUpdate} />
+                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.ttl} onChange={this.handleTtlUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">type</td>
+                <td className="data">Type</td>
                 <td> </td>
                 <td className="user">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.RecordType} onChange={this.handleTypeUpdate} />
+                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.recordType} onChange={this.handleTypeUpdate} />
                 </td>
               </tr>
             </tbody>
@@ -119,14 +139,17 @@ export default class PopUpDHCP extends Component {
           {this.state.index !== "" && (
             <Pagination className="arrow">
               <Pagination.Prev onClick={this.prevPage} />
+              <Button className="button-validate" onClick={this.modifyDns}>
+                VALIDER
+              </Button>
               <Pagination.Next className="next-arrow" onClick={this.nextPage} />
             </Pagination>
           )}
           {this.state.index === "" && (
-            <div className="button-center" >
-            <Button className="button-add" onClick={this.addDNS}>
-              AJOUTER
-            </Button>
+            <div className="button-center">
+              <Button className="button-add" onClick={this.addDns}>
+                AJOUTER
+              </Button>
             </div>
           )}
         </Modal.Body>

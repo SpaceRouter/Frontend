@@ -24,7 +24,7 @@ class Auth extends Component {
 
   handleSubmit = async () => {
     const cookies = new Cookies();
-    const response = await fetch("http://localhost:8080/login", {
+    const response = await fetch("http://192.168.10.151:8085/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -33,7 +33,7 @@ class Auth extends Component {
       }),
     });
     let json = await response.json();
-    if (response.status === 200 && json.Ok) {
+    if (response.status === 200 && json.ok) {
       cookies.set("jwt_token", json.Token, { path: "/" });
       this.props.updateAuth(1);
       this.props.history.push("/");

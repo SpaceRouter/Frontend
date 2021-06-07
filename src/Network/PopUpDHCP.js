@@ -101,7 +101,7 @@ export default class PopUpDHCP extends Component {
         });
       }
     }
-  }
+  };
 
   render() {
     return (

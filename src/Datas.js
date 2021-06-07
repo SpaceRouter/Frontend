@@ -105,29 +105,4 @@ export const firewall = [
   },
 ];
 
-export const dns = [
-  {
-    Answer: "ns",
-    Hostname: "@",
-    RecordType: "2",
-    TTL: "604800"
-  }, 
-  {
-    Answer: "192.168.1.1",
-    Hostname: "ns",
-    RecordType: 1,
-    TTL: 604800
-  }, 
-  {
-    Answer: "192.168.1.50",
-    Hostname: "test",
-    RecordType: 1,
-    TTL: 604800
-  }, 
-  {
-    Answer: "192.168.1.51",
-    Hostname: "test1",
-    RecordType: 1,
-    TTL: 604800
-}]
 export const protocolesList = ["TCP", "UDP", "TCP/UDP"];
