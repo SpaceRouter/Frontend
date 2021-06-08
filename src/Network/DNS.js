@@ -107,8 +107,8 @@ class DNS extends Component {
             <thead className="head">
               <tr>
                 <th>HOSTNAME</th>
-                <th className="tel">IP</th>
-                <th>TYPE</th>
+                <th>IP</th>
+                <th className="tel">TYPE</th>
                 <th>TTL</th>
                 <th> </th>
               </tr>
