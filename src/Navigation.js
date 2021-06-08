@@ -2,12 +2,25 @@ import React, { Component } from "react";
 import { Navbar, Nav, NavDropdown, Row } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import { connect } from "react-redux";
-import { FaPowerOff } from "react-icons/fa";
+import { FaPowerOff, FaUserAlt, FaCog, FaNetworkWired, FaTools, FaHome } from "react-icons/fa";
 
 import { updateSideBarState, updateAuth } from "./redux/action.js";
 import "./Navigation.css";
 
 class Navigation extends Component {
+  state = {
+    username: "cocheta",
+  };
+
+  titleNav(title, Icon) {
+    return (
+      <>
+        <Icon style={{marginRight: 10}} size="30px" color="white" />
+        {title}
+      </>
+    );
+  }
+
   handleClick = () => {
     this.props.updateSideBarState(!this.props.isOpenSideBar);
   };
@@ -17,6 +30,23 @@ class Navigation extends Component {
     cookies.remove("jwt_token");
     this.props.updateAuth(0);
   };
+
+  getUsername = async () => {
+    const cookies = new Cookies();
+    const token = cookies.get("jwt_token");
+    const response = await fetch("http://192.168.10.151:8085/v1/info", {
+      method: "GET",
+      headers: { "content-type": "application/json", authorization: token },
+    });
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      this.setState({ username: json.UserInfo.login });
+    }
+  };
+
+  componentDidMount() {
+    this.getUsername();
+  }
 
   render() {
     return (
@@ -37,20 +67,23 @@ class Navigation extends Component {
         </Row>
         <Navbar.Collapse>
           <Nav>
-            <Nav.Link href="/">Page d'accueil</Nav.Link>
+            <FaUserAlt className="user-icon" size="80px" color="white" />
+            <p className="username">{this.state.username}</p>
 
-            <NavDropdown title="Administration">
+            <Nav.Link href="/">{this.titleNav("Page d'accueil", FaHome)}</Nav.Link>
+
+            <NavDropdown title={this.titleNav("Administration", FaCog)}>
               <NavDropdown.Item href="/users">Utilisateurs</NavDropdown.Item>
               <NavDropdown.Item href="/groups">Groupes</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Réseau">
+            <NavDropdown title={this.titleNav("Réseau", FaNetworkWired)}>
               <NavDropdown.Item href="/dhcp">DHCP</NavDropdown.Item>
               <NavDropdown.Item href="/dns">DNS</NavDropdown.Item>
               <NavDropdown.Item href="/firewall">Firewall</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Services">
+            <NavDropdown title={this.titleNav("Services", FaTools)}>
               <NavDropdown.Item href="/marketplace">Magasin d'applications</NavDropdown.Item>
               <NavDropdown.Item href="/appsinstalled">Applications installées</NavDropdown.Item>
             </NavDropdown>

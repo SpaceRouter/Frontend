@@ -34,7 +34,7 @@ class Auth extends Component {
     });
     let json = await response.json();
     if (response.status === 200 && json.ok) {
-      cookies.set("jwt_token", json.Token, { path: "/" });
+      cookies.set("jwt_token", json.token, { path: "/" });
       this.props.updateAuth(1);
       this.props.history.push("/");
     } else {

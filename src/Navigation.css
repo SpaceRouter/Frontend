@@ -8,9 +8,21 @@
   cursor: pointer;
 }
 
+.user-icon {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+.username {
+  color: white;
+  font-size: 1.3em;
+  align-self: center;
+}
+
 nav .navbar-collapse {
   position: fixed;
-  width: 300px;
+  width: 350px;
   height: 100vh;
   top: 56px;
   left: -100%;
@@ -24,12 +36,14 @@ nav .navbar-collapse.show {
 
 .dropdown-menu {
   position: static;
-  width: 280px;
+  width: 330px;
   background-color: #679ecb;
   border: 0px solid;
 }
 
 .nav-link {
+  display: flex;
+  align-items: center;
   margin-top: 10px;
   margin-left: 15px;
   font-size: 1.5em;
