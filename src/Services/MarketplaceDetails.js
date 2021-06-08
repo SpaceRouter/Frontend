@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
-import { MdDelete, MdAddCircle, MdFileDownload } from "react-icons/md";
+import { MdAddCircle, MdFileDownload } from "react-icons/md";
+import { TiDeleteOutline } from "react-icons/ti";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "../redux/action.js";
@@ -62,12 +63,12 @@ class MarketplaceDetails extends Component {
         <p>Variable(s) d'environnement(s) : </p>
         {service.Envs.map((env) => (
           <p key={env.ID} style={{ marginLeft: "25px"}}>
-            <Form.Control className="modif" type="text" value={env.Name} onChange={this.handleEnvNameUpdate}/> : 
+            <TiDeleteOutline size="20px" className="suppr"/>
+            <Form.Control className="modif" type="text" value={env.Name} onChange={this.handleEnvNameUpdate}/> :  
             <Form.Control className="modif" type="text" value={env.DefaultValue} onChange={this.handleEnvValueUpdate}/>
           </p>
         ))}
-        <Button className="button" style={{ marginLeft:"30px", marginBottom:"10px", backgroundColor: "#0B3862" }}><MdAddCircle size="20px" className="add" />Ajouter</Button>
-        <Button className="button" style={{ marginLeft: "30px", marginBottom:"10px", backgroundColor: "#0B3862" }}><MdDelete size="20px" className="delete" />Supprimer</Button>
+        <Button className="button" style={{ marginLeft:"40%", marginBottom:"10px", backgroundColor: "#0B3862" }}><MdAddCircle size="20px" className="add" />Ajouter</Button>
         <p>Volume(s) : </p>
         {service.Volumes.map((volume) => (
           <div key={volume.ID} style={{ marginLeft: "25px"}}>
@@ -101,24 +102,22 @@ class MarketplaceDetails extends Component {
     const { appli } = this.state;
     return (
       <Container fluid>
-        <Row className="justify-content-center" style={{ marginBottom:"50px" }}>
+        <Row className="justify-content-center">
           <div className="appli-details">
             <FaArrowLeft className="back-icon" size="30px" color="black" onClick={this.goBack} />
-            <Row style={{ margin: "0 auto", marginLeft: "50px" }}>
+            <Row>
               <Card.Img className="img-details" src={appli.Icon} />
               <Col className="info-appli">
-                <h2 style={{ marginBottom: 20 }}>{appli.Name}</h2>
-                <p className="text-appli">{this.props.location.state.appli.Developer.Name}</p>
+                <h2>{appli.Name}</h2>
+                <p style={{ fontSize: "20px", fontWeight: "lighter" }}>{this.props.location.state.appli.Developer.Name}</p>
               </Col>
             </Row>
-            <Row style={{ margin: "0 auto", marginTop: "50px" }}>
-              <p className="text-appli" style={{ marginRight: 150 }}>
-                Création : {this.getDate(appli.CreatedAt)}
-              </p>
-              <p className="text-appli">Dernière mise à jour : {this.getDate(appli.UpdatedAt)}</p>
-            </Row>
+            <div className="text-appli">
+              <p> Création : {this.getDate(appli.CreatedAt)}</p>
+              <p>Dernière mise à jour : {this.getDate(appli.UpdatedAt)}</p>
+            </div>
             <p className="description-appli">{appli.Description}</p>
-            <h4 style={{ marginBottom:"15px", marginLeft:"15px" }}>Services :</h4>  
+            <h4 style={{ marginBottom:"50px", marginLeft:"25px" }}>Services :</h4>  
             <div className="services-appli">
                 {this.getServicesInfos()}
             </div>
