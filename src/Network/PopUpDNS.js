@@ -16,6 +16,10 @@ export default class PopUpDNS extends Component {
     this.setState({ answer: answer.target.value });
   };
 
+  handleHostnameUpdate = (hostname) => {
+    this.setState({ hostname: hostname.target.value });
+  };
+
   handleTypeUpdate = (recordType) => {
     this.setState({ recordType: recordType.target.value });
   };
@@ -89,7 +93,7 @@ export default class PopUpDNS extends Component {
         });
       }
     }
-  }
+  };
 
   render() {
     return (
@@ -117,7 +121,7 @@ export default class PopUpDNS extends Component {
                 <td className="data">Hostname</td>
                 <td> </td>
                 <td className="user">
-                  <p>{this.state.hostname}</p>
+                  <Form.Control style={{ width: "auto" }} disabled={this.state.index !== ""} type="text" value={this.state.hostname} onChange={this.handleHostnameUpdate} />
                 </td>
               </tr>
               <tr>
