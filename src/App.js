@@ -22,7 +22,7 @@ class App extends Component {
     const cookies = new Cookies();
     if (cookies.get("jwt_token")) {
       return true;
-    } else return true; //false
+    } else return false; //false
   }
 
   componentDidUpdate(prevProps) {

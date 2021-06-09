@@ -15,7 +15,7 @@ class Navigation extends Component {
   titleNav(title, Icon) {
     return (
       <>
-        <Icon style={{marginRight: 10}} size="30px" color="white" />
+        <Icon style={{ marginRight: 10 }} size="30px" color="white" />
         {title}
       </>
     );
