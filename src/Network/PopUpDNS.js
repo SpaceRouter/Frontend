@@ -46,7 +46,7 @@ export default class PopUpDNS extends Component {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         Answer: this.state.answer,
-        Hostname: this.state.hostname + ".safe.lan",
+        Hostname: this.state.hostname + ".opengate.lan",
         RecordType: this.state.recordType,
         TTL: this.state.ttl,
       }),
@@ -62,7 +62,7 @@ export default class PopUpDNS extends Component {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         Answer: this.state.answer,
-        Hostname: this.state.hostname + ".safe.lan",
+        Hostname: this.state.hostname + ".opengate.lan",
         RecordType: this.state.recordType,
         TTL: this.state.ttl,
       }),
@@ -86,10 +86,10 @@ export default class PopUpDNS extends Component {
       let json = await response.json();
       if (response.status === 200) {
         this.setState({
-          hostname: json["safe.lan."][index].Hostname,
-          ttl: json["safe.lan."][index].TTL,
-          recordType: json["safe.lan."][index].RecordType,
-          answer: json["safe.lan."][index].Answer,
+          hostname: json["opengate.lan."][index].Hostname,
+          ttl: json["opengate.lan."][index].TTL,
+          recordType: json["opengate.lan."][index].RecordType,
+          answer: json["opengate.lan."][index].Answer,
         });
       }
     }

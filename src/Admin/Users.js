@@ -8,13 +8,13 @@ import { updateTitlePage } from "../redux/action.js";
 import PopUpUsers from "./PopUpUsers.js";
 import { users } from "../Datas.js";
 import "./Users.css";
-import "../global.css"
+import "../global.css";
 
 class Users extends Component {
   state = {
     modalVisible: false,
     usersList: [],
-    index: "-1",
+    index: "",
     delete: false,
   };
 
@@ -28,16 +28,13 @@ class Users extends Component {
     } else {
       return (
         <>
-          <Button
-            style={{ backgroundColor: "#FFFFFF", border: "none" }}
-            onClick={() => this.setState({ modalVisible: true, index: index })}
-          >
+          <Button style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.setState({ modalVisible: true, index: index })}>
             <FaPen className="modification" size="15px" />
           </Button>
 
           <PopUpUsers
             show={this.state.modalVisible}
-            onHide={() => this.setState({ modalVisible: false })}
+            onHide={() => this.setState({ modalVisible: false, index: "" })}
             usersList={this.state.usersList}
             indexUser={this.state.index}
           />
@@ -47,7 +44,14 @@ class Users extends Component {
   }
 
   addButton() {
-    return <PopUpUsers show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
+    return (
+      <PopUpUsers
+        show={this.state.modalVisible}
+        onHide={() => this.setState({ modalVisible: false, index: "" })}
+        usersList={this.state.usersList}
+        indexUser={this.state.index}
+      />
+    );
   }
 
   getUsersInfo() {
@@ -59,11 +63,11 @@ class Users extends Component {
     this.props.updateTitlePage("Utilisateurs");
   }
 
-  render() {    
+  render() {
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-center">
-          <Table responsive >
+          <Table responsive>
             <thead className="head">
               <tr>
                 <th>ID</th>

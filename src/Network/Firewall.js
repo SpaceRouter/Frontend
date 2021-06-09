@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Table, Button } from "react-bootstrap";
+import Cookies from "universal-cookie";
 import { connect } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
@@ -8,12 +9,11 @@ import { updateTitlePage } from "../redux/action.js";
 import PopUpFirewall from "./PopUpFirewall.js";
 import "./Firewall.css";
 import "../global.css";
-import { firewall } from "../Datas.js";
 
 class Firewall extends Component {
   state = {
     modalVisible: false,
-    firewallList: [],
+    NATRules: [],
     index: "-1",
     delete: false,
   }
@@ -51,12 +51,35 @@ class Firewall extends Component {
     return <PopUpFirewall show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
   }
 
-  getFirewallInfo() {
-    this.setState({ firewallList: firewall });
+  displayNATRules() {
+    return this.state.NATRules.map((NAT, index) => (
+      <tr key={NAT.Destination}>
+        <td className="tel"><Button variant="outline-dark" disabled>
+          {NAT.Protocol}
+        </Button></td>
+        <td>{NAT.DestinationPort}</td>
+        <td className="tel">{NAT.Destination.split(":")[0]}</td>
+        <td>{NAT.Destination.split(":")[1]}</td>
+        <td>{this.modificationOrDelete(index)}</td>
+      </tr>
+    ))
   }
 
+  getNATRules = async () => {
+    const cookies = new Cookies();
+    const token = cookies.get("jwt_token");
+    const response = await fetch("http://192.168.10.151:8081/chain/nat/PREROUTING/", {
+      method: "GET",
+      headers: { "content-type": "application/json", authorization: token },
+    });
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      this.setState({ NATRules: json.Chains });
+    }
+  };
+
   componentDidMount() {
-    this.getFirewallInfo();
+    this.getNATRules();
     this.props.updateTitlePage("Firewall");
   }
 
@@ -76,17 +99,7 @@ class Firewall extends Component {
               </tr>
             </thead>
             <tbody>
-                {this.state.firewallList.map((firewall, index) => (
-                  <tr key={firewall.ip}>
-                    <td className="tel"><Button variant="outline-dark" disabled>
-                      {firewall.protocoles}
-                    </Button></td>
-                    <td>{firewall.port_entree}</td>
-                    <td className="tel">{firewall.port_destination}</td>
-                    <td>{firewall.ip}</td>
-                    <td>{this.modificationOrDelete(index)}</td>
-                  </tr>
-                ))}
+                {this.displayNATRules()}
             </tbody>
           </Table>
         </Row>
