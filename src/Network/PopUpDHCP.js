@@ -89,7 +89,7 @@ export default class PopUpDHCP extends Component {
       });
     }
     if (index !== "" && index !== prevState.index) {
-      const response = await fetch("http://192.168.10.151:8080/data.json");
+      const response = await fetch("http://192.168.10.151:8080/data");
       let json = await response.json();
       if (response.status === 200) {
         this.setState({
@@ -119,6 +119,13 @@ export default class PopUpDHCP extends Component {
           <Table responsive>
             <tbody>
               <tr>
+                <td className="data">IP</td>
+                <td> </td>
+                <td className="user">
+                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.ip} onChange={this.handleIpUpdate} />
+                </td>
+              </tr>
+              <tr>
                 <td className="data">Hostname</td>
                 <td> </td>
                 <td className="user">
@@ -130,13 +137,6 @@ export default class PopUpDHCP extends Component {
                 <td> </td>
                 <td className="user">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.mac} onChange={this.handleMacUpdate} />
-                </td>
-              </tr>
-              <tr>
-                <td className="data">IP</td>
-                <td> </td>
-                <td className="user">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.ip} onChange={this.handleIpUpdate} />
                 </td>
               </tr>
             </tbody>

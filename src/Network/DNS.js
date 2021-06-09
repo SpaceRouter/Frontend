@@ -76,7 +76,7 @@ class DNS extends Component {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         Answer: DNSInfos.Answer,
-        Hostname: DNSInfos.Hostname + ".safe.lan",
+        Hostname: DNSInfos.Hostname + ".opengate.lan",
         RecordType: DNSInfos.RecordType,
       }),
     });
@@ -89,7 +89,7 @@ class DNS extends Component {
     const response = await fetch("http://192.168.10.151:8090/zone");
     let json = await response.json();
     if (response.status === 200) {
-      this.setState({ DNSList: json["safe.lan."] });
+      this.setState({ DNSList: json["opengate.lan."] });
     }
   };
 

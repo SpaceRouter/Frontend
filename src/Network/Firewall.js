@@ -51,6 +51,20 @@ class Firewall extends Component {
     return <PopUpFirewall show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
   }
 
+  displayNATRules() {
+    return this.state.NATRules.map((NAT, index) => (
+      <tr key={NAT.Destination}>
+        <td className="tel"><Button variant="outline-dark" disabled>
+          {NAT.Protocol}
+        </Button></td>
+        <td>{NAT.DestinationPort}</td>
+        <td className="tel">{NAT.Destination.split(":")[0]}</td>
+        <td>{NAT.Destination.split(":")[1]}</td>
+        <td>{this.modificationOrDelete(index)}</td>
+      </tr>
+    ))
+  }
+
   getNATRules = async () => {
     const cookies = new Cookies();
     const token = cookies.get("jwt_token");
@@ -85,17 +99,7 @@ class Firewall extends Component {
               </tr>
             </thead>
             <tbody>
-                {this.state.NATRules.map((NAT, index) => (
-                  <tr key={NAT.Destination}>
-                    <td className="tel"><Button variant="outline-dark" disabled>
-                      {NAT.Protocol}
-                    </Button></td>
-                    <td>{NAT.DestinationPort}</td>
-                    <td className="tel">{NAT.Destination}</td>
-                    <td>{NAT.Destination}</td>
-                    <td>{this.modificationOrDelete(index)}</td>
-                  </tr>
-                ))}
+                {this.displayNATRules()}
             </tbody>
           </Table>
         </Row>

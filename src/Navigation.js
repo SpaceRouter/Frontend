@@ -9,7 +9,7 @@ import "./Navigation.css";
 
 class Navigation extends Component {
   state = {
-    username: "cocheta",
+    username: "ESIEESPACE",
   };
 
   titleNav(title, Icon) {
@@ -55,7 +55,7 @@ class Navigation extends Component {
           <Navbar.Toggle className="topbar-icon" onClick={this.handleClick} />
           {this.props.isOpenSideBar && (
             <Navbar.Brand className="d-none d-sm-block brand" href="/">
-              SpaceRouter
+              OpenGate
             </Navbar.Brand>
           )}
         </Row>

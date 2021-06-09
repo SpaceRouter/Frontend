@@ -59,7 +59,7 @@ export default class PopUpUsers extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { usersList, indexUser } = this.props;
     const { index } = this.state;
-    if (indexUser !== prevProps.indexUser) {
+    if (indexUser !== "" && indexUser !== prevProps.indexUser) {
       this.setState({
         index: indexUser,
         username: usersList[indexUser].username,
