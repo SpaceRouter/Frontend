@@ -47,11 +47,23 @@ nav .navbar-collapse.show {
   margin-top: 10px;
   margin-left: 15px;
   font-size: 1.5em;
-  color: white !important;
+  color: white;
+  border: none;
 }
 
 .nav-link:hover {
   color: #c2c5cc !important;
+  border: none;
+}
+
+.nav-link:active {
+  color: #679ecb;
+  border: none;
+}
+
+.nav-link:focus {
+  border: none;
+  color: #679ecb;
 }
 
 .dropdown-item {

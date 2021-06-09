@@ -60,14 +60,14 @@ class MarketplaceDetails extends Component {
     return appli.Services.map((service) => (    
       <div key={service.ID} className="services-details">
         <h4 style={{ textAlign:"center", marginBottom:"25px" }}>Name</h4>
-        <Tabs defaultActiveKey="image" transition={false} id="noanim-tab-example">
-          <Tab eventKey="image" title="Image" className="teste">
+        <Tabs defaultActiveKey="image" transition={false} className="tabs">
+          <Tab eventKey="image" title="Image">
             <div className="navig">
             <p>Image : <Form.Control className="modif" type="text" value={service.Image} onChange={this.handleImagesUpdate}/></p>
             <p>Version :  <Form.Control className="modif" type="text" value={service.ImageVersion} onChange={this.handleImageVersionUpdate}/></p>
             </div>
           </Tab>
-          <Tab eventKey="var" title="Environnements" style={{Color:"#000000"}}>
+          <Tab eventKey="var" title="Environnements">
             <div className="navig">
             <p>Variable(s) d'environnement(s) : </p>
               {service.Envs.map((env) => (
