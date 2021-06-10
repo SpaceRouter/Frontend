@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
+import { DNS_records_supported} from "../Constants"
 const initialState = {
   index: "",
   answer: "",
   hostname: "",
-  recordType: "",
+  recordType: "A",
   ttl: "",
 };
 
@@ -121,7 +122,13 @@ export default class PopUpDNS extends Component {
                 <td className="data">Hostname</td>
                 <td> </td>
                 <td className="user">
-                  <Form.Control style={{ width: "auto" }} disabled={this.state.index !== ""} type="text" value={this.state.hostname} onChange={this.handleHostnameUpdate} />
+                  <Form.Control
+                    style={{ width: "auto" }}
+                    disabled={this.state.index !== ""}
+                    type="text"
+                    value={this.state.hostname}
+                    onChange={this.handleHostnameUpdate}
+                  />
                 </td>
               </tr>
               <tr>
@@ -135,7 +142,11 @@ export default class PopUpDNS extends Component {
                 <td className="data">Type</td>
                 <td> </td>
                 <td className="user">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.recordType} onChange={this.handleTypeUpdate} />
+                  <Form.Control as="select" value={this.state.recordType} onChange={this.handleTypeUpdate}>
+                    {DNS_records_supported.map((recordType) => (
+                      <option key={recordType}>{recordType}</option>
+                    ))}
+                  </Form.Control>
                 </td>
               </tr>
             </tbody>

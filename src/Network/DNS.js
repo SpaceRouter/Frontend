@@ -6,6 +6,7 @@ import { MdDelete, MdAddCircle } from "react-icons/md";
 
 import { updateTitlePage } from "../redux/action.js";
 import PopUpDNS from "./PopUpDNS.js";
+import {DNS_records} from "../Constants"
 import "./DNS.css";
 import "../global.css";
 
@@ -77,7 +78,7 @@ class DNS extends Component {
       body: JSON.stringify({
         Answer: DNSInfos.Answer,
         Hostname: DNSInfos.Hostname + ".opengate.lan",
-        RecordType: DNSInfos.RecordType,
+        RecordType: DNS_records[DNSInfos.RecordType],
       }),
     });
     if (response.status === 200) {
@@ -118,7 +119,7 @@ class DNS extends Component {
                 <tr key={dns.Hostname}>
                   <td>{dns.Hostname}</td>
                   <td>{dns.Answer}</td>
-                  <td className="tel">{dns.RecordType}</td>
+                  <td className="tel">{DNS_records[dns.RecordType]}</td>
                   <td>{dns.TTL}</td>
                   <td>{this.modificationOrDelete(index)}</td>
                 </tr>
