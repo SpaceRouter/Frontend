@@ -104,7 +104,8 @@ class DNS extends Component {
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-center">
-          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>DNS <AiOutlineReload size="30px" style={{ marginLeft:"20px" }} /></h2>
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>DNS </h2>
+          <AiOutlineReload size="30px" className="reload" />
           <Table responsive className="table">
             <thead className="head">
               <tr>

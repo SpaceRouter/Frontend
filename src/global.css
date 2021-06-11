@@ -97,3 +97,10 @@ body::-webkit-scrollbar {
 .button:hover, .button:focus, .button:active {
     background-color: rgba(11, 56, 98, 0.8);
 }
+
+.reload {
+    position: relative;
+    left: 35px;
+    top: 5px;
+    cursor: pointer;
+}

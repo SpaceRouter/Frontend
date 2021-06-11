@@ -148,7 +148,8 @@ class DHCP extends Component {
           </Table>
         </Row>
         <Row className="justify-content-center">
-          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP <AiOutlineReload size="30px" style={{ marginLeft:"20px" }} /></h2>
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP </h2>
+          <AiOutlineReload size="30px" className="reload"/>
           <Table responsive className="table" style={{ marginBottom: "100px" }}>
             <thead className="head">
               <tr>
