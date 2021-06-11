@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Table, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 import { AiOutlineReload } from "react-icons/ai";
@@ -17,7 +17,7 @@ class DHCP extends Component {
     dhcp: { free: [], fixed: [], staging: [] },
     scope: {},
     delete: false,
-    reload: false,
+    reload: "",
   };
 
   modifyOrDelete(index) {
@@ -100,6 +100,17 @@ class DHCP extends Component {
     ));
   }
 
+  displayDhcpDynamic() {
+    return this.state.dhcp.fixed.map((baux_dhcp_static, index) => (
+      <tr key={baux_dhcp_static.mac}>
+        <td>{baux_dhcp_static.ip}</td>
+        <td>{baux_dhcp_static.hostname}</td>
+        <td className="tel">{baux_dhcp_static.mac}</td>
+        <td>{this.modifyOrDelete(index)}</td>
+      </tr>
+    ));
+  }
+
   displayDhcpStatic() {
     return this.state.dhcp.staging.map((baux_dhcp) => (
       <tr key={baux_dhcp.ip}>
@@ -112,23 +123,44 @@ class DHCP extends Component {
       </tr>
     ));
   }
+  
+  titleDhcpDynamic() {
+    return (
+      <Col>
+        <Row className="justify-content-center">
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP </h2>
+          <AiOutlineReload size="30px" className="reload" onClick={this.reload} />
+        </Row>
 
-  displayDhcpDynamic() {
-    return this.state.dhcp.fixed.map((baux_dhcp_static, index) => (
-      <tr key={baux_dhcp_static.mac}>
-        <td>{baux_dhcp_static.ip}</td>
-        <td>{baux_dhcp_static.hostname}</td>
-        <td className="tel">{baux_dhcp_static.mac}</td>
-        <td>{this.modifyOrDelete(index)}</td>
-      </tr>
-    ));
+        {this.state.reload === "ok" && (
+          <Alert className="reloadDHCP" variant="success">
+            Rechargement effectué avec succès.
+          </Alert>
+        )}
+        {this.state.reload === "error" && (
+          <Alert className="reloadDHCP" variant="danger">
+            Erreur lors du rechargement.
+          </Alert>
+        )}
+      </Col>
+    );
   }
 
   reload = async () => {
     const response = await fetch("http://192.168.10.151:8080/data");
     let json = await response.json();
     if (response.status === 200) {
-      this.setState({ dhcp: json });
+      this.setState({ dhcp: json, reload: "ok" }, () => {
+        setTimeout(() => {
+          this.setState({ reload: "" });
+        }, 2000);
+      });
+    } else {
+      this.setState({ reload: "error" }, () => {
+        setTimeout(() => {
+          this.setState({ reload: "" });
+        }, 2000);
+      });
     }
   };
 
@@ -157,13 +189,7 @@ class DHCP extends Component {
           </Table>
         </Row>
         <Row className="justify-content-center">
-          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP </h2>
-          <AiOutlineReload size="30px" className="reload" onClick={this.reload} />
-          {this.state.reload && (
-            <Alert className="install" variant="success">
-              Rechargement effectué avec succès.
-            </Alert>
-          )}
+          {this.titleDhcpDynamic()}
           <Table responsive className="table" style={{ marginBottom: "100px" }}>
             <thead className="head">
               <tr>

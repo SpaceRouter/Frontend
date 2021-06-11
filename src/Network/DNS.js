@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Table, Button } from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
@@ -7,7 +7,7 @@ import { AiOutlineReload } from "react-icons/ai";
 
 import { updateTitlePage } from "../redux/action.js";
 import PopUpDNS from "./PopUpDNS.js";
-import {DNS_records} from "../Constants"
+import { DNS_records } from "../Constants";
 import "./DNS.css";
 import "../global.css";
 
@@ -17,6 +17,7 @@ class DNS extends Component {
     DNSList: [],
     index: "bt",
     delete: false,
+    reload: "",
   };
 
   modificationOrDelete(index) {
@@ -87,6 +88,46 @@ class DNS extends Component {
     }
   };
 
+  titleDns() {
+    return (
+      <Col>
+        <Row className="justify-content-center">
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>DNS </h2>
+          <AiOutlineReload size="30px" className="reload" onClick={this.reload} />
+        </Row>
+
+        {this.state.reload === "ok" && (
+          <Alert className="reloadDNS" variant="success">
+            Rechargement effectué avec succès.
+          </Alert>
+        )}
+        {this.state.reload === "error" && (
+          <Alert className="reloadDNS" variant="danger">
+            Erreur lors du rechargement.
+          </Alert>
+        )}
+      </Col>
+    );
+  }
+
+  reload = async () => {
+    const response = await fetch("http://192.168.10.151:8090/zone");
+    let json = await response.json();
+    if (response.status === 200) {
+      this.setState({ DNSList: json["opengate.lan."], reload: "ok" }, () => {
+        setTimeout(() => {
+          this.setState({ reload: "" });
+        }, 2000);
+      });
+    } else {
+      this.setState({ reload: "error" }, () => {
+        setTimeout(() => {
+          this.setState({ reload: "" });
+        }, 2000);
+      });
+    }
+  };
+
   getDNSInfo = async () => {
     const response = await fetch("http://192.168.10.151:8090/zone");
     let json = await response.json();
@@ -104,8 +145,7 @@ class DNS extends Component {
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-center">
-          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>DNS </h2>
-          <AiOutlineReload size="30px" className="reload" />
+          {this.titleDns()}
           <Table responsive className="table">
             <thead className="head">
               <tr>
