@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
-import Cookies from "universal-cookie";
+import { Form, Button, Alert } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
 import { connect } from "react-redux";
 
 import { updateAuth } from "./redux/action.js";
+import { setCookie } from "./Cookies";
 import "./Auth.css";
 
 class Auth extends Component {
@@ -23,7 +23,6 @@ class Auth extends Component {
   };
 
   handleSubmit = async () => {
-    const cookies = new Cookies();
     const response = await fetch("http://192.168.10.151:8085/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -34,7 +33,7 @@ class Auth extends Component {
     });
     let json = await response.json();
     if (response.status === 200 && json.ok) {
-      cookies.set("jwt_token", json.token, { path: "/" });
+      setCookie("jwt_token", json.token);
       this.props.updateAuth(1);
       this.props.history.push("/");
     } else {
@@ -64,9 +63,9 @@ class Auth extends Component {
         </Button>
 
         {this.state.error && (
-          <div className="error alert alert-danger" role="alert">
+          <Alert className="error" variant="danger">
             Identifiants non corrects.
-          </div>
+          </Alert>
         )}
       </Form>
     );

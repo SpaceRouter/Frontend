@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavDropdown, Row } from "react-bootstrap";
-import Cookies from "universal-cookie";
 import { connect } from "react-redux";
 import { FaPowerOff, FaUserAlt, FaCog, FaNetworkWired, FaTools, FaHome } from "react-icons/fa";
 
 import { updateSideBarState, updateAuth } from "./redux/action.js";
+import { removeCookie, getCookie } from "./Cookies";
 import "./Navigation.css";
 
 class Navigation extends Component {
@@ -26,14 +26,12 @@ class Navigation extends Component {
   };
 
   logout = () => {
-    const cookies = new Cookies();
-    cookies.remove("jwt_token");
+    removeCookie("jwt_token");
     this.props.updateAuth(0);
   };
 
   getUsername = async () => {
-    const cookies = new Cookies();
-    const token = cookies.get("jwt_token");
+    const token = getCookie("jwt_token");
     const response = await fetch("http://192.168.10.151:8085/v1/info", {
       method: "GET",
       headers: { "content-type": "application/json", authorization: token },

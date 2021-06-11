@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card, Form, Button, Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button, Tabs, Tab, Alert } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
 import { MdAddCircle, MdFileDownload } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -12,6 +12,7 @@ import "./MarketplaceDetails.css";
 class MarketplaceDetails extends Component {
   state = {
     appli: { Services: [] },
+    install: "",
   };
 
   handleImageUpdate = (index0) => (image) => {
@@ -52,12 +53,8 @@ class MarketplaceDetails extends Component {
       ...appli.Services[index].Envs,
       {
         ID: date.toISOString(),
-        CreatedAt: date.toISOString(),
-        UpdatedAt: date.toISOString(),
-        DeletedAt: null,
         Name: "",
         DefaultValue: "",
-        ServiceID: index,
       },
     ];
     this.setState({ appli });
@@ -130,6 +127,19 @@ class MarketplaceDetails extends Component {
       </p>
     ));
   }
+
+  downloadAppli = async () => {
+    const response = await fetch("http://192.168.10.151:8082/v1/stack", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(this.state.appli),
+    });
+    if (response.status === 200) {
+      this.setState({ install: "ok" });
+    } else {
+      this.setState({ install: "error" });
+    }
+  };
 
   getServicesInfos() {
     const { appli } = this.state;
@@ -205,10 +215,20 @@ class MarketplaceDetails extends Component {
             <p className="description-appli">{appli.Description}</p>
             <h4 style={{ marginBottom: "50px", marginLeft: "25px" }}>Services :</h4>
             <div className="services-appli">{this.getServicesInfos()}</div>
-            <Button className="download">
+            <Button className="download" onClick={this.downloadAppli}>
               <MdFileDownload size="20px" />
               Télécharger
             </Button>
+            {this.state.install === "ok" && (
+              <Alert className="install" variant="success">
+                Application en cours d'installation.
+              </Alert>
+            )}
+            {this.state.install === "error" && (
+              <Alert className="install" variant="danger">
+                Erreur lors de l'installation, réessayer plus tard.
+              </Alert>
+            )}
           </div>
         </Row>
       </Container>

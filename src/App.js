@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import Cookies from "universal-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 
@@ -15,12 +14,12 @@ import Firewall from "./Network/Firewall";
 import Marketplace from "./Services/Marketplace";
 import MarketplaceDetails from "./Services/MarketplaceDetails";
 import AppsInstalled from "./Services/AppsInstalled";
+import { getCookie } from "./Cookies";
 import "./App.css";
 
 class App extends Component {
   isAuthentificated() {
-    const cookies = new Cookies();
-    if (cookies.get("jwt_token")) {
+    if (getCookie("jwt_token")) {
       return true;
     } else return false; //false
   }

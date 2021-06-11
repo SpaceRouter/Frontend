@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Table, Button } from "react-bootstrap";
+import { Container, Row, Table, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 import { AiOutlineReload } from "react-icons/ai";
@@ -17,6 +17,7 @@ class DHCP extends Component {
     dhcp: { free: [], fixed: [], staging: [] },
     scope: {},
     delete: false,
+    reload: false,
   };
 
   modifyOrDelete(index) {
@@ -123,6 +124,14 @@ class DHCP extends Component {
     ));
   }
 
+  reload = async () => {
+    const response = await fetch("http://192.168.10.151:8080/data");
+    let json = await response.json();
+    if (response.status === 200) {
+      this.setState({ dhcp: json });
+    }
+  };
+
   getDhcpInfos = async () => {
     const response0 = await fetch("http://192.168.10.151:8080/data");
     let json0 = await response0.json();
@@ -149,7 +158,12 @@ class DHCP extends Component {
         </Row>
         <Row className="justify-content-center">
           <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP </h2>
-          <AiOutlineReload size="30px" className="reload"/>
+          <AiOutlineReload size="30px" className="reload" onClick={this.reload} />
+          {this.state.reload && (
+            <Alert className="install" variant="success">
+              Rechargement effectué avec succès.
+            </Alert>
+          )}
           <Table responsive className="table" style={{ marginBottom: "100px" }}>
             <thead className="head">
               <tr>
