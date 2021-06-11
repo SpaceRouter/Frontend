@@ -3,6 +3,7 @@ import { Container, Row, Table, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
+import { AiOutlineReload } from "react-icons/ai";
 
 import { updateTitlePage } from "../redux/action.js";
 import PopUpDNS from "./PopUpDNS.js";
@@ -103,7 +104,7 @@ class DNS extends Component {
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-center">
-          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>DNS</h2>
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>DNS <AiOutlineReload size="30px" style={{ marginLeft:"20px" }} /></h2>
           <Table responsive className="table">
             <thead className="head">
               <tr>

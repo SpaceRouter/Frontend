@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Table, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdDelete, MdAddCircle } from "react-icons/md";
+import { AiOutlineReload } from "react-icons/ai";
 import { FaPen } from "react-icons/fa";
 
 import { updateTitlePage } from "../redux/action.js";
@@ -147,7 +148,7 @@ class DHCP extends Component {
           </Table>
         </Row>
         <Row className="justify-content-center">
-          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP</h2>
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Baux DHCP <AiOutlineReload size="30px" style={{ marginLeft:"20px" }} /></h2>
           <Table responsive className="table" style={{ marginBottom: "100px" }}>
             <thead className="head">
               <tr>
