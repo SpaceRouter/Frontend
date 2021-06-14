@@ -41,6 +41,12 @@ class Auth extends Component {
     }
   };
 
+  handleEnterPress = (enter) => {
+    if (enter.charCode === 13) {
+      this.handleSubmit();
+    }
+}
+
   render() {
     return (
       <Form className="auth">
@@ -54,7 +60,7 @@ class Auth extends Component {
 
         {/*Text input password*/}
         <Form.Group style={{ width: 300 }}>
-          <Form.Control type="password" placeholder="Mot de passe" value={this.state.password} onChange={this.handlePasswordUpdate} />
+          <Form.Control type="password" placeholder="Mot de passe" value={this.state.password} onChange={this.handlePasswordUpdate} onKeyPress={this.handleEnterPress} />
         </Form.Group>
 
         {/*Connection button*/}
