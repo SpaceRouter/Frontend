@@ -1,0 +1,10 @@
+.permission-style {
+    border: none;
+    background-color: white;
+    color: black;
+}
+
+.permission-style:hover, .permission-style:focus, .permission-style:active {
+    background-color: white;
+    color: black;
+}

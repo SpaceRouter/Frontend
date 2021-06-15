@@ -29,7 +29,7 @@ class Home extends Component {
       <Container fluid className="accueil">
         <Row className="justify-content-center">
           <div className="heimdall">
-            {this.state.appList.map((app, index) => (
+            {this.state.appList.map((app) => (
               <Card style={{ width: "9rem", backgroundColor: "#F2F3F5", height: "250px", margin: "auto", borderRadius: "10px" }} key={app.id}>
                 <Card.Img className="img" variant="top" src={app.photo} />
                 <Card.Body>
