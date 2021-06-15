@@ -75,9 +75,9 @@ export default class PopUpGroups extends Component {
           <Table responsive>
             <tbody>
               <tr>
-                <td className="data">PERMISSION</td>
+                <td className="option">PERMISSION</td>
                 <td></td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control as="select" multiple style={{ width:"150px" }} value={this.state.permissions} onChange={this.handlePermissionsUpdate}>
                     {permissionsList.map((permission) => (
                       <option key={permission}>{permission}</option>

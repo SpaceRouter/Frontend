@@ -97,37 +97,37 @@ export default class PopUpUsers extends Component {
           <Table responsive>
             <tbody>
               <tr>
-                <td className="data">ID</td>
+                <td className="option">ID</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.username} onChange={this.handleUsernameUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">EMAIL</td>
+                <td className="option">EMAIL</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.email} onChange={this.handleEmailUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">PRENOM</td>
+                <td className="option">PRENOM</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.firstName} onChange={this.handleFirstNameUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">NOM</td>
+                <td className="option">NOM</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.lastName} onChange={this.handleLastNameUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">GROUPES</td>
+                <td className="option">GROUPES</td>
                 <td></td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control as="select" value={this.state.group} onChange={this.handleGroupUpdate}>
                     {groupsList.map((group) => (
                       <option key={group}>{group}</option>

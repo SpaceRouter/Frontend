@@ -119,23 +119,23 @@ export default class PopUpDHCP extends Component {
           <Table responsive>
             <tbody>
               <tr>
-                <td className="data">IP</td>
+                <td className="option">IP</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.ip} onChange={this.handleIpUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">Hostname</td>
+                <td className="option">Hostname</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.hostname} onChange={this.handleHostnameUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">MAC</td>
+                <td className="option">MAC</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.mac} onChange={this.handleMacUpdate} />
                 </td>
               </tr>

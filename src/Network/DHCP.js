@@ -92,10 +92,10 @@ class DHCP extends Component {
     const title = ["Sous-réseau", "Adresse IP de début", "Adresse IP de IP fin", "Masque de sous-réseau", "Serveur DNS", "Domaine DNS"];
     return title.map((title, index) => (
       <tr key={title}>
-        <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF" }}>
+        <td className="option option-blue">
           {title}
         </td>
-        <td className="user">{this.state.scope[index]}</td>
+        <td className="option-value">{this.state.scope[index]}</td>
       </tr>
     ));
   }
