@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { updateTitlePage } from "./redux/action.js";
 import CPUChart from "./CPUChart.js";
+import RAMChart from "./RAMChart.js";
 import "./global.css";
 import "./Home.css";
 import { app } from "./Datas.js";
@@ -42,9 +43,11 @@ class Home extends Component {
         <Row className="justify-content-center">
           <div className="block1">
             <div className="usage">
-              <CPUChart width={30} height={15} />
+              <CPUChart />
             </div>
-            <div className="services"></div>
+            <div className="services">
+              <RAMChart />
+            </div>
           </div>
         </Row>
         <Row className="justify-content-center">

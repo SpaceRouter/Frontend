@@ -17,9 +17,17 @@ export default class CPUChart extends Component {
     let dataTemp = [];
     const dateEnd = new Date();
     const dateStart = new Date(dateEnd - 5 * 60000);
-    const response = await fetch(
-      `http://192.168.10.151:9090/api/v1/query_range?query=100 - (avg by (instance) (irate(node_cpu_seconds_total{job="nodeexporter",mode="idle"}[5m])) * 100)&start=${dateStart.toISOString()}&end=${dateEnd.toISOString()}&step=1m`
-    );
+    
+    const response = await fetch("http://192.168.10.151:9090/api/v1/query_range", {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        query: '100 - (avg by (instance) (irate(node_cpu_seconds_total{job="nodeexporter",mode="idle"}[5m])) * 100)',
+        start: dateStart.toISOString(),
+        end: dateEnd.toISOString(),
+        step: "1m",
+      }),
+    });
     let json = await response.json();
     if (response.status === 200 && json.status === "success") {
       for (let i = 0; i < json.data.result[0].values.length; i++) {
@@ -37,13 +45,12 @@ export default class CPUChart extends Component {
   render() {
     return (
       <Line
-        width={this.props.width}
-        height={this.props.height}
         data={{
           labels: this.state.labels,
-          datasets: [{ label: "CPU", data: this.state.data, backgroundColor: 'rgba(103, 158, 203, 0.7)', borderColor: 'rgba(103, 158, 203, 0.7)'}],
+          datasets: [{ label: "CPU", data: this.state.data, backgroundColor: "rgba(103, 158, 203, 0.7)", borderColor: "rgba(103, 158, 203, 0.7)" }],
         }}
         options={{
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true,
