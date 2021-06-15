@@ -1,4 +1,4 @@
-.data {
+.option {
   text-align: left;
   color: #6c757d;
 }
@@ -11,7 +11,7 @@
   border: 0px solid;
 }
 
-.user {
+.option-value {
   text-align: right;
 }
 

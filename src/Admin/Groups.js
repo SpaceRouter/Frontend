@@ -58,7 +58,7 @@ class Groups extends Component {
     if ( permissionsList.length > 3) {
       return groupsList.map((groupsList, index) => (
         <tr key={groupsList}>
-          <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF", width: "50%" }}>
+          <td className="option option-blue">
             {groupsList}
           </td>
           <td style={{ textAlign: "left" }}>
@@ -71,7 +71,7 @@ class Groups extends Component {
     } else {
       return groupsList.map((groupsList, index) => (
         <tr key={groupsList}>
-          <td className="data" style={{ backgroundColor: "#679ECB", color: "#FFFFFF", width: "50%" }}>
+          <td className="option option-blue">
             {groupsList}
           </td>
           <td style={{ textAlign: "left" }}>

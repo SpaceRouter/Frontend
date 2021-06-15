@@ -90,9 +90,9 @@ export default class PopUpFirewall extends Component {
           <Table responsive>
             <tbody>
               <tr>
-                <td className="data">PROTOCOLES</td>
+                <td className="option">PROTOCOLES</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control as="select" value={this.state.protocoles} onChange={this.handleProtocolesUpdate}>
                     {protocolesList.map((protocoles) => (
                       <option key={protocoles}>{protocoles}</option>
@@ -101,23 +101,23 @@ export default class PopUpFirewall extends Component {
                 </td>
               </tr>
               <tr>
-                <td className="data">PORT_ENTREE</td>
+                <td className="option">PORT_ENTREE</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.port_entree} onChange={this.handlePortEntreeUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">PORT_DESTINATION</td>
+                <td className="option">PORT_DESTINATION</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.port_destination} onChange={this.handlePortDestinationUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">IP</td>
+                <td className="option">IP</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.ip} onChange={this.handleIpUpdate} />
                 </td>
               </tr>

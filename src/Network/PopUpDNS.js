@@ -112,16 +112,16 @@ export default class PopUpDNS extends Component {
           <Table responsive>
             <tbody>
               <tr>
-                <td className="data">IP</td>
+                <td className="option">IP</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.answer} onChange={this.handleIpUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">Hostname</td>
+                <td className="option">Hostname</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control
                     style={{ width: "auto" }}
                     disabled={this.state.index !== ""}
@@ -132,16 +132,16 @@ export default class PopUpDNS extends Component {
                 </td>
               </tr>
               <tr>
-                <td className="data">TTL</td>
+                <td className="option">TTL</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control style={{ width: "auto" }} type="text" value={this.state.ttl} onChange={this.handleTtlUpdate} />
                 </td>
               </tr>
               <tr>
-                <td className="data">Type</td>
+                <td className="option">Type</td>
                 <td> </td>
-                <td className="user">
+                <td className="option-value">
                   <Form.Control as="select" value={this.state.recordType} onChange={this.handleTypeUpdate}>
                     {DNS_records_supported.map((recordType) => (
                       <option key={recordType}>{recordType}</option>

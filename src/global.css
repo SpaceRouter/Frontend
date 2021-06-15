@@ -104,3 +104,9 @@ body::-webkit-scrollbar {
     top: 5px;
     cursor: pointer;
 }
+
+.option-blue {
+    background-color: #679ECB;
+    color: #FFFFFF !important; 
+    width: 50%;
+}
