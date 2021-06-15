@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Container, Row, Form, Card } from "react-bootstrap";
+import { Container, Row, Card, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "./redux/action.js";
-import CPUChart from "./CPUChart.js";
-import RAMChart from "./RAMChart.js";
+import CPUChart from "./Charts/CPUChart.js";
+import RAMChart from "./Charts/RAMChart.js";
 import "./global.css";
 import "./Home.css";
 import { app } from "./Datas.js";
@@ -34,7 +34,12 @@ class Home extends Component {
                 <Card.Img className="img" variant="top" src={app.photo} />
                 <Card.Body>
                   <Card.Title>{app.nom}</Card.Title>
-                  <Form.Check type="switch" id={app.id} label="On / Off" />
+                  <div className="on-off">
+                    <Button variant="danger" style={{ marginRight: 8 }}>
+                      Off
+                    </Button>
+                    <Button variant="success">On</Button>
+                  </div>
                 </Card.Body>
               </Card>
             ))}

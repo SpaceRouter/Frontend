@@ -18,7 +18,7 @@ class Groups extends Component {
     delete: false,
   };
 
-  modificationOrDelete(index) {
+  modifyOrDelete(index) {
     if (this.state.delete) {
       return (
         <Button style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.permissionsList[index])}>
@@ -65,7 +65,7 @@ class Groups extends Component {
             <OverlayTrigger placement={"right"} overlay={ <Tooltip id={`tooltip`}>{permissionsList} </Tooltip> }>
               <Button className="permission-style">{permissionsList[0]}, {permissionsList[1]}, {permissionsList[2]}, ...</Button>
             </OverlayTrigger></td>
-          <td>{this.modificationOrDelete(index)}</td>
+          <td>{this.modifyOrDelete(index)}</td>
         </tr>
       ));
     } else {
@@ -78,7 +78,7 @@ class Groups extends Component {
             <OverlayTrigger placement={"right"} overlay={ <Tooltip id={`tooltip`}>{permissionsList} </Tooltip>}>
               <Button className="permission-style">{permissionsList} </Button>
             </OverlayTrigger></td>
-          <td>{this.modificationOrDelete(index)}</td>
+          <td>{this.modifyOrDelete(index)}</td>
         </tr>
       ));
     }

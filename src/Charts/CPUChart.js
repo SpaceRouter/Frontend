@@ -9,7 +9,22 @@ export default class CPUChart extends Component {
 
   convertDate(timestamp) {
     let date = new Date(timestamp * 1000);
-    return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
+    return hours + ":" + minutes + ":" + seconds;
   }
 
   getDatas = async () => {
@@ -17,7 +32,7 @@ export default class CPUChart extends Component {
     let dataTemp = [];
     const dateEnd = new Date();
     const dateStart = new Date(dateEnd - 5 * 60000);
-    
+
     const response = await fetch("http://192.168.10.151:9090/api/v1/query_range", {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -47,10 +62,21 @@ export default class CPUChart extends Component {
       <Line
         data={{
           labels: this.state.labels,
-          datasets: [{ label: "CPU", data: this.state.data, backgroundColor: "rgba(103, 158, 203, 0.7)", borderColor: "rgba(103, 158, 203, 0.7)" }],
+          datasets: [
+            {
+              label: "CPU",
+              data: this.state.data,
+              tension: 0.3,
+              backgroundColor: "rgba(103, 158, 203, 0.7)",
+              borderColor: "rgba(103, 158, 203, 0.7)",
+            },
+          ],
         }}
         options={{
           maintainAspectRatio: false,
+          animation: {
+            duration: 0,
+          },
           scales: {
             y: {
               beginAtZero: true,

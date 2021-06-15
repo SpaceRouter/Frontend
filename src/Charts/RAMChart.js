@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
+import { RAM_Chart_colors } from "../Constants";
+
 export default class CPUChart extends Component {
   state = {
     labels: [],
@@ -20,16 +22,23 @@ export default class CPUChart extends Component {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        query:
-          '100 * (1 - ((avg_over_time(node_memory_MemFree_bytes{job="nodeexporter"}[5m]) + avg_over_time(node_memory_Cached_bytes{job="nodeexporter"}[5m]) + avg_over_time(node_memory_Buffers_bytes{job="nodeexporter"}[5m])) / avg_over_time(node_memory_MemTotal_bytes{job="nodeexporter"}[5m])))',
+        query: '{__name__=~"node_memory_MemFree_bytes|node_memory_Cached_bytes|node_memory_Buffers_bytes|node_memory_MemTotal_bytes"}',
       }),
     });
     let json = await response.json();
     if (response.status === 200 && json.status === "success") {
-      labelsTemp.push("RAM utilisée");
-      labelsTemp.push("RAM disponible");
-      dataTemp.push((json.data.result[0].value[1] / 100) * 4);
-      dataTemp.push(((100 - json.data.result[0].value[1]) / 100) * 4);
+      labelsTemp.push("Buffer");
+      dataTemp.push(json.data.result[0].value[1] / 1000000000);
+
+      labelsTemp.push("Cache");
+      dataTemp.push(json.data.result[1].value[1] / 1000000000);
+
+      labelsTemp.push("Free");
+      dataTemp.push(json.data.result[2].value[1] / 1000000000);
+
+      labelsTemp.push("Services");
+      dataTemp.push(json.data.result[3].value[1] / 1000000000 - dataTemp[0] - dataTemp[1] - dataTemp[2]);
+
       this.setState({ labels: labelsTemp, data: dataTemp });
     }
   };
@@ -47,13 +56,16 @@ export default class CPUChart extends Component {
             {
               label: "CPU",
               data: this.state.data,
-              backgroundColor: ["rgba(255, 159, 64, 0.7)", "rgba(103, 158, 203, 0.7)"],
-              borderColor: ["rgba(255, 159, 64, 0.7)", "rgba(103, 158, 203, 0.7)"],
+              backgroundColor: RAM_Chart_colors,
+              borderColor: RAM_Chart_colors,
             },
           ],
         }}
         options={{
-            maintainAspectRatio: false,
+          maintainAspectRatio: false,
+          animation: {
+            duration: 0,
+          },
           scales: {
             grid: { display: false },
           },

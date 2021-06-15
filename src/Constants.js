@@ -70,3 +70,5 @@ export const DNS_records = [
 ];
 
 export const DNS_records_supported = ["A", "AAAA", "CNAME", "MX", "NS", "TXT", "SOA"];
+
+export const RAM_Chart_colors = ["rgba(255, 159, 64, 0.7)", "rgba(103, 158, 203, 0.7)", "rgba(153, 102, 255, 0.7)", "rgba(255, 99, 132, 0.7)"];
