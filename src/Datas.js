@@ -1,16 +1,16 @@
 export const users = [
   {
-    username: "cocheta",
-    email: "axel.cochet@edu.esiee.fr",
-    lastName: "Cochet",
-    firstName: "Axel",
-    group: "ADMIN",
-  },
-  {
     username: "hugerv",
     email: "victor.huger@edu.esiee.fr",
     lastName: "Huger",
     firstName: "Victor",
+    group: "SUPER ADMIN",
+  },
+  {
+    username: "cocheta",
+    email: "axel.cochet@edu.esiee.fr",
+    lastName: "Cochet",
+    firstName: "Axel",
     group: "ADMIN",
   },
   {
@@ -21,24 +21,17 @@ export const users = [
     group: "USER",
   },
   {
-    username: "henryg",
-    email: "guillaume.henry@edu.esiee.fr",
-    lastName: "Henry",
-    firstName: "Guillaume",
-    group: "USER",
-  },
-  {
     username: "desplanchl",
     email: "louis.desplanche@edu.esiee.fr",
     lastName: "Desplanche",
     firstName: "Louis",
-    group: "SUPER ADMIN",
+    group: "USER",
   },
   {
-    username: "barons",
-    email: "samuel.baron@edu.esiee.fr",
-    lastName: "Baron",
-    firstName: "Samuel",
+    username: "warys",
+    email: "sebastien.wary@edu.esiee.fr",
+    lastName: "Wary",
+    firstName: "Sébastien",
     group: "USER",
   },
 ];

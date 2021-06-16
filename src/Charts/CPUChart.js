@@ -60,11 +60,11 @@ export default class CPUChart extends Component {
   render() {
     return (
       <Line
+        style={{ margin: 15, marginTop: 5 }}
         data={{
           labels: this.state.labels,
           datasets: [
             {
-              label: "CPU",
               data: this.state.data,
               tension: 0.3,
               backgroundColor: "rgba(103, 158, 203, 0.7)",
@@ -80,6 +80,16 @@ export default class CPUChart extends Component {
           scales: {
             y: {
               beginAtZero: true,
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              font: { size: 25, weight: "lighter" },
+              text: "CPU",
+            },
+            legend: {
+              display: false,
             },
           },
         }}

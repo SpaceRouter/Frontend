@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import { RAM_Chart_colors } from "../Constants";
+import { Disk_Chart_colors } from "../Constants";
 
 export default class CPUChart extends Component {
   state = {
@@ -18,26 +18,30 @@ export default class CPUChart extends Component {
     let labelsTemp = [];
     let dataTemp = [];
 
-    const response = await fetch("http://192.168.10.151:9090/api/v1/query", {
+    const response0 = await fetch("http://192.168.10.151:9090/api/v1/query", {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        query: '{__name__=~"node_memory_MemFree_bytes|node_memory_Cached_bytes|node_memory_Buffers_bytes|node_memory_MemTotal_bytes"}',
+        query: 'node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"}',
       }),
     });
-    let json = await response.json();
-    if (response.status === 200 && json.status === "success") {
-      labelsTemp.push("Buffer");
-      dataTemp.push(json.data.result[0].value[1] / 1000000000);
+    let json0 = await response0.json();
 
-      labelsTemp.push("Cache");
-      dataTemp.push(json.data.result[1].value[1] / 1000000000);
+    const response1 = await fetch("http://192.168.10.151:9090/api/v1/query", {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        query: 'node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"}',
+      }),
+    });
+    let json1 = await response1.json();
 
+    if (response0.status === 200 && json0.status === "success" && response1.status === 200 && json1.status === "success") {
       labelsTemp.push("Free");
-      dataTemp.push(json.data.result[2].value[1] / 1000000000);
+      dataTemp.push(json0.data.result[0].value[1] / 1000000000);
 
-      labelsTemp.push("Services");
-      dataTemp.push(json.data.result[3].value[1] / 1000000000 - dataTemp[0] - dataTemp[1] - dataTemp[2]);
+      labelsTemp.push("Utilisé");
+      dataTemp.push(json1.data.result[0].value[1] / 1000000000 - dataTemp[0]);
 
       this.setState({ labels: labelsTemp, data: dataTemp });
     }
@@ -56,8 +60,8 @@ export default class CPUChart extends Component {
           datasets: [
             {
               data: this.state.data,
-              backgroundColor: RAM_Chart_colors,
-              borderColor: RAM_Chart_colors,
+              backgroundColor: Disk_Chart_colors,
+              borderColor: Disk_Chart_colors,
             },
           ],
         }}
@@ -73,7 +77,7 @@ export default class CPUChart extends Component {
             title: {
               display: true,
               font: { size: 25, weight: "lighter" },
-              text: "RAM",
+              text: "Disque",
             },
             legend: {
               display: true,

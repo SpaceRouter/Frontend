@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { updateTitlePage } from "./redux/action.js";
 import CPUChart from "./Charts/CPUChart.js";
 import RAMChart from "./Charts/RAMChart.js";
+import DiskChart from "./Charts/DiskChart.js";
 import "./global.css";
 import "./Home.css";
 import { app } from "./Datas.js";
@@ -26,7 +27,7 @@ class Home extends Component {
 
   render() {
     return (
-      <Container fluid className="accueil">
+      <Container fluid>
         <Row className="justify-content-center">
           <div className="heimdall">
             {this.state.appList.map((app) => (
@@ -57,7 +58,9 @@ class Home extends Component {
         </Row>
         <Row className="justify-content-center">
           <div className="block2">
-            <div className="routeur"></div>
+            <div className="routeur">
+              <DiskChart />
+            </div>
             <div className="cpu"></div>
           </div>
         </Row>
