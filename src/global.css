@@ -110,3 +110,13 @@ body::-webkit-scrollbar {
   color: #ffffff !important;
   width: 50%;
 }
+
+.footer{
+    position: absolute;
+    top: 1125px;
+    width: 60%;
+    margin: auto;
+    padding-top: 50px;   
+    height: 1px;
+}
+    
