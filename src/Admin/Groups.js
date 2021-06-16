@@ -97,7 +97,7 @@ class Groups extends Component {
     return (
       <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
         <Row className="justify-content-center">
-          <Table>
+          <Table style={{ width: "55%" }}>
             <tbody>{this.displayGroupOptions()}</tbody>
           </Table>
         </Row>
