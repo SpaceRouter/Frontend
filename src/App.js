@@ -14,6 +14,7 @@ import Firewall from "./Network/Firewall";
 import Marketplace from "./Services/Marketplace";
 import MarketplaceDetails from "./Services/MarketplaceDetails";
 import AppsInstalled from "./Services/AppsInstalled";
+import AppsInstalledDetails from "./Services/AppsInstalledDetails";
 import { getCookie } from "./Cookies";
 import "./App.css";
 
@@ -50,6 +51,7 @@ class App extends Component {
             <Route exact path="/marketplace" component={Marketplace} />
             <Route exact path="/marketplace-details" component={MarketplaceDetails} />
             <Route exact path="/appsinstalled" component={AppsInstalled} />
+            <Route exact path="/appsinstalled-details" component={AppsInstalledDetails} />
           </div>
         ) : (
           <Redirect to="/auth" />

@@ -215,6 +215,9 @@ class MarketplaceDetails extends Component {
             <p className="description-appli">{appli.Description}</p>
             <h4 style={{ marginBottom: "50px", marginLeft: "25px" }}>Services :</h4>
             <div className="services-appli">{this.getServicesInfos()}</div>
+            <Button className="new-services">
+              Nouveau service
+            </Button>
             <Button className="download" onClick={this.downloadAppli}>
               <MdFileDownload size="20px" />
               Télécharger

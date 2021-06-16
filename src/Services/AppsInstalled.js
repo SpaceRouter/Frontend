@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Card, InputGroup, FormControl } from "react-bootstrap";
+import { Container, Row, Card, InputGroup, FormControl, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
@@ -24,6 +24,10 @@ class AppsInstalled extends Component {
     this.setState({ appsFiltered: newData });
   };
 
+  appsInstalledDetails(appli) {
+    this.props.history.push({ pathname: "/appsinstalled-details", state: { appli: appli } });
+  }
+
   applisRender() {
     return this.state.appsFiltered.map((appli) => (
       <Card className="appli" key={appli.ID} onClick={() => this.marketplaceDetails(appli)}>
@@ -33,6 +37,12 @@ class AppsInstalled extends Component {
           <Card.Subtitle>{appli.Developer.Name}</Card.Subtitle>
         </div>
         <Card.Body className="description">{appli.Description}</Card.Body>
+        <div className="on-off">
+          <Button variant="danger" style={{ marginRight: 8 }}>
+            Off
+          </Button>
+          <Button variant="success">On</Button>
+        </div>
       </Card>
     ));
   }

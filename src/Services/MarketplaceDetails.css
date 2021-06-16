@@ -95,7 +95,7 @@
 
 .services-details {
   margin: auto;
-  margin-bottom: 150px;
+  margin-bottom: 80px;
   width: 80%;
   font-size: 20px;
   font-weight: lighter;
@@ -107,13 +107,31 @@
   margin-left: 5px;
 }
 
+.new-services {
+  height: 45px;
+  width: 30%;
+  margin: auto;
+  background-color: #679ecb;
+  color: white;
+  margin-bottom: 50px;
+  border: none;
+}
+
 .download {
   height: 50px;
   width: 60%;
   margin: auto;
   background-color: #0b3862;
-  color: #ffffff;
-  margin-bottom: 50px;
+  color: white;
+  margin-bottom: 75px;
+  border: none;
+}
+
+
+.new-services:hover,
+.new-services:focus,
+.new-services:active {
+  background-color: rgba(103, 158, 203, 0.8);
 }
 
 .download:hover,
