@@ -12,6 +12,7 @@ import "./MarketplaceDetails.css";
 class MarketplaceDetails extends Component {
   state = {
     appli: { Services: [] },
+    downloadAppli: {},
     install: "",
   };
 
@@ -128,6 +129,11 @@ class MarketplaceDetails extends Component {
     ));
   }
 
+  formToDownload = () => {
+    const { appli } = this.state;
+    this.setState({downloadAppli : {description : appli.Description, icon: appli.Icon}});
+  }
+
   downloadAppli = async () => {
     const response = await fetch("http://192.168.10.151:8082/v1/stack", {
       method: "POST",
@@ -215,9 +221,7 @@ class MarketplaceDetails extends Component {
             <p className="description-appli">{appli.Description}</p>
             <h4 style={{ marginBottom: "50px", marginLeft: "25px" }}>Services :</h4>
             <div className="services-appli">{this.getServicesInfos()}</div>
-            <Button className="new-services">
-              Nouveau service
-            </Button>
+            <Button className="new-services" onClick={this.formToDownload}>Nouveau service</Button>
             <Button className="download" onClick={this.downloadAppli}>
               <MdFileDownload size="20px" />
               Télécharger
