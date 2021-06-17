@@ -171,3 +171,13 @@
   margin-bottom: 75px;
   text-align: center;
 }
+
+.bas-de-page-marketplaceDetails {
+  position: absolute;
+  top: 1790px;
+  width: 60%;
+  height: 50px;
+  margin: auto;
+  padding-top: 50px;   
+  height: 1px;
+}

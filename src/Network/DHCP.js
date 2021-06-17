@@ -226,6 +226,7 @@ class DHCP extends Component {
             SUPPRIMER
           </Button>
         </Row>
+        <div className="bas-de-page" />
       </Container>
     );
   }

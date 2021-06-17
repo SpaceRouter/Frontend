@@ -64,6 +64,7 @@ class Home extends Component {
             <div className="cpu"></div>
           </div>
         </Row>
+        <div className="bas-de-page" />
       </Container>
     );
   }

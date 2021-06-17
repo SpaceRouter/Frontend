@@ -238,6 +238,7 @@ class MarketplaceDetails extends Component {
             )}
           </div>
         </Row>
+        <div className="bas-de-page-marketplaceDetails" />
       </Container>
     );
   }
