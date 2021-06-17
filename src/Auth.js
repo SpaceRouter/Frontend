@@ -73,7 +73,12 @@ class Auth extends Component {
             Identifiants non corrects.
           </Alert>
         )}
+
+      <footer className="foot">
+        &#169; OpenGate &#183; v.1.1 &#183; ESIEESPACE
+      </footer>
       </Form>
+      
     );
   }
 }

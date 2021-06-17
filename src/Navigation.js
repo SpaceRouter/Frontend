@@ -86,6 +86,9 @@ class Navigation extends Component {
               <NavDropdown.Item href="/appsinstalled">Applications installées</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <div className="footer">
+            &#169; OpenGate &#183; v.1.1 &#183; ESIEESPACE
+          </div>
         </Navbar.Collapse>
       </Navbar>
     );

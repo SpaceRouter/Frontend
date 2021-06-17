@@ -1,5 +1,6 @@
 html {
   background-color: #f2f3f5;
+  height: 100%;
 }
 
 body {
@@ -20,6 +21,9 @@ body::-webkit-scrollbar {
   }
   .block2 {
     top: 940px !important;
+  }
+  .bas-de-page {
+    top: 1240px !important;
   }
 }
 
@@ -111,10 +115,11 @@ body::-webkit-scrollbar {
   width: 50%;
 }
 
-.footer{
+.bas-de-page{
     position: absolute;
-    top: 1125px;
+    top: 1110px;
     width: 60%;
+    height: 50px;
     margin: auto;
     padding-top: 50px;   
     height: 1px;

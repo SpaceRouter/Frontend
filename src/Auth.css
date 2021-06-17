@@ -16,3 +16,12 @@
 .error {
   margin-top: 20px;
 }
+
+.foot {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 20px;
+  margin: auto;
+  font-size: 15px;
+  font-weight: lighter;
+}

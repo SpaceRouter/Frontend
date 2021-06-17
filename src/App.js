@@ -52,7 +52,7 @@ class App extends Component {
             <Route exact path="/marketplace-details" component={MarketplaceDetails} />
             <Route exact path="/appsinstalled" component={AppsInstalled} />
             <Route exact path="/appsinstalled-details" component={AppsInstalledDetails} />
-            <div className="footer">
+            <div className="bas-de-page">
             </div>
           </div>
           
