@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import { RAM_Chart_colors } from "../Constants";
+import { Four_Chart_colors } from "../Constants";
 
 export default class CPUChart extends Component {
   state = {
@@ -56,8 +56,8 @@ export default class CPUChart extends Component {
           datasets: [
             {
               data: this.state.data,
-              backgroundColor: RAM_Chart_colors,
-              borderColor: RAM_Chart_colors,
+              backgroundColor: Four_Chart_colors,
+              borderColor: Four_Chart_colors,
             },
           ],
         }}

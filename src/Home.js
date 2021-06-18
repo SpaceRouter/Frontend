@@ -6,6 +6,7 @@ import { updateTitlePage } from "./redux/action.js";
 import CPUChart from "./Charts/CPUChart.js";
 import RAMChart from "./Charts/RAMChart.js";
 import DiskChart from "./Charts/DiskChart.js";
+import NetworkChart from "./Charts/NetworkChart.js";
 import "./global.css";
 import "./Home.css";
 import { app } from "./Datas.js";
@@ -61,7 +62,9 @@ class Home extends Component {
             <div className="routeur">
               <DiskChart />
             </div>
-            <div className="cpu"></div>
+            <div className="cpu">
+              <NetworkChart />
+            </div>
           </div>
         </Row>
         <div className="bas-de-page" />

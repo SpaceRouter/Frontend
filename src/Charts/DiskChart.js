@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import { Disk_Chart_colors } from "../Constants";
+import { Two_Chart_colors } from "../Constants";
 
 export default class CPUChart extends Component {
   state = {
@@ -40,7 +40,7 @@ export default class CPUChart extends Component {
       labelsTemp.push("Free");
       dataTemp.push(json0.data.result[0].value[1] / 1000000000);
 
-      labelsTemp.push("Utilisé");
+      labelsTemp.push("Used");
       dataTemp.push(json1.data.result[0].value[1] / 1000000000 - dataTemp[0]);
 
       this.setState({ labels: labelsTemp, data: dataTemp });
@@ -60,8 +60,8 @@ export default class CPUChart extends Component {
           datasets: [
             {
               data: this.state.data,
-              backgroundColor: Disk_Chart_colors,
-              borderColor: Disk_Chart_colors,
+              backgroundColor: Two_Chart_colors,
+              borderColor: Two_Chart_colors,
             },
           ],
         }}
