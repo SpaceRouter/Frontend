@@ -112,7 +112,7 @@ export default class NetworkChart extends Component {
               text: "Network",
             },
             legend: {
-              display: true,
+              position: "left",
             },
           },
         }}
