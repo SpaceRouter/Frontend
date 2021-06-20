@@ -21,7 +21,7 @@ class Firewall extends Component {
   modificationOrDelete(index) {
     if (this.state.delete) {
       return (
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.firewallList[index])}>
+        <Button border="none" className="pen-button" onClick={() => console.log(this.state.firewallList[index])}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
@@ -30,7 +30,7 @@ class Firewall extends Component {
         <>
           <Button
             border="none"
-            style={{ backgroundColor: "#FFFFFF", border: "none" }}
+            className="pen-button"
             onClick={() => this.setState({ modalVisible: true, index: index })}
           >
             <FaPen className="modification" size="15px" />
@@ -85,7 +85,7 @@ class Firewall extends Component {
 
   render() {
     return (
-      <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>       
+      <Container fluid className="tab-contain">       
         <Row className="justify-content-center">
         <h2 style={{marginBottom:"20px", textAlign:"center"}}>NAT / PAT</h2>
           <Table responsive className="table">
@@ -103,7 +103,7 @@ class Firewall extends Component {
             </tbody>
           </Table>
         </Row>
-        <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%" }}>
+        <Row className="add-del">
           <Button
             className="button button1"
             onClick={() => {

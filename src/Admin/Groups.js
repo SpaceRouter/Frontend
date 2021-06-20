@@ -21,14 +21,14 @@ class Groups extends Component {
   modifyOrDelete(index) {
     if (this.state.delete) {
       return (
-        <Button style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => console.log(this.state.permissionsList[index])}>
+        <Button className="pen-button" onClick={() => console.log(this.state.permissionsList[index])}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
     } else {
       return (
         <>
-          <Button style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.setState({ modalVisible: true, index: index })}>
+          <Button className="pen-button" onClick={() => this.setState({ modalVisible: true, index: index })}>
             <FaPen className="modification" size="15px" />
           </Button>
 
@@ -95,13 +95,13 @@ class Groups extends Component {
 
   render() {
     return (
-      <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
+      <Container fluid className="tab-contain">
         <Row className="justify-content-center">
           <Table style={{ width: "55%" }}>
             <tbody>{this.displayGroupOptions()}</tbody>
           </Table>
         </Row>
-        <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%" }}>
+        <Row className="add-del">
           <Button
             className="button button1"
             onClick={() => {

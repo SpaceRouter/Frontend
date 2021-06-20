@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
-import "./PopUpFirewall.css";
+import "../PopUp.css";
 import { protocolesList } from "../Datas.js";
 
 const initialState = {
@@ -86,7 +86,7 @@ export default class PopUpFirewall extends Component {
         centered
       >
         <Modal.Body>
-          <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}> NAT / PAT </h3>
+          <h3 className="modal-title"> NAT / PAT </h3>
           <Table responsive>
             <tbody>
               <tr>

@@ -23,7 +23,7 @@ class DNS extends Component {
   modificationOrDelete(index) {
     if (this.state.delete) {
       return (
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.deleteDns(this.state.DNSList[index])}>
+        <Button border="none" className="pen-button" onClick={() => this.deleteDns(this.state.DNSList[index])}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
@@ -32,7 +32,7 @@ class DNS extends Component {
         <>
           <Button
             border="none"
-            style={{ backgroundColor: "#FFFFFF", border: "none" }}
+            className="pen-button"
             onClick={() => this.setState({ modalVisible: true, index: index })}
           >
             <FaPen className="modification" size="15px" />
@@ -143,7 +143,7 @@ class DNS extends Component {
 
   render() {
     return (
-      <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
+      <Container fluid className="tab-contain">
         <Row className="justify-content-center">
           {this.titleDns()}
           <Table responsive className="table">
@@ -169,7 +169,7 @@ class DNS extends Component {
             </tbody>
           </Table>
         </Row>
-        <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%" }}>
+        <Row className="add-del">
           {this.addButton()}
 
           <Button className="button button2" onClick={() => this.setState({ delete: !this.state.delete })}>

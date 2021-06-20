@@ -73,7 +73,7 @@ export default class PopUpGroups extends Component {
         centered
       >
         <Modal.Body>
-          <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}> {groupsList[this.state.index]} </h3>
+          <h3 className="modal-title"> {groupsList[this.state.index]} </h3>
           <Table responsive>
             <tbody>
               <tr>

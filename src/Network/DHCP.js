@@ -24,7 +24,7 @@ class DHCP extends Component {
     if (this.state.delete) {
       const { hostname, mac } = this.state.dhcp.fixed[index];
       return (
-        <Button border="none" style={{ backgroundColor: "#FFFFFF", border: "none" }} onClick={() => this.deleteDhcp(hostname, mac)}>
+        <Button border="none" className="pen-button" onClick={() => this.deleteDhcp(hostname, mac)}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
@@ -33,7 +33,7 @@ class DHCP extends Component {
         <>
           <Button
             border="none"
-            style={{ backgroundColor: "#FFFFFF", border: "none" }}
+            className="pen-button"
             onClick={() => this.setState({ modalVisible: true, index: index })}
           >
             <FaPen className="modification" size="15px" />
@@ -181,7 +181,7 @@ class DHCP extends Component {
 
   render() {
     return (
-      <Container fluid style={{ marginTop: 100, backgroundColor: "#F2F3F5" }}>
+      <Container fluid className="tab-contain">
         <Row className="justify-content-center">
           <h2 style={{ marginBottom: "20px" }}>Serveur DHCP</h2>
           <Table responsive className="table" style={{ marginBottom: "100px", width: "40%" }}>
@@ -218,7 +218,7 @@ class DHCP extends Component {
             <tbody>{this.displayDhcpDynamic()}</tbody>
           </Table>
         </Row>
-        <Row style={{ marginTop: 25, justifyContent: "flex-end", marginRight: "23%", marginBottom: "100px" }}>
+        <Row className="add-del">
           {this.addButton()}
 
           <Button className="button button2" onClick={() => this.setState({ delete: !this.state.delete })}>

@@ -54,3 +54,9 @@
 .button-validate:hover, .button-validate:focus, .button-validate:active {
   background-color: rgba(11, 56, 98, 0.8);
 }
+
+.modal-title {
+  text-align: center; 
+  font-weight: lighter;
+  margin-bottom: 25px; 
+}

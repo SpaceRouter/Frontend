@@ -12,54 +12,6 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-@media screen and (max-width: 1500px) {
-  .heimdall {
-    height: 550px !important;
-  }
-  .block1 {
-    top: 655px !important;
-  }
-  .block2 {
-    top: 940px !important;
-  }
-  .bas-de-page {
-    top: 1240px !important;
-  }
-}
-
-@media screen and (max-width: 720px) {
-  .heimdall {
-    height: 850px !important;
-    width: 80% !important;
-  }
-  .block1 {
-    width: 80% !important;
-    top: 975px !important;
-  }
-  .block2 {
-    top: 1600px !important;
-    width: 80% !important;
-  }
-  .usage {
-    width: 100% !important;
-    margin: auto;
-  }
-  .services {
-    width: 100% !important;
-    margin: auto;
-    margin-top: 45px !important;
-  }
-  .routeur {
-    width: 100% !important;
-    margin: auto;
-  }
-  .cpu {
-    width: 100% !important;
-    margin: auto;
-    margin-top: 45px !important;
-  }
-}
-
 @media screen and (max-width: 690px) {
   .search-bar {
     width: 60% !important;
@@ -115,13 +67,18 @@ body::-webkit-scrollbar {
   width: 50%;
 }
 
-.bas-de-page{
-    position: absolute;
-    top: 1110px;
-    width: 60%;
-    height: 50px;
-    margin: auto;
-    padding-top: 50px;   
-    height: 1px;
+.add-del {
+  margin-top: 25px;
+  Justify-Content: flex-end;
+  margin-right: 23%; 
 }
-    
+
+.tab-contain {
+  margin-top: 100px; 
+  background-color: #F2F3F5;
+}
+
+.pen-button {
+  background-color: #FFFFFF; 
+  border: none;
+}

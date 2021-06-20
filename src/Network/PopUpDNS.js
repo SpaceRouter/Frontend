@@ -108,7 +108,7 @@ export default class PopUpDNS extends Component {
         centered
       >
         <Modal.Body>
-          <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}> DNS </h3>
+          <h3 className="modal-title"> DNS </h3>
           <Table responsive>
             <tbody>
               <tr>

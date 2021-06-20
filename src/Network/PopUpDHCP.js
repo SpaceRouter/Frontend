@@ -115,7 +115,7 @@ export default class PopUpDHCP extends Component {
         centered
       >
         <Modal.Body>
-          <h3 style={{ textAlign: "center", fontWeight: "lighter", marginBottom: "25px" }}>DHCP statique</h3>
+          <h3 className="modal-title">DHCP statique</h3>
           <Table responsive>
             <tbody>
               <tr>

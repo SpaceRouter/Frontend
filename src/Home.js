@@ -30,41 +30,41 @@ class Home extends Component {
     return (
       <Container fluid>
         <Row className="justify-content-center">
-          <div className="heimdall">
-            {this.state.appList.map((app) => (
-              <Card style={{ width: "9rem", backgroundColor: "#F2F3F5", height: "250px", margin: "auto", borderRadius: "10px" }} key={app.id}>
-                <Card.Img className="img" variant="top" src={app.photo} />
-                <Card.Body>
-                  <Card.Title>{app.nom}</Card.Title>
-                  <div className="on-off">
-                    <Button variant="danger" style={{ marginRight: 8 }}>
-                      Off
-                    </Button>
-                    <Button variant="success">On</Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            ))}
-          </div>
-        </Row>
-        <Row className="justify-content-center">
           <div className="block1">
-            <div className="usage">
+            <div className="cpu">
               <CPUChart />
             </div>
-            <div className="services">
+            <div className="ram">
               <RAMChart />
             </div>
           </div>
         </Row>
         <Row className="justify-content-center">
           <div className="block2">
-            <div className="routeur">
+            <div className="disk">
               <DiskChart />
             </div>
-            <div className="cpu">
+            <div className="network">
               <NetworkChart />
             </div>
+          </div>
+        </Row>
+        <Row className="justify-content-center">
+          <div className="heimdall">
+            {this.state.appList.map((app) => (
+              <Card className="home-app" key={app.id}>
+                <Card.Img className="img" variant="top" src={app.photo} />
+                <Card.Body>
+                  <Card.Title>{app.nom}</Card.Title>
+                  <div className="on-off">
+                    <Button style={{ marginRight: 8, backgroundColor: "#D98880 ", border:"none" }}>
+                      Off
+                    </Button>
+                    <Button style={{ backgroundColor: "#82E0AA", border:"none" }}>On</Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            ))}
           </div>
         </Row>
         <div className="bas-de-page" />

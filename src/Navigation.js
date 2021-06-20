@@ -68,20 +68,20 @@ class Navigation extends Component {
             <FaUserAlt className="user-icon" size="80px" color="white" />
             <p className="username">{this.state.username}</p>
 
-            <Nav.Link style={{ Color:"white" }} href="/">{this.titleNav("Page d'accueil", FaHome)}</Nav.Link>
+            <Nav.Link href="/">{this.titleNav("Page d'accueil", FaHome)}</Nav.Link>
 
-            <NavDropdown style={{ Color:"white" }} title={this.titleNav("Administration", FaCog)}>
+            <NavDropdown title={this.titleNav("Administration", FaCog)}>
               <NavDropdown.Item href="/users">Utilisateurs</NavDropdown.Item>
               <NavDropdown.Item href="/groups">Groupes</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown style={{ Color:"white" }} title={this.titleNav("Réseau", FaNetworkWired)}>
+            <NavDropdown title={this.titleNav("Réseau", FaNetworkWired)}>
               <NavDropdown.Item href="/dhcp">DHCP</NavDropdown.Item>
               <NavDropdown.Item href="/dns">DNS</NavDropdown.Item>
               <NavDropdown.Item href="/firewall">Firewall</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown style={{ Color:"white" }} title={this.titleNav("Services", FaTools)}>
+            <NavDropdown title={this.titleNav("Services", FaTools)}>
               <NavDropdown.Item href="/marketplace">Magasin d'applications</NavDropdown.Item>
               <NavDropdown.Item href="/appsinstalled">Applications installées</NavDropdown.Item>
             </NavDropdown>
