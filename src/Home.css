@@ -1,148 +1,143 @@
 @media screen and (max-width: 1400px) {
-    .bas-de-page {
-      top: 1400px !important;
-    }
+  .bas-de-page {
+    top: 1400px !important;
+  }
 }
 
 @media screen and (max-width: 720px) {
-    .heimdall {
-      top: 1375px !important;
-      width: 80% !important;
-    }
-    .block1 {
-      width: 80% !important;
-    }
-    .block2 {
-      top: 740px !important;
-      width: 80% !important;
-    }
-    .cpu {
-      width: 100% !important;
-      margin: auto;
-    }
-    .ram {
-      width: 100% !important;
-      margin: auto;
-      margin-top: 45px !important;
-    }
-    .disk {
-      width: 100% !important;
-      margin: auto;
-    }
-    .network {
-      width: 100% !important;
-      margin: auto;
-      margin-top: 45px !important;
-    }
-    .bas-de-page {
-        top: 2050px !important;
-    }
+  .heimdall {
+    top: 1375px !important;
+    width: 80% !important;
+  }
+  .block1 {
+    width: 80% !important;
+  }
+  .block2 {
+    top: 740px !important;
+    width: 80% !important;
+  }
+  .cpu {
+    width: 100% !important;
+    margin: auto;
+  }
+  .ram {
+    width: 100% !important;
+    margin: auto;
+    margin-top: 45px !important;
+  }
+  .disk {
+    width: 100% !important;
+    margin: auto;
+  }
+  .network {
+    width: 100% !important;
+    margin: auto;
+    margin-top: 45px !important;
+  }
+  .bas-de-page {
+    top: 2050px !important;
+  }
 }
 
 .block1 {
-    position: absolute;
-    width: 60%;
-    height: 270px;
-    margin: auto;
-    top: 100px;
-    background: #F2F3F5;
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
+  position: absolute;
+  width: 60%;
+  height: 270px;
+  margin: auto;
+  top: 100px;
+  background: #f2f3f5;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .block2 {
-    position: absolute;
-    width: 60%;
-    height: 270px;
-    margin: auto;
-    top: 420px;
-    background: #F2F3F5;
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
+  position: absolute;
+  width: 60%;
+  height: 270px;
+  margin: auto;
+  top: 420px;
+  background: #f2f3f5;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .heimdall {
-    position: absolute;
-    width: 60%;
-    height: auto;
-    padding-top: 65px;
-    padding-bottom: 30px;
-    margin: auto;
-    top: 740px;
-    background: #FFFFFF;
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  position: absolute;
+  width: 60%;
+  height: auto;
+  padding-top: 65px;
+  padding-bottom: 30px;
+  margin: auto;
+  top: 740px;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .img {
-    width: 130px;
-    max-width: 100%;
-	height: auto;
-    margin: auto;
-    margin-top: 5px;
-    border-radius: 90px;
+  width: 130px;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  margin-top: 5px;
+  border-radius: 90px;
 }
 
 .cpu {
-    width: 58%;
-    margin: auto;
-    height: 100%;
-    margin-left: 0;
-    background: #FFFFFF;
-    border-radius: 10px;
+  width: 58%;
+  margin: auto;
+  height: 100%;
+  margin-left: 0;
+  background: #ffffff;
+  border-radius: 10px;
 }
 
 .ram {
-    width: 39%;
-    margin: auto;
-    height: 100%;
-    margin-right: 0;
-    background: #FFFFFF;
-    border-radius: 10px;
+  width: 39%;
+  margin: auto;
+  height: 100%;
+  margin-right: 0;
+  background: #ffffff;
+  border-radius: 10px;
 }
 
 .disk {
-    width: 39%;
-    margin: auto;
-    height: 100%;
-    margin-left: 0;
-    background: #FFFFFF;
-    border-radius: 10px;
+  width: 39%;
+  margin: auto;
+  height: 100%;
+  margin-left: 0;
+  background: #ffffff;
+  border-radius: 10px;
 }
 
 .network {
-    width: 58%;
-    margin: auto;
-    height: 100%;
-    margin-right: 0;
-    background: #FFFFFF;
-    border-radius: 10px;
-}
-
-.on-off {
-    display: flex;
-    justify-content: center;
+  width: 58%;
+  margin: auto;
+  height: 100%;
+  margin-right: 0;
+  background: #ffffff;
+  border-radius: 10px;
 }
 
 .home-app {
-    width: 9rem;
-    background-color: #F2F3F5; 
-    height: 250px;
-    margin: auto; 
-    margin-bottom: 35px;
-    border-radius: 10px;
+  width: 9rem;
+  background-color: #f2f3f5;
+  height: 250px;
+  margin: auto;
+  margin-bottom: 35px;
+  border-radius: 10px;
 }
 
-.bas-de-page{
-    position: absolute;
-    top: 1125px;
-    width: 60%;
-    height: 50px;
-    margin: auto;
-    padding-top: 50px;   
-    height: 1px;
+.bas-de-page {
+  position: absolute;
+  top: 1125px;
+  width: 60%;
+  height: 50px;
+  margin: auto;
+  padding-top: 50px;
+  height: 1px;
 }

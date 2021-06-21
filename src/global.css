@@ -82,3 +82,8 @@ body::-webkit-scrollbar {
   background-color: #FFFFFF; 
   border: none;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}

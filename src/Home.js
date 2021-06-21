@@ -55,12 +55,14 @@ class Home extends Component {
               <Card className="home-app" key={app.id}>
                 <Card.Img className="img" variant="top" src={app.photo} />
                 <Card.Body>
-                  <Card.Title>{app.nom}</Card.Title>
-                  <div className="on-off">
-                    <Button style={{ marginRight: 8, backgroundColor: "#D98880 ", border:"none" }}>
+                  <Card.Title className="center">{app.nom}</Card.Title>
+                  <div className="center">
+                    <Button style={{ marginRight: 8, backgroundColor: "#CE6358", border: "none" }} variant="danger">
                       Off
                     </Button>
-                    <Button style={{ backgroundColor: "#82E0AA", border:"none" }}>On</Button>
+                    <Button style={{ backgroundColor: "#3DD07C", border: "none" }} variant="success">
+                      On
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>

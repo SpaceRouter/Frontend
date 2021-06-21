@@ -2,7 +2,7 @@ import Cookies from "universal-cookie";
 
 export function setCookie(name, value) {
   const cookie = new Cookies();
-  cookie.set(name, value, { path: "/" });
+  cookie.set(name, value, { path: "/", sameSite: "lax" });
 }
 
 export function getCookie(name) {
