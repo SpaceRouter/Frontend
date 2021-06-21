@@ -189,7 +189,6 @@ class MarketplaceDetails extends Component {
   }
 
   formToDownload = () => {
-    console.log(this.state.downloadAppli);
     const { appli } = this.state;
     this.setState({
       downloadAppli: {
@@ -204,10 +203,11 @@ class MarketplaceDetails extends Component {
   };
 
   downloadAppli = async () => {
+    await this.formToDownload();
     const response = await fetch("http://192.168.10.151:8082/v1/stack", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(this.state.appli),
+      body: JSON.stringify(this.state.downloadAppli),
     });
     if (response.status === 200) {
       this.setState({ install: "ok" });

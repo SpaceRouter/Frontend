@@ -98,6 +98,4 @@ export const firewall = [
   },
 ];
 
-export const protocolesList = ["TCP", "UDP", "TCP/UDP"];
-
 export const permissionsList = ["permission1", "permission2", "permission3", "permission4"];

@@ -31,11 +31,7 @@ class DHCP extends Component {
     } else {
       return (
         <>
-          <Button
-            border="none"
-            className="pen-button"
-            onClick={() => this.setState({ modalVisible: true, index: index })}
-          >
+          <Button border="none" className="pen-button" onClick={() => this.setState({ modalVisible: true, index: index })}>
             <FaPen className="modification" size="15px" />
           </Button>
 
@@ -92,26 +88,13 @@ class DHCP extends Component {
     const title = ["Sous-réseau", "Adresse IP de début", "Adresse IP de IP fin", "Masque de sous-réseau", "Serveur DNS", "Domaine DNS"];
     return title.map((title, index) => (
       <tr key={title}>
-        <td className="option option-blue">
-          {title}
-        </td>
+        <td className="option option-blue">{title}</td>
         <td className="option-value">{this.state.scope[index]}</td>
       </tr>
     ));
   }
 
   displayDhcpDynamic() {
-    return this.state.dhcp.fixed.map((baux_dhcp_static, index) => (
-      <tr key={baux_dhcp_static.mac}>
-        <td>{baux_dhcp_static.ip}</td>
-        <td>{baux_dhcp_static.hostname}</td>
-        <td className="tel">{baux_dhcp_static.mac}</td>
-        <td>{this.modifyOrDelete(index)}</td>
-      </tr>
-    ));
-  }
-
-  displayDhcpStatic() {
     return this.state.dhcp.staging.map((baux_dhcp) => (
       <tr key={baux_dhcp.ip}>
         <td>{baux_dhcp.ip}</td>
@@ -123,7 +106,18 @@ class DHCP extends Component {
       </tr>
     ));
   }
-  
+
+  displayDhcpStatic() {
+    return this.state.dhcp.fixed.map((baux_dhcp_static, index) => (
+      <tr key={baux_dhcp_static.mac}>
+        <td>{baux_dhcp_static.ip}</td>
+        <td>{baux_dhcp_static.hostname}</td>
+        <td className="tel">{baux_dhcp_static.mac}</td>
+        <td>{this.modifyOrDelete(index)}</td>
+      </tr>
+    ));
+  }
+
   titleDhcpDynamic() {
     return (
       <Col>
@@ -201,7 +195,7 @@ class DHCP extends Component {
                 <th> </th>
               </tr>
             </thead>
-            <tbody>{this.displayDhcpStatic()}</tbody>
+            <tbody>{this.displayDhcpDynamic()}</tbody>
           </Table>
         </Row>
         <Row className="justify-content-center">
@@ -215,7 +209,7 @@ class DHCP extends Component {
                 <th> </th>
               </tr>
             </thead>
-            <tbody>{this.displayDhcpDynamic()}</tbody>
+            <tbody>{this.displayDhcpStatic()}</tbody>
           </Table>
         </Row>
         <Row className="add-del">

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Container, Row, Table, Button } from "react-bootstrap";
-import Cookies from "universal-cookie";
 import { connect } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 
 import { updateTitlePage } from "../redux/action.js";
 import PopUpFirewall from "./PopUpFirewall.js";
+import { getCookie } from "../Cookies";
 import "./Firewall.css";
 import "../global.css";
 
@@ -14,33 +14,32 @@ class Firewall extends Component {
   state = {
     modalVisible: false,
     NATRules: [],
-    index: "-1",
+    index: "",
     delete: false,
-  }
+  };
 
   modificationOrDelete(index) {
     if (this.state.delete) {
       return (
-        <Button border="none" className="pen-button" onClick={() => console.log(this.state.firewallList[index])}>
+        <Button border="none" className="pen-button" onClick={() => this.deleteNat(this.state.NATRules[index])}>
           <MdDelete className="modification" size="20px" />
         </Button>
       );
     } else {
       return (
         <>
-          <Button
-            border="none"
-            className="pen-button"
-            onClick={() => this.setState({ modalVisible: true, index: index })}
-          >
+          <Button border="none" className="pen-button" onClick={() => this.setState({ modalVisible: true, index: index })}>
             <FaPen className="modification" size="15px" />
           </Button>
 
           <PopUpFirewall
             show={this.state.modalVisible}
-            onHide={() => this.setState({ modalVisible: false })}
-            firewallList={this.state.firewallList}
-            indexFirewall={this.state.index}
+            onHide={() => {
+              this.getNATRules();
+              this.setState({ modalVisible: false, index: "" });
+            }}
+            NATRules={this.state.NATRules}
+            indexNAT={this.state.index}
           />
         </>
       );
@@ -48,33 +47,70 @@ class Firewall extends Component {
   }
 
   addButton() {
-    return <PopUpFirewall show={this.state.modalVisible} onHide={() => this.setState({ modalVisible: false })} />;
+    return (
+      <>
+        <Button className="button button1" onClick={() => this.setState({ modalVisible: true })}>
+          <MdAddCircle size="20px" className="add" />
+          AJOUTER
+        </Button>
+
+        <PopUpFirewall
+          show={this.state.modalVisible}
+          onHide={() => {
+            this.getNATRules();
+            this.setState({ modalVisible: false, index: "" });
+          }}
+          NATRules={this.state.NATRules}
+          indexNAT={this.state.index}
+        />
+      </>
+    );
   }
+
+  deleteNat = async (NATRule) => {
+    const token = getCookie("jwt_token");
+    const response = await fetch(
+      `http://192.168.10.151:8081/nat/dnat/PREROUTING/${NATRule.Protocol}/+/0.0.0.0_0/0.0.0.0_0/${NATRule.Destination}/?dport=${NATRule.DestinationPort}`,
+      {
+        method: "DELETE",
+        headers: { authorization: token },
+      }
+    );
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      this.getNATRules();
+    }
+  };
 
   displayNATRules() {
     return this.state.NATRules.map((NAT, index) => (
       <tr key={NAT.Destination}>
-        <td className="tel"><Button variant="outline-dark" disabled>
-          {NAT.Protocol}
-        </Button></td>
+        <td className="tel">
+          <Button variant="outline-dark" disabled>
+            {NAT.Protocol.toUpperCase()}
+          </Button>
+        </td>
         <td>{NAT.DestinationPort}</td>
-        <td className="tel">{NAT.Destination.split(":")[0]}</td>
-        <td>{NAT.Destination.split(":")[1]}</td>
+        <td className="tel">{NAT.Destination.split(":")[1]}</td>
+        <td>{NAT.Destination.split(":")[0]}</td>
         <td>{this.modificationOrDelete(index)}</td>
       </tr>
-    ))
+    ));
   }
 
   getNATRules = async () => {
-    const cookies = new Cookies();
-    const token = cookies.get("jwt_token");
+    const token = getCookie("jwt_token");
     const response = await fetch("http://192.168.10.151:8081/chain/nat/PREROUTING/", {
       method: "GET",
-      headers: { "content-type": "application/json", authorization: token },
+      headers: { authorization: token },
     });
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
-      this.setState({ NATRules: json.Chains });
+      if (json.Chains) {
+        this.setState({ NATRules: json.Chains });
+      } else {
+        this.setState({ NATRules: [] });
+      }
     }
   };
 
@@ -85,9 +121,9 @@ class Firewall extends Component {
 
   render() {
     return (
-      <Container fluid className="tab-contain">       
+      <Container fluid className="tab-contain">
         <Row className="justify-content-center">
-        <h2 style={{marginBottom:"20px", textAlign:"center"}}>NAT / PAT</h2>
+          <h2 style={{ marginBottom: "20px", textAlign: "center" }}>NAT / PAT</h2>
           <Table responsive className="table">
             <thead className="head">
               <tr>
@@ -98,22 +134,11 @@ class Firewall extends Component {
                 <th> </th>
               </tr>
             </thead>
-            <tbody>
-                {this.displayNATRules()}
-            </tbody>
+            <tbody>{this.displayNATRules()}</tbody>
           </Table>
         </Row>
         <Row className="add-del">
-          <Button
-            className="button button1"
-            onClick={() => {
-              this.setState({ modalVisible: true });
-              this.addButton();
-            }}
-          >
-            <MdAddCircle size="20px" className="add" />
-            AJOUTER
-          </Button>
+          {this.addButton()}
 
           <Button className="button button2" onClick={() => this.setState({ delete: !this.state.delete })}>
             <MdDelete size="20px" className="delete" />

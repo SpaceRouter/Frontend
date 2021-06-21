@@ -81,10 +81,13 @@ export default class PopUpDHCP extends Component {
     if (indexBauxDHCPStatic !== "" && indexBauxDHCPStatic !== prevProps.indexBauxDHCPStatic) {
       this.setState({
         index: indexBauxDHCPStatic,
+
         hostname: baux_dhcp_staticList[indexBauxDHCPStatic].hostname,
         hostnameBack: baux_dhcp_staticList[indexBauxDHCPStatic].hostname,
+
         mac: baux_dhcp_staticList[indexBauxDHCPStatic].mac,
         macBack: baux_dhcp_staticList[indexBauxDHCPStatic].mac,
+        
         ip: baux_dhcp_staticList[indexBauxDHCPStatic].ip,
       });
     }

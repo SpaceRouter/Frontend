@@ -1,30 +1,35 @@
 import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
+import { getCookie } from "../Cookies";
 import "../PopUp.css";
-import { protocolesList } from "../Datas.js";
+import { protocolsList } from "../Constants";
 
 const initialState = {
   index: "",
-  protocoles: "TCP",
-  port_entree: "",
-  port_destination: "",
+  protocol: "TCP",
+  protocolBack: "",
+  destinationPort: "",
+  destinationPortBack: "",
+  destination: "",
+  destinationBack: "",
   ip: "",
+  ipBack: "",
 };
 
 export default class PopUpFirewall extends Component {
   state = initialState;
 
-  handleProtocolesUpdate = (protocoles) => {
-    this.setState({ protocoles: protocoles.target.value });
+  handleProtocolUpdate = (protocol) => {
+    this.setState({ protocol: protocol.target.value });
   };
 
-  handlePortEntreeUpdate = (port_entree) => {
-    this.setState({ port_entree: port_entree.target.value });
+  handleDestinationPortUpdate = (destinationPort) => {
+    this.setState({ destinationPort: destinationPort.target.value });
   };
 
-  handlePortDestinationUpdate = (port_destination) => {
-    this.setState({ port_destination: port_destination.target.value });
+  handleDestinationUpdate = (destination) => {
+    this.setState({ destination: destination.target.value });
   };
 
   handleIpUpdate = (ip) => {
@@ -33,46 +38,100 @@ export default class PopUpFirewall extends Component {
 
   prevPage = () => {
     if (this.state.index > 0) {
-      console.log(this.state);
       this.setState({ index: this.state.index - 1 });
     }
   };
 
   nextPage = () => {
-    if (this.state.index < this.props.firewallList.length - 1) {
-      console.log(this.state);
+    if (this.state.index < this.props.NATRules.length - 1) {
       this.setState({ index: this.state.index + 1 });
     }
   };
 
-  addFirewall = () => {
-    console.log(this.state);
-    this.setState({ ...initialState });
-    this.props.onHide();
+  addRule = async () => {
+    const { protocol, destination, ip, destinationPort } = this.state;
+    const token = getCookie("jwt_token");
+    const response = await fetch(
+      `http://192.168.10.151:8081/nat/dnat/PREROUTING/${protocol}/+/0.0.0.0_0/0.0.0.0_0/${ip + ":" + destination}/?dport=${destinationPort}`,
+      {
+        method: "PUT",
+        headers: { authorization: token },
+      }
+    );
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      this.props.onHide();
+    }
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { firewallList, indexFirewall } = this.props;
+  modifyRule = async () => {
+    const { protocol, protocolBack, destination, destinationBack, ip, ipBack, destinationPort, destinationPortBack } = this.state;
+    const token = getCookie("jwt_token");
+    const response = await fetch(
+      `http://192.168.10.151:8081/nat/dnat/PREROUTING/${protocolBack}/+/0.0.0.0_0/0.0.0.0_0/${
+        ipBack + ":" + destinationBack
+      }/?dport=${destinationPortBack}`,
+      {
+        method: "DELETE",
+        headers: { authorization: token },
+      }
+    );
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      await fetch(
+        `http://192.168.10.151:8081/nat/dnat/PREROUTING/${protocol}/+/0.0.0.0_0/0.0.0.0_0/${ip + ":" + destination}/?dport=${destinationPort}`,
+        {
+          method: "PUT",
+          headers: { authorization: token },
+        }
+      );
+    }
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    const { NATRules, indexNAT } = this.props;
     const { index } = this.state;
-    if (indexFirewall !== prevProps.indexFirewall) {
+    if (indexNAT !== "" && indexNAT !== prevProps.indexNAT) {
       this.setState({
-        index: indexFirewall,
-        protocoles: firewallList[indexFirewall].protocoles,
-        port_entree: firewallList[indexFirewall].port_entree,
-        port_destination: firewallList[indexFirewall].port_destination,
-        ip: firewallList[indexFirewall].ip,
+        index: indexNAT,
+
+        protocol: NATRules[indexNAT].Protocol.toUpperCase(),
+        protocolBack: NATRules[indexNAT].Protocol.toUpperCase(),
+
+        destinationPort: NATRules[indexNAT].DestinationPort,
+        destinationPortBack: NATRules[indexNAT].DestinationPort,
+
+        destination: NATRules[indexNAT].Destination.split(":")[1],
+        destinationBack: NATRules[indexNAT].Destination.split(":")[1],
+
+        ip: NATRules[indexNAT].Destination.split(":")[0],
+        ipBack: NATRules[indexNAT].Destination.split(":")[0],
       });
     }
     if (index !== "" && index !== prevState.index) {
-      this.setState({
-        index: index,
-        protocoles: firewallList[index].protocoles,
-        port_entree: firewallList[index].port_entree,
-        port_destination: firewallList[index].port_destination,
-        ip: firewallList[index].ip,
+      const token = getCookie("jwt_token");
+      const response = await fetch("http://192.168.10.151:8081/chain/nat/PREROUTING/", {
+        method: "GET",
+        headers: { authorization: token },
       });
+      let json = await response.json();
+      if (response.status === 200 && json.Ok) {
+        this.setState({
+          protocol: json.Chains[index].Protocol.toUpperCase(),
+          protocolBack: json.Chains[index].Protocol.toUpperCase(),
+
+          destinationPort: json.Chains[index].DestinationPort,
+          destinationPortBack: json.Chains[index].DestinationPort,
+
+          destination: json.Chains[index].Destination.split(":")[1],
+          destinationBack: json.Chains[index].Destination.split(":")[1],
+
+          ip: json.Chains[index].Destination.split(":")[0],
+          ipBack: json.Chains[index].Destination.split(":")[0],
+        });
+      }
     }
-  }
+  };
 
   render() {
     return (
@@ -93,25 +152,30 @@ export default class PopUpFirewall extends Component {
                 <td className="option">PROTOCOLES</td>
                 <td> </td>
                 <td className="option-value">
-                  <Form.Control as="select" value={this.state.protocoles} onChange={this.handleProtocolesUpdate}>
-                    {protocolesList.map((protocoles) => (
-                      <option key={protocoles}>{protocoles}</option>
+                  <Form.Control as="select" value={this.state.protocol} onChange={this.handleProtocolUpdate}>
+                    {protocolsList.map((protocol) => (
+                      <option key={protocol}>{protocol}</option>
                     ))}
                   </Form.Control>
                 </td>
               </tr>
               <tr>
-                <td className="option">PORT_ENTREE</td>
+                <td className="option">PORT ENTREE</td>
                 <td> </td>
                 <td className="option-value">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.port_entree} onChange={this.handlePortEntreeUpdate} />
+                  <Form.Control
+                    style={{ width: "auto" }}
+                    type="text"
+                    value={this.state.destinationPort}
+                    onChange={this.handleDestinationPortUpdate}
+                  />
                 </td>
               </tr>
               <tr>
-                <td className="option">PORT_DESTINATION</td>
+                <td className="option">PORT DESTINATION</td>
                 <td> </td>
                 <td className="option-value">
-                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.port_destination} onChange={this.handlePortDestinationUpdate} />
+                  <Form.Control style={{ width: "auto" }} type="text" value={this.state.destination} onChange={this.handleDestinationUpdate} />
                 </td>
               </tr>
               <tr>
@@ -126,14 +190,17 @@ export default class PopUpFirewall extends Component {
           {this.state.index !== "" && (
             <Pagination className="arrow">
               <Pagination.Prev onClick={this.prevPage} />
+              <Button className="button-validate" onClick={this.modifyRule}>
+                VALIDER
+              </Button>
               <Pagination.Next className="next-arrow" onClick={this.nextPage} />
             </Pagination>
           )}
           {this.state.index === "" && (
-            <div className="button-center" >
-            <Button className="button-add" onClick={this.addFirewall}>
-              AJOUTER
-            </Button>
+            <div className="button-center">
+              <Button className="button-add" onClick={this.addRule}>
+                AJOUTER
+              </Button>
             </div>
           )}
         </Modal.Body>
