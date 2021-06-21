@@ -83,6 +83,14 @@ body::-webkit-scrollbar {
   border: none;
 }
 
+.pen-button:hover, 
+.pen-button:focus,
+.pen-button:active {
+  background-color: #FFFFFF !important;
+  border: none !important;
+}
+
+
 .center {
   display: flex;
   justify-content: center;
