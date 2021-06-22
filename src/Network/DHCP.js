@@ -5,8 +5,8 @@ import { MdDelete, MdAddCircle } from "react-icons/md";
 import { AiOutlineReload } from "react-icons/ai";
 import { FaPen } from "react-icons/fa";
 
-import { updateTitlePage } from "../redux/action.js";
-import PopUpDHCP from "./PopUpDHCP.js";
+import { updateTitlePage } from "../redux/action";
+import PopUpDHCP from "./PopUpDHCP";
 import "./DHCP.css";
 import "../global.css";
 

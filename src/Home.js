@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Container, Row, Card, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "./redux/action.js";
-import CPUChart from "./Charts/CPUChart.js";
-import RAMChart from "./Charts/RAMChart.js";
-import DiskChart from "./Charts/DiskChart.js";
-import NetworkChart from "./Charts/NetworkChart.js";
+import { updateTitlePage } from "./redux/action";
+import CPUChart from "./Charts/CPUChart";
+import RAMChart from "./Charts/RAMChart";
+import DiskChart from "./Charts/DiskChart";
+import NetworkChart from "./Charts/NetworkChart";
 import "./global.css";
 import "./Home.css";
-import { app } from "./Datas.js";
+import { app } from "./Datas";
 
 class Home extends Component {
   state = {

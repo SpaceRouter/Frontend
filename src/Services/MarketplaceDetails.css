@@ -101,6 +101,14 @@
   font-weight: lighter;
 }
 
+.service-name {
+  width: 30%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
 .modif {
   display: inline;
   width: 45%;

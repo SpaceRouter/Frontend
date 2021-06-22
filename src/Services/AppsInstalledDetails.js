@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "../redux/action.js";
+import { updateTitlePage } from "../redux/action";
 
 class AppsInstalledDetails extends Component {
   componentDidMount() {

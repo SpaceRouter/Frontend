@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
-import { groupsList, permissionsList } from "../Datas.js";
+import { groupsList, permissionsList } from "../Constants";
 import "../PopUp.css";
 
 const initialState = {

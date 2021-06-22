@@ -5,7 +5,7 @@ import { MdAddCircle, MdFileDownload } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "../redux/action.js";
+import { updateTitlePage } from "../redux/action";
 import "../global.css";
 import "./MarketplaceDetails.css";
 
@@ -14,6 +14,12 @@ class MarketplaceDetails extends Component {
     appli: { Services: [] },
     downloadAppli: {},
     install: "",
+  };
+
+  handleNameUpdate = (index0)=> (name) => {
+    let appli = this.state.appli;
+    appli.Services[index0].Name = name.target.value;
+    this.setState({ appli });
   };
 
   handleImageUpdate = (index0) => (image) => {
@@ -87,6 +93,93 @@ class MarketplaceDetails extends Component {
     return day + "-" + month + "-" + year;
   };
 
+  formNetworks() {
+    const { appli } = this.state;
+    let networks = [];
+    appli.Networks.map((network) => networks.push({ Name: network.Name }));
+    return networks;
+  }
+
+  formServicesEnvs(index) {
+    const { appli } = this.state;
+    let envs = [];
+    appli.Services[index].Envs.map((env) => envs.push({ Name: env.Name, Value: env.DefaultValue }));
+    return envs;
+  }
+
+  formServicesNetworks(index) {
+    const { appli } = this.state;
+    let networks = [];
+    appli.Services[index].Networks.map((network) => networks.push({ Name: network.Name }));
+    return networks;
+  }
+
+  formServicesPorts(index) {
+    const { appli } = this.state;
+    let ports = [];
+    appli.Services[index].Ports.map((port) => ports.push({ InputPort: port.InputPort, OutputPort: port.OutputPort }));
+    return ports;
+  }
+
+  formServicesVolumes(index) {
+    const { appli } = this.state;
+    let volumes = [];
+    appli.Services[index].Volumes.map((volume) => volumes.push({ MountPoint: volume.MountPoint, Name: volume.Name }));
+    return volumes;
+  }
+
+  formServices() {
+    const { appli } = this.state;
+    let services = [];
+    appli.Services.map((service, index) =>
+      services.push({
+        Envs: this.formServicesEnvs(index),
+        Image: service.Image,
+        ImageVersion: service.ImageVersion,
+        Name: service.Name,
+        Networks: this.formServicesNetworks(index),
+        Ports: this.formServicesPorts(index),
+        Volumes: this.formServicesVolumes(index),
+      })
+    );
+    return services;
+  }
+
+  formVolumes() {
+    const { appli } = this.state;
+    let volumes = [];
+    appli.Volumes.map((volume) => volumes.push({ Name: volume.Name }));
+    return volumes;
+  }
+
+  formToDownload = () => {
+    const { appli } = this.state;
+    this.setState({
+      downloadAppli: {
+        Description: appli.Description,
+        Icon: appli.Icon,
+        Name: appli.Name,
+        Networks: this.formNetworks(),
+        Services: this.formServices(),
+        Volumes: this.formVolumes(),
+      },
+    });
+  };
+
+  downloadAppli = async () => {
+    await this.formToDownload();
+    const response = await fetch("http://192.168.10.151:8082/v1/stack", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(this.state.downloadAppli),
+    });
+    if (response.status === 200) {
+      this.setState({ install: "ok" });
+    } else {
+      this.setState({ install: "error" });
+    }
+  };
+
   displayEnvs(service, index0) {
     return (
       <>
@@ -129,98 +222,11 @@ class MarketplaceDetails extends Component {
     ));
   }
 
-  formNetworks() {
-    const { appli } = this.state;
-    let networks = [];
-    appli.Networks.map((network) => networks.push({ name: network.Name }));
-    return networks;
-  }
-
-  formServicesEnvs(index) {
-    const { appli } = this.state;
-    let envs = [];
-    appli.Services[index].Envs.map((env) => envs.push({ name: env.Name, value: env.DefaultValue }));
-    return envs;
-  }
-
-  formServicesNetworks(index) {
-    const { appli } = this.state;
-    let networks = [];
-    appli.Services[index].Networks.map((network) => networks.push({ name: network.Name }));
-    return networks;
-  }
-
-  formServicesPorts(index) {
-    const { appli } = this.state;
-    let ports = [];
-    appli.Services[index].Ports.map((port) => ports.push({ inputPort: port.InputPort, outputPort: port.OutputPort }));
-    return ports;
-  }
-
-  formServicesVolumes(index) {
-    const { appli } = this.state;
-    let volumes = [];
-    appli.Services[index].Volumes.map((volume) => volumes.push({ mountPoint: volume.MountPoint, name: volume.Name }));
-    return volumes;
-  }
-
-  formServices() {
-    const { appli } = this.state;
-    let services = [];
-    appli.Services.map((service, index) =>
-      services.push({
-        envs: this.formServicesEnvs(index),
-        image: service.Image,
-        imageVersion: service.ImageVersion,
-        name: service.Name,
-        networks: this.formServicesNetworks(index),
-        ports: this.formServicesPorts(index),
-        volumes: this.formServicesVolumes(index),
-      })
-    );
-    return services;
-  }
-
-  formVolumes() {
-    const { appli } = this.state;
-    let volumes = [];
-    appli.Volumes.map((volume) => volumes.push({ name: volume.Name }));
-    return volumes;
-  }
-
-  formToDownload = () => {
-    const { appli } = this.state;
-    this.setState({
-      downloadAppli: {
-        description: appli.Description,
-        icon: appli.Icon,
-        name: appli.Name,
-        networks: this.formNetworks(),
-        services: this.formServices(),
-        volumes: this.formVolumes(),
-      },
-    });
-  };
-
-  downloadAppli = async () => {
-    await this.formToDownload();
-    const response = await fetch("http://192.168.10.151:8082/v1/stack", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(this.state.downloadAppli),
-    });
-    if (response.status === 200) {
-      this.setState({ install: "ok" });
-    } else {
-      this.setState({ install: "error" });
-    }
-  };
-
   getServicesInfos() {
     const { appli } = this.state;
     return appli.Services.map((service, index0) => (
       <div key={service.ID} className="services-details">
-        <h4 style={{ textAlign: "center", marginBottom: "25px" }}>{service.Name}</h4>
+        <Form.Control className="service-name" type="text" value={service.Name} onChange={this.handleNameUpdate(index0)} />
         <Tabs defaultActiveKey="image" transition={false} className="tabs">
           <Tab eventKey="image" title="Image">
             <div className="navig">
@@ -232,19 +238,19 @@ class MarketplaceDetails extends Component {
               </p>
             </div>
           </Tab>
-          <Tab eventKey="var" title="Environnements">
+          <Tab eventKey="envs" title="Environnements">
             <div className="navig">
               <p>Variable(s) d'environnement(s) : </p>
               {this.displayEnvs(service, index0)}
             </div>
           </Tab>
-          <Tab eventKey="Volumes" title="Volumes">
+          <Tab eventKey="volumes" title="Volumes">
             <div className="navig">
               <p>Volume(s) : </p>
               {this.displayVolumes(service, index0)}
             </div>
           </Tab>
-          <Tab eventKey="Réseaux" title="Réseaux">
+          <Tab eventKey="networks" title="Réseaux">
             <div className="navig">
               <p>Réseau(x) : </p>
               {this.displayNetworks(service)}
@@ -254,6 +260,26 @@ class MarketplaceDetails extends Component {
       </div>
     ));
   }
+
+  addService = () => {
+    let appli = this.state.appli;
+    const timeElapsed = Date.now();
+    const date = new Date(timeElapsed);
+    appli.Services = [
+      ...appli.Services,
+      {
+        ID: date.toISOString(),
+        Name: "Nouveau service",
+        Image: "",
+        ImageVersion: "",
+        Envs: [{ ID: date.toISOString(), Name: "", DefaultValue: "" }],
+        Volumes: [{ ID: date.toISOString(), Name: "", MountPoint: "" }],
+        Networks: [{ ID: date.toISOString(), Name: "" }],
+        Ports: [],
+      },
+    ];
+    this.setState({ appli });
+  };
 
   getAppliInfo = async () => {
     const { appli } = this.props.location.state;
@@ -290,7 +316,7 @@ class MarketplaceDetails extends Component {
             <p className="description-appli">{appli.Description}</p>
             <h4 style={{ marginBottom: "50px", marginLeft: "25px" }}>Services :</h4>
             <div className="services-appli">{this.getServicesInfos()}</div>
-            <Button className="new-services" onClick={this.formToDownload}>
+            <Button className="new-services" onClick={this.addService}>
               Nouveau service
             </Button>
             <Button className="download" onClick={this.downloadAppli}>

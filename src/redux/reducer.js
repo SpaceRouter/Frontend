@@ -1,4 +1,4 @@
-import { UPDATE_STATE_SIDE_BAR, UPDATE_TITLE_PAGE, UPDATE_AUTH } from "./action.js";
+import { UPDATE_STATE_SIDE_BAR, UPDATE_TITLE_PAGE, UPDATE_AUTH } from "./action";
 
 //Navigation
 const isOpenSideBarReducer = (state = false, action) => {

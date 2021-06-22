@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { Container, Table, Row, Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { FaPen } from "react-icons/fa";
-import { MdDelete, MdAddCircle } from "react-icons/md";
+import { MdDelete /*MdAddCircle*/ } from "react-icons/md";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "../redux/action.js";
-import PopUpGroups from "./PopUpGroups.js";
-import { groupsList, permissionsList } from "../Datas.js";
+import { updateTitlePage } from "../redux/action";
+import PopUpGroups from "./PopUpGroups";
+import { groupsList, permissionsList } from "../Constants";
 import "./Groups.css";
 import "../global.css";
 
 class Groups extends Component {
   state = {
     modalVisible: false,
-    index: "", 
-    permissionsList: [],
+    index: "",
     delete: false,
   };
 
@@ -55,42 +54,27 @@ class Groups extends Component {
   }
 
   displayGroupOptions() {
-    if ( permissionsList.length > 3) {
-      return groupsList.map((groupsList, index) => (
-        <tr key={groupsList}>
-          <td className="option option-blue">
-            {groupsList}
-          </td>
-          <td style={{ textAlign: "left" }}>
-            <OverlayTrigger placement={"right"} overlay={ <Tooltip id={`tooltip`}>{permissionsList} </Tooltip> }>
-              <Button className="permission-style">{permissionsList[0]}, {permissionsList[1]}, {permissionsList[2]}, ...</Button>
-            </OverlayTrigger></td>
-          <td>{this.modifyOrDelete(index)}</td>
-        </tr>
-      ));
-    } else {
-      return groupsList.map((groupsList, index) => (
-        <tr key={groupsList}>
-          <td className="option option-blue">
-            {groupsList}
-          </td>
-          <td style={{ textAlign: "left" }}>
-            <OverlayTrigger placement={"right"} overlay={ <Tooltip id={`tooltip`}>{permissionsList} </Tooltip>}>
-              <Button className="permission-style">{permissionsList} </Button>
-            </OverlayTrigger></td>
-          <td>{this.modifyOrDelete(index)}</td>
-        </tr>
-      ));
-    }
-  }
-
-  getGroupsInfo() {
-    this.setState({ permissionsList });
+    return groupsList.map((groupsList, index) => (
+      <tr key={groupsList}>
+        <td className="option option-blue">{groupsList}</td>
+        <td style={{ textAlign: "left" }}>
+          <OverlayTrigger placement={"right"} overlay={<Tooltip id={`tooltip`}>{permissionsList[index]}</Tooltip>}>
+            {permissionsList[index].length > 2 ? (
+              <Button className="permission-style">
+                {permissionsList[index][0] + permissionsList[index][1] + permissionsList[index][2] + "etc."}
+              </Button>
+            ) : (
+              <Button className="permission-style">{permissionsList[index]}</Button>
+            )}
+          </OverlayTrigger>
+        </td>
+        <td>{/*this.modifyOrDelete(index)*/}</td>
+      </tr>
+    ));
   }
 
   componentDidMount() {
     this.props.updateTitlePage("Groupes");
-    this.getGroupsInfo();
   }
 
   render() {
@@ -101,7 +85,7 @@ class Groups extends Component {
             <tbody>{this.displayGroupOptions()}</tbody>
           </Table>
         </Row>
-        <Row className="add-del">
+        {/*<Row className="add-del">
           <Button
             className="button button1"
             onClick={() => {
@@ -117,7 +101,7 @@ class Groups extends Component {
             <MdDelete size="20px" className="delete" />
             SUPPRIMER
           </Button>
-        </Row>
+          </Row>*/}
       </Container>
     );
   }

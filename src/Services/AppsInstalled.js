@@ -3,7 +3,7 @@ import { Container, Row, Card, InputGroup, FormControl, Button } from "react-boo
 import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
-import { updateTitlePage } from "../redux/action.js";
+import { updateTitlePage } from "../redux/action";
 import "../global.css";
 import "./AppsInstalled.css";
 
@@ -11,26 +11,12 @@ class AppsInstalled extends Component {
   state = {
     search: "",
     appliList: [],
-    appsFiltered: [], 
+    appsFiltered: [],
   };
-
-  searchFilterFunction = (search) => {
-    const onWriting = search.target.value;
-    const newData = this.state.appliList.filter((item) => {
-      const itemData = item.Name.toUpperCase();
-      const textData = onWriting.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({ appsFiltered: newData });
-  };
-
-  appsInstalledDetails(appli) {
-    this.props.history.push({ pathname: "/appsinstalled-details", state: { appli: appli } });
-  }
 
   applisRender() {
     return this.state.appsFiltered.map((appli) => (
-      <Card className="appli" key={appli.ID} onClick={() => this.marketplaceDetails(appli)}>
+      <Card className="appli" key={appli.ID} onClick={() => this.appsInstalledDetails(appli)}>
         <Card.Img className="img-market" variant="top" src={appli.Icon} />
         <div className="titre">
           <Card.Title>{appli.Name}</Card.Title>
@@ -47,8 +33,39 @@ class AppsInstalled extends Component {
     ));
   }
 
+  searchFilterFunction = (search) => {
+    const onWriting = search.target.value;
+    const newData = this.state.appliList.filter((item) => {
+      const itemData = item.Name.toUpperCase();
+      const textData = onWriting.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({ appsFiltered: newData });
+  };
+
+  appsInstalledDetails(appli) {
+    this.props.history.push({ pathname: "/appsinstalled-details", state: { appli: appli } });
+  }
+
+  getAppliInfo = async (appli) => {
+    const response = await fetch(`https://sr-marketplace.esieespace.fr/v1/search/stack/${appli}`);
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      console.log(json)
+    }
+  };
+
+  getApplisInfo = async () => {
+    const response0 = await fetch("http://192.168.10.151:8082/v1/stacks");
+    let json0 = await response0.json();
+    if (response0.status === 200 && json0.Ok) {
+      json0.Stacks.forEach(appli => this.getAppliInfo(appli))
+    }
+  };
+
   componentDidMount() {
     this.props.updateTitlePage("Applications installées");
+    this.getApplisInfo();
   }
 
   render() {

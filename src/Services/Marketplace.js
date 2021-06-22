@@ -3,7 +3,7 @@ import { Container, Row, Card, InputGroup, FormControl } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
-import { updateTitlePage } from "../redux/action.js";
+import { updateTitlePage } from "../redux/action";
 import "../global.css";
 import "./Marketplace.css";
 

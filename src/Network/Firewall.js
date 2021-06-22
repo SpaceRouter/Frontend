@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 
-import { updateTitlePage } from "../redux/action.js";
-import PopUpFirewall from "./PopUpFirewall.js";
+import { updateTitlePage } from "../redux/action";
+import PopUpFirewall from "./PopUpFirewall";
 import { getCookie } from "../Cookies";
 import "./Firewall.css";
 import "../global.css";

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Button, Container, Table, Row } from "react-bootstrap";
 import { FaPen } from "react-icons/fa";
-import { MdDelete, MdAddCircle } from "react-icons/md";
+import { MdDelete, /*MdAddCircle*/ } from "react-icons/md";
 import { connect } from "react-redux";
 
-import { updateTitlePage } from "../redux/action.js";
-import PopUpUsers from "./PopUpUsers.js";
-import { users } from "../Datas.js";
+import { updateTitlePage } from "../redux/action";
+import PopUpUsers from "./PopUpUsers";
+import { users } from "../Constants";
 import "./Users.css";
 import "../global.css";
 
@@ -58,6 +58,23 @@ class Users extends Component {
     this.setState({ usersList: users });
   }
 
+  displayUsersList() {
+    return this.state.usersList.map((user, index) => (
+      <tr key={user.username}>
+        <td>{user.username}</td>
+        <td>{user.email}</td>
+        <td className="tel">{user.lastName}</td>
+        <td className="tel">{user.firstName}</td>
+        <td className="tel">
+          <Button variant="outline-dark" disabled>
+            {user.group}
+          </Button>
+        </td>
+        <td>{/*this.modificationOrDelete(index)*/}</td>
+      </tr>
+    ))
+  }
+
   componentDidMount() {
     this.getUsersInfo();
     this.props.updateTitlePage("Utilisateurs");
@@ -79,24 +96,11 @@ class Users extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.usersList.map((user, index) => (
-                <tr key={user.username}>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td className="tel">{user.lastName}</td>
-                  <td className="tel">{user.firstName}</td>
-                  <td className="tel">
-                    <Button variant="outline-dark" disabled>
-                      {user.group}
-                    </Button>
-                  </td>
-                  <td>{this.modificationOrDelete(index)}</td>
-                </tr>
-              ))}
+              {this.displayUsersList()}
             </tbody>
           </Table>
         </Row>
-        <Row className="add-del">
+        {/*<Row className="add-del">
           <Button
             className="button button1"
             onClick={() => {
@@ -112,7 +116,7 @@ class Users extends Component {
             <MdDelete size="20px" className="delete" />
             SUPPRIMER
           </Button>
-        </Row>
+          </Row>*/}
       </Container>
     );
   }

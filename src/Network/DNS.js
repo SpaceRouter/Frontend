@@ -5,8 +5,8 @@ import { FaPen } from "react-icons/fa";
 import { MdDelete, MdAddCircle } from "react-icons/md";
 import { AiOutlineReload } from "react-icons/ai";
 
-import { updateTitlePage } from "../redux/action.js";
-import PopUpDNS from "./PopUpDNS.js";
+import { updateTitlePage } from "../redux/action";
+import PopUpDNS from "./PopUpDNS";
 import { DNS_records } from "../Constants";
 import "./DNS.css";
 import "../global.css";

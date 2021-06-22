@@ -3,7 +3,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
 import { connect } from "react-redux";
 
-import { updateAuth } from "./redux/action.js";
+import { updateAuth } from "./redux/action";
 import { setCookie } from "./Cookies";
 import "./Auth.css";
 
@@ -23,7 +23,7 @@ class Auth extends Component {
   };
 
   handleSubmit = async () => {
-    const response = await fetch("http://192.168.10.151:8085/login", {
+    const response = await fetch("http://192.168.10.151:8085/auth/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
