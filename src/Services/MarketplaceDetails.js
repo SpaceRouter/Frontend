@@ -16,7 +16,7 @@ class MarketplaceDetails extends Component {
     install: "",
   };
 
-  handleNameUpdate = (index0)=> (name) => {
+  handleNameUpdate = (index0) => (name) => {
     let appli = this.state.appli;
     appli.Services[index0].Name = name.target.value;
     this.setState({ appli });
@@ -168,7 +168,7 @@ class MarketplaceDetails extends Component {
 
   downloadAppli = async () => {
     await this.formToDownload();
-    const response = await fetch("http://192.168.10.151:8082/v1/stack", {
+    const response = await fetch("http://192.168.10.151:8082/docker/v1/stack", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(this.state.downloadAppli),
@@ -222,6 +222,28 @@ class MarketplaceDetails extends Component {
     ));
   }
 
+  displayLabels(service, index0) {
+    return (
+      <>
+        {service.Envs.map((env, index1) => (
+          <p key={env.ID} style={{ marginLeft: "25px" }}>
+            <TiDeleteOutline size="20px" className="suppr" onClick={() => this.removeEnvs(index0, index1)} />
+            <Form.Control className="modif" type="text" value={env.Name} onChange={this.handleEnvNameUpdate(index0, index1)} /> :
+            <Form.Control className="modif" type="text" value={env.DefaultValue} onChange={this.handleEnvValueUpdate(index0, index1)} />
+          </p>
+        ))}
+        <Button
+          className="button"
+          style={{ marginLeft: "40%", marginBottom: "10px", backgroundColor: "#0B3862" }}
+          onClick={() => this.addEnvs(index0)}
+        >
+          <MdAddCircle size="20px" className="add" />
+          Ajouter
+        </Button>
+      </>
+    );
+  }
+
   getServicesInfos() {
     const { appli } = this.state;
     return appli.Services.map((service, index0) => (
@@ -254,6 +276,12 @@ class MarketplaceDetails extends Component {
             <div className="navig">
               <p>Réseau(x) : </p>
               {this.displayNetworks(service)}
+            </div>
+          </Tab>
+          <Tab eventKey="labels" title="Labels">
+            <div className="navig">
+              <p>Labels : </p>
+              {this.displayLabels(service, index0)}
             </div>
           </Tab>
         </Tabs>

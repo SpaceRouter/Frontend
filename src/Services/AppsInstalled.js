@@ -16,13 +16,13 @@ class AppsInstalled extends Component {
 
   applisRender() {
     return this.state.appsFiltered.map((appli) => (
-      <Card className="appli" key={appli.ID} onClick={() => this.appsInstalledDetails(appli)}>
-        <Card.Img className="img-market" variant="top" src={appli.Icon} />
+      <Card className="appli" key={appli.Stack.ID} onClick={() => this.appsInstalledDetails(appli)}>
+        <Card.Img className="img-market" variant="top" src={appli.Stack.Icon} />
         <div className="titre">
-          <Card.Title>{appli.Name}</Card.Title>
+          <Card.Title>{appli.Stack.Name}</Card.Title>
           <Card.Subtitle>{appli.Developer.Name}</Card.Subtitle>
         </div>
-        <Card.Body className="description">{appli.Description}</Card.Body>
+        <Card.Body className="description">{appli.Stack.Description}</Card.Body>
         <div className="on-off">
           <Button variant="danger" style={{ marginRight: 8 }}>
             Off
@@ -48,18 +48,18 @@ class AppsInstalled extends Component {
   }
 
   getAppliInfo = async (appli) => {
-    const response = await fetch(`https://sr-marketplace.esieespace.fr/v1/search/stack/${appli}`);
+    const response = await fetch(`https://marketplace.opengate.space/v1/stack_by_name/${appli}`);
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
-      console.log(json)
+      this.setState({ appliList: [...this.state.appliList, json], appsFiltered: [...this.state.appsFiltered, json] });
     }
   };
 
   getApplisInfo = async () => {
-    const response0 = await fetch("http://192.168.10.151:8082/v1/stacks");
-    let json0 = await response0.json();
-    if (response0.status === 200 && json0.Ok) {
-      json0.Stacks.forEach(appli => this.getAppliInfo(appli))
+    const response = await fetch("http://192.168.10.151:8082/docker/v1/stacks");
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      json.Stacks.forEach(appli => this.getAppliInfo(appli))
     }
   };
 
