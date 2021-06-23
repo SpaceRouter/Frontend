@@ -17,7 +17,7 @@
 .appli {
     width: 19rem;
     background-Color: #FFFFFF;
-    height: 350px; 
+    height: 390px; 
     margin: auto;
     border-radius: 10px; 
     margin-bottom: 50px; 
@@ -40,5 +40,7 @@
 
 .description {
     margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     text-align: center;
 }
