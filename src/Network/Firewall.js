@@ -7,6 +7,7 @@ import { MdDelete, MdAddCircle } from "react-icons/md";
 import { updateTitlePage } from "../redux/action";
 import PopUpFirewall from "./PopUpFirewall";
 import { getCookie } from "../Cookies";
+import { domainName } from "../Constants";
 import "./Firewall.css";
 import "../global.css";
 
@@ -70,7 +71,7 @@ class Firewall extends Component {
   deleteNat = async (NATRule) => {
     const token = getCookie("jwt_token");
     const response = await fetch(
-      `http://192.168.10.151:8081/firewall/nat/dnat/PREROUTING/${NATRule.Protocol}/+/0.0.0.0_0/0.0.0.0_0/${NATRule.Destination}/?dport=${NATRule.DestinationPort}`,
+      `${domainName}/firewall/nat/dnat/PREROUTING/${NATRule.Protocol}/+/0.0.0.0_0/0.0.0.0_0/${NATRule.Destination}/?dport=${NATRule.DestinationPort}`,
       {
         method: "DELETE",
         headers: { authorization: token },
@@ -100,7 +101,7 @@ class Firewall extends Component {
 
   getNATRules = async () => {
     const token = getCookie("jwt_token");
-    const response = await fetch("http://192.168.10.151:8081/firewall/chain/nat/PREROUTING/", {
+    const response = await fetch(`${domainName}/firewall/chain/nat/PREROUTING/`, {
       method: "GET",
       headers: { authorization: token },
     });

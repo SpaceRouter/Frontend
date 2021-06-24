@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
 import { updateTitlePage } from "../redux/action";
+import { domainName } from "../Constants";
 import "../global.css";
 import "./AppsInstalled.css";
 
@@ -50,7 +51,7 @@ class AppsInstalled extends Component {
   };
 
   getApplisInfo = async () => {
-    const response = await fetch("http://192.168.10.151:8082/docker/v1/stacks");
+    const response = await fetch(`${domainName}/docker/v1/stacks`);
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
       json.Stacks.forEach((appli) => this.getAppliInfo(appli));

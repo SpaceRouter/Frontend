@@ -7,6 +7,7 @@ import { AiFillTool } from "react-icons/ai";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "../redux/action";
+import { domainName } from "../Constants";
 import "../global.css";
 import "./MarketplaceDetails.css";
 
@@ -76,12 +77,12 @@ class AppsInstalledDetails extends Component {
   
   startAppli = async () => {
     const appli = this.state.appli;
-    await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Name}/start`);
+    await fetch(`${domainName}/docker/v1/stack/${appli.Name}/start`);
   };
 
   stopAppli = async () => {
     const appli = this.state.appli;
-    await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Name}/stop`);
+    await fetch(`${domainName}/docker/v1/stack/${appli.Name}/stop`);
   };
 
   addEnvs(index) {
@@ -212,7 +213,7 @@ class AppsInstalledDetails extends Component {
 
   modifyAppli = async () => {
     await this.formToDownload();
-    const response = await fetch("http://192.168.10.151:8082/docker/v1/stack", {
+    const response = await fetch(`${domainName}/docker/v1/stack`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(this.state.modifyAppli),
@@ -374,7 +375,7 @@ class AppsInstalledDetails extends Component {
 
   removeAppli = async () => {
     const appli = this.state.appliInfosMarket.Stack.Name;
-    const response = await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli}`, {
+    const response = await fetch(`${domainName}/docker/v1/stack/${appli}`, {
       method: "DELETE",
       headers: { "content-type": "application/json" },
     });
@@ -386,10 +387,10 @@ class AppsInstalledDetails extends Component {
   getAppliInfo = async () => {
     const { appli } = this.props.location.state;
     this.setState({ appliInfosMarket: appli });
-    const response0 = await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Stack.Name}`);
+    const response0 = await fetch(`${domainName}/docker/v1/stack/${appli.Stack.Name}`);
     let json0 = await response0.json();
     if (response0.status === 200 && json0.Ok) {
-      const response1 = await fetch(`http://192.168.10.151:8082/docker/v1/active_stacks`);
+      const response1 = await fetch(`${domainName}/docker/v1/active_stacks`);
       let json1 = await response1.json();
       if (response1.status === 200 && json1.Ok) {
         let appliInfo = json0.Stack;

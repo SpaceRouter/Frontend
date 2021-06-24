@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
+import { domainName } from "../Constants";
+
 const initialState = {
   index: "",
   hostname: "",
@@ -38,7 +40,7 @@ export default class PopUpDHCP extends Component {
   };
 
   addDhcp = async () => {
-    const response = await fetch("http://192.168.10.151:8080/addfix", {
+    const response = await fetch(`${domainName}/addfix`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -54,7 +56,7 @@ export default class PopUpDHCP extends Component {
 
   modifyDhcp = async () => {
     const { hostname, hostnameBack, mac, macBack, ip } = this.state;
-    const response = await fetch("http://192.168.10.151:8080/deletefix", {
+    const response = await fetch(`${domainName}/deletefix`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -63,7 +65,7 @@ export default class PopUpDHCP extends Component {
       }),
     });
     if (response.status === 200) {
-      await fetch("http://192.168.10.151:8080/addfix", {
+      await fetch(`${domainName}/addfix`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -92,7 +94,7 @@ export default class PopUpDHCP extends Component {
       });
     }
     if (index !== "" && index !== prevState.index) {
-      const response = await fetch("http://192.168.10.151:8080/data");
+      const response = await fetch(`${domainName}/data`);
       let json = await response.json();
       if (response.status === 200) {
         this.setState({

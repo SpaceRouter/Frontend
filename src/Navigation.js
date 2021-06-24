@@ -5,6 +5,7 @@ import { FaPowerOff, FaUserAlt, FaCog, FaNetworkWired, FaTools, FaHome } from "r
 
 import { updateSideBarState, updateAuth } from "./redux/action";
 import { removeCookie, getCookie } from "./Cookies";
+import { domainName } from "./Constants";
 import "./Navigation.css";
 
 class Navigation extends Component {
@@ -32,7 +33,7 @@ class Navigation extends Component {
 
   getUsername = async () => {
     const token = getCookie("jwt_token");
-    const response = await fetch("http://192.168.10.151:8085/auth/v1/info", {
+    const response = await fetch(`${domainName}/auth/v1/info`, {
       method: "GET",
       headers: { "content-type": "application/json", authorization: token },
     });

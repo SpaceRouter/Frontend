@@ -3,7 +3,7 @@ import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
 import { getCookie } from "../Cookies";
 import "../PopUp.css";
-import { protocolsList } from "../Constants";
+import { domainName, protocolsList } from "../Constants";
 
 const initialState = {
   index: "",
@@ -52,7 +52,7 @@ export default class PopUpFirewall extends Component {
     const { protocol, destination, ip, destinationPort } = this.state;
     const token = getCookie("jwt_token");
     const response = await fetch(
-      `http://192.168.10.151:8081/firewall/nat/dnat/PREROUTING/${protocol}/+/0.0.0.0_0/0.0.0.0_0/${ip + ":" + destination}/?dport=${destinationPort}`,
+      `${domainName}/firewall/nat/dnat/PREROUTING/${protocol}/+/0.0.0.0_0/0.0.0.0_0/${ip + ":" + destination}/?dport=${destinationPort}`,
       {
         method: "PUT",
         headers: { authorization: token },
@@ -68,7 +68,7 @@ export default class PopUpFirewall extends Component {
     const { protocol, protocolBack, destination, destinationBack, ip, ipBack, destinationPort, destinationPortBack } = this.state;
     const token = getCookie("jwt_token");
     const response = await fetch(
-      `http://192.168.10.151:8081/firewall/nat/dnat/PREROUTING/${protocolBack}/+/0.0.0.0_0/0.0.0.0_0/${
+      `${domainName}/firewall/nat/dnat/PREROUTING/${protocolBack}/+/0.0.0.0_0/0.0.0.0_0/${
         ipBack + ":" + destinationBack
       }/?dport=${destinationPortBack}`,
       {
@@ -79,7 +79,7 @@ export default class PopUpFirewall extends Component {
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
       await fetch(
-        `http://192.168.10.151:8081/firewall/nat/dnat/PREROUTING/${protocol}/+/0.0.0.0_0/0.0.0.0_0/${ip + ":" + destination}/?dport=${destinationPort}`,
+        `${domainName}/firewall/nat/dnat/PREROUTING/${protocol}/+/0.0.0.0_0/0.0.0.0_0/${ip + ":" + destination}/?dport=${destinationPort}`,
         {
           method: "PUT",
           headers: { authorization: token },
@@ -110,7 +110,7 @@ export default class PopUpFirewall extends Component {
     }
     if (index !== "" && index !== prevState.index) {
       const token = getCookie("jwt_token");
-      const response = await fetch("http://192.168.10.151:8081/firewall/chain/nat/PREROUTING/", {
+      const response = await fetch(`${domainName}/firewall/chain/nat/PREROUTING/`, {
         method: "GET",
         headers: { authorization: token },
       });

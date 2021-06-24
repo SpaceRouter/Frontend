@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import { Two_Chart_colors } from "../Constants";
+import { domainName, Two_Chart_colors } from "../Constants";
 
 export default class CPUChart extends Component {
   state = {
@@ -18,7 +18,7 @@ export default class CPUChart extends Component {
     let labelsTemp = [];
     let dataTemp = [];
 
-    const response0 = await fetch("http://192.168.10.151:9090/api/v1/query", {
+    const response0 = await fetch(`${domainName}/api/v1/query`, {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
@@ -27,7 +27,7 @@ export default class CPUChart extends Component {
     });
     let json0 = await response0.json();
 
-    const response1 = await fetch("http://192.168.10.151:9090/api/v1/query", {
+    const response1 = await fetch(`${domainName}/api/v1/query`, {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({

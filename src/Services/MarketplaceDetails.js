@@ -6,6 +6,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "../redux/action";
+import { domainName } from "../Constants";
 import "../global.css";
 import "./MarketplaceDetails.css";
 
@@ -180,7 +181,7 @@ class MarketplaceDetails extends Component {
 
   downloadAppli = async () => {
     await this.formToDownload();
-    const response = await fetch("http://192.168.10.151:8082/docker/v1/stack", {
+    const response = await fetch(`${domainName}/docker/v1/stack`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(this.state.downloadAppli),

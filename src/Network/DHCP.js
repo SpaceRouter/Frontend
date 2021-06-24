@@ -7,6 +7,7 @@ import { FaPen } from "react-icons/fa";
 
 import { updateTitlePage } from "../redux/action";
 import PopUpDHCP from "./PopUpDHCP";
+import { domainName } from "../Constants";
 import "./DHCP.css";
 import "../global.css";
 
@@ -71,7 +72,7 @@ class DHCP extends Component {
   }
 
   deleteDhcp = async (hostname, mac) => {
-    const response = await fetch("http://192.168.10.151:8080/deletefix", {
+    const response = await fetch(`${domainName}0/deletefix`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -141,7 +142,7 @@ class DHCP extends Component {
   }
 
   reload = async () => {
-    const response = await fetch("http://192.168.10.151:8080/data");
+    const response = await fetch(`${domainName}/data`);
     let json = await response.json();
     if (response.status === 200) {
       this.setState({ dhcp: json, reload: "ok" }, () => {
@@ -159,9 +160,9 @@ class DHCP extends Component {
   };
 
   getDhcpInfos = async () => {
-    const response0 = await fetch("http://192.168.10.151:8080/data");
+    const response0 = await fetch(`${domainName}/data`);
     let json0 = await response0.json();
-    const response1 = await fetch("http://192.168.10.151:8080/scope");
+    const response1 = await fetch(`${domainName}/scope`);
     let json1 = await response1.json();
     if (response0.status === 200 && response1.status === 200) {
       this.setState({ dhcp: json0, scope: Object.values(json1.scope[0]) });

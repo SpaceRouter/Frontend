@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
+import { domainName } from "../Constants";
+
 export default class NetworkChart extends Component {
   state = {
     labels: [],
@@ -35,7 +37,7 @@ export default class NetworkChart extends Component {
     const dateEnd = new Date();
     const dateStart = new Date(dateEnd - 5 * 60000);
 
-    const responseIN = await fetch("http://192.168.10.151:9090/api/v1/query_range", {
+    const responseIN = await fetch(`${domainName}/api/v1/query_range`, {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
@@ -45,7 +47,7 @@ export default class NetworkChart extends Component {
         step: "1m",
       }),
     });
-    const responseOUT = await fetch("http://192.168.10.151:9090/api/v1/query_range", {
+    const responseOUT = await fetch(`${domainName}/api/v1/query_range`, {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({

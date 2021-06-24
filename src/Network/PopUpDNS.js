@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Table, Modal, Pagination, Form, Button } from "react-bootstrap";
 
-import { DNS_records_supported} from "../Constants"
+import { domainName, DNS_records_supported} from "../Constants"
+
 const initialState = {
   index: "",
   answer: "",
@@ -42,7 +43,7 @@ export default class PopUpDNS extends Component {
   };
 
   addDns = async () => {
-    const response = await fetch("http://192.168.10.151:8090/add", {
+    const response = await fetch(`${domainName}/add`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -58,7 +59,7 @@ export default class PopUpDNS extends Component {
   };
 
   modifyDns = async () => {
-    await fetch("http://192.168.10.151:8090/update", {
+    await fetch(`${domainName}/update`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -83,7 +84,7 @@ export default class PopUpDNS extends Component {
       });
     }
     if (index !== "" && index !== prevState.index) {
-      const response = await fetch("http://192.168.10.151:8090/zone");
+      const response = await fetch(`${domainName}/zone`);
       let json = await response.json();
       if (response.status === 200) {
         this.setState({

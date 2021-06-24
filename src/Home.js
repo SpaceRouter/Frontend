@@ -7,6 +7,7 @@ import CPUChart from "./Charts/CPUChart";
 import RAMChart from "./Charts/RAMChart";
 import DiskChart from "./Charts/DiskChart";
 import NetworkChart from "./Charts/NetworkChart";
+import { domainName } from "./Constants";
 import "./global.css";
 import "./Home.css";
 
@@ -24,18 +25,18 @@ class Home extends Component {
   };
 
   startAppli = async (index) => {
-    await fetch(`http://192.168.10.151:8082/docker/v1/stack/${this.state.appliList[index].Name}/start`);
+    await fetch(`${domainName}/docker/v1/stack/${this.state.appliList[index].Name}/start`);
   };
 
   stopAppli = async (index) => {
-    await fetch(`http://192.168.10.151:8082/docker/v1/stack/${this.state.appliList[index].Name}/stop`);
+    await fetch(`${domainName}/docker/v1/stack/${this.state.appliList[index].Name}/stop`);
   };
 
   getAppliInfo = async (appli) => {
     const response0 = await fetch(`https://marketplace.opengate.space/v1/stack_by_name/${appli}`);
     let json0 = await response0.json();
     if (response0.status === 200 && json0.Ok) {
-      const response1 = await fetch(`http://192.168.10.151:8082/docker/v1/active_stacks`);
+      const response1 = await fetch(`${domainName}/docker/v1/active_stacks`);
       let json1 = await response1.json();
       if (response1.status === 200 && json1.Ok) {
         let appliInfo = json0.Stack;
@@ -56,7 +57,7 @@ class Home extends Component {
   };
 
   getApplisInfo = async () => {
-    const response = await fetch("http://192.168.10.151:8082/docker/v1/stacks");
+    const response = await fetch(`${domainName}/docker/v1/stacks`);
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
       json.Stacks.forEach((appli) => this.getAppliInfo(appli));
