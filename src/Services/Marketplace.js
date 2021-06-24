@@ -42,7 +42,7 @@ class Marketplace extends Component {
   }
 
   getApplisInfo = async () => {
-    const response = await fetch("https://sr-marketplace.esieespace.fr/v1/stacks");
+    const response = await fetch("https://marketplace.opengate.space/v1/stacks");
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
       this.setState({ appliList: json.Stacks, appsFiltered: json.Stacks });

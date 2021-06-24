@@ -311,7 +311,7 @@ class MarketplaceDetails extends Component {
 
   getAppliInfo = async () => {
     const { appli } = this.props.location.state;
-    const response = await fetch(`https://sr-marketplace.esieespace.fr/v1/stack/${appli.ID}`);
+    const response = await fetch(`https://marketplace.opengate.space/v1/stack/${appli.ID}`);
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
       this.setState({ appli: json.Stack });

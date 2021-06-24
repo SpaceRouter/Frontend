@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Card, InputGroup, FormControl, Button } from "react-bootstrap";
+import { Container, Row, Card, InputGroup, FormControl } from "react-bootstrap";
 import { connect } from "react-redux";
 import { MdSearch } from "react-icons/md";
 
@@ -23,12 +23,6 @@ class AppsInstalled extends Component {
           <Card.Subtitle>{appli.Developer.Name}</Card.Subtitle>
         </div>
         <Card.Body className="description">{appli.Stack.Description}</Card.Body>
-        <div className="on-off">
-          <Button variant="danger" style={{ marginRight: 8 }}>
-            Off
-          </Button>
-          <Button variant="success">On</Button>
-        </div>
       </Card>
     ));
   }
@@ -59,7 +53,7 @@ class AppsInstalled extends Component {
     const response = await fetch("http://192.168.10.151:8082/docker/v1/stacks");
     let json = await response.json();
     if (response.status === 200 && json.Ok) {
-      json.Stacks.forEach(appli => this.getAppliInfo(appli))
+      json.Stacks.forEach((appli) => this.getAppliInfo(appli));
     }
   };
 

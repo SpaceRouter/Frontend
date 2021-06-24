@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Card, Button } from "react-bootstrap";
+import { Container, Row, Card, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import { updateTitlePage } from "./redux/action";
@@ -9,20 +9,41 @@ import DiskChart from "./Charts/DiskChart";
 import NetworkChart from "./Charts/NetworkChart";
 import "./global.css";
 import "./Home.css";
-import { app } from "./Datas";
 
 class Home extends Component {
   state = {
-    appList: [],
-    index: "0",
+    appliList: [],
   };
 
-  getUsersInfo() {
-    this.setState({ appList: app });
-  }
+  handleSwitchUpdate = (index) => {
+    let appliList = this.state.appliList;
+    appliList[index].checked = !appliList[index].checked;
+    this.setState({ appliList });
+  };
+
+  getAppliInfo = async (appli) => {
+    const response = await fetch(`https://marketplace.opengate.space/v1/stack_by_name/${appli}`);
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      let appliInfo = json.Stack;
+      appliInfo = {
+        ...appliInfo,
+        checked: false,
+      };
+      this.setState({ appliList: [...this.state.appliList, appliInfo] });
+    }
+  };
+
+  getApplisInfo = async () => {
+    const response = await fetch("http://192.168.10.151:8082/docker/v1/stacks");
+    let json = await response.json();
+    if (response.status === 200 && json.Ok) {
+      json.Stacks.forEach((appli) => this.getAppliInfo(appli));
+    }
+  };
 
   componentDidMount() {
-    this.getUsersInfo();
+    this.getApplisInfo();
     this.props.updateTitlePage("Page d'accueil");
   }
 
@@ -51,19 +72,12 @@ class Home extends Component {
         </Row>
         <Row className="justify-content-center">
           <div className="heimdall">
-            {this.state.appList.map((app) => (
-              <Card className="home-app" key={app.id}>
-                <Card.Img className="img" variant="top" src={app.photo} />
+            {this.state.appliList.map((app, index) => (
+              <Card className="home-app" key={app.ID}>
+                <Card.Img className="img" variant="top" src={app.Icon} />
                 <Card.Body>
-                  <Card.Title className="center">{app.nom}</Card.Title>
-                  <div className="center">
-                    <Button style={{ marginRight: 8, backgroundColor: "#CE6358", border: "none" }} variant="danger">
-                      Off
-                    </Button>
-                    <Button style={{ backgroundColor: "#3DD07C", border: "none" }} variant="success">
-                      On
-                    </Button>
-                  </div>
+                  <Card.Title className="center">{app.Name}</Card.Title>
+                  <Form.Switch id={app.ID} checked={this.state.appliList[index].checked} label="On / Off" onChange={() => this.handleSwitchUpdate(index)} />
                 </Card.Body>
               </Card>
             ))}
