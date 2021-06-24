@@ -70,7 +70,7 @@ class Firewall extends Component {
   deleteNat = async (NATRule) => {
     const token = getCookie("jwt_token");
     const response = await fetch(
-      `http://192.168.10.151:8081/nat/dnat/PREROUTING/${NATRule.Protocol}/+/0.0.0.0_0/0.0.0.0_0/${NATRule.Destination}/?dport=${NATRule.DestinationPort}`,
+      `http://192.168.10.151:8081/firewall/nat/dnat/PREROUTING/${NATRule.Protocol}/+/0.0.0.0_0/0.0.0.0_0/${NATRule.Destination}/?dport=${NATRule.DestinationPort}`,
       {
         method: "DELETE",
         headers: { authorization: token },
@@ -100,7 +100,7 @@ class Firewall extends Component {
 
   getNATRules = async () => {
     const token = getCookie("jwt_token");
-    const response = await fetch("http://192.168.10.151:8081/chain/nat/PREROUTING/", {
+    const response = await fetch("http://192.168.10.151:8081/firewall/chain/nat/PREROUTING/", {
       method: "GET",
       headers: { authorization: token },
     });

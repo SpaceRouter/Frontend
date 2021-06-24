@@ -62,7 +62,7 @@ export default class NetworkChart extends Component {
       for (let i = 0; i < jsonIN.data.result[0].values.length; i++) {
         labelsTemp.push(this.convertDate(jsonIN.data.result[0].values[i][0]));
         dataTempIN.push(jsonIN.data.result[0].values[i][1] / 1000000);
-        dataTempOUT.push(-(jsonOUT.data.result[0].values[i][1] / 1000000));
+        dataTempOUT.push(jsonOUT.data.result[0].values[i][1] / 1000000);
       }
       this.setState({ labels: labelsTemp, dataIN: dataTempIN, dataOUT: dataTempOUT });
     }

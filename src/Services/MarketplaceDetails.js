@@ -52,6 +52,18 @@ class MarketplaceDetails extends Component {
     this.setState({ appli });
   };
 
+  handleDomainUpdate = (index0) => (domain) => {
+    let appli = this.state.appli;
+    appli.Services[index0].Domain = domain.target.value;
+    this.setState({ appli });
+  };
+
+  handleHttpPortUpdate = (index0) => (httpPort) => {
+    let appli = this.state.appli;
+    appli.Services[index0].HttpPort = httpPort.target.value;
+    this.setState({ appli });
+  };
+
   addEnvs(index) {
     let appli = this.state.appli;
     const timeElapsed = Date.now();
@@ -133,6 +145,8 @@ class MarketplaceDetails extends Component {
     let services = [];
     appli.Services.map((service, index) =>
       services.push({
+        Domain: service.Domain,
+        HttpPort: service.HttpPort,
         Envs: this.formServicesEnvs(index),
         Image: service.Image,
         ImageVersion: service.ImageVersion,
@@ -156,8 +170,6 @@ class MarketplaceDetails extends Component {
     const { appli } = this.state;
     this.setState({
       downloadAppli: {
-        Description: appli.Description,
-        Icon: appli.Icon,
         Name: appli.Name,
         Networks: this.formNetworks(),
         Services: this.formServices(),
@@ -222,28 +234,6 @@ class MarketplaceDetails extends Component {
     ));
   }
 
-  displayLabels(service, index0) {
-    return (
-      <>
-        {service.Envs.map((env, index1) => (
-          <p key={env.ID} style={{ marginLeft: "25px" }}>
-            <TiDeleteOutline size="20px" className="suppr" onClick={() => this.removeEnvs(index0, index1)} />
-            <Form.Control className="modif" type="text" value={env.Name} onChange={this.handleEnvNameUpdate(index0, index1)} /> :
-            <Form.Control className="modif" type="text" value={env.DefaultValue} onChange={this.handleEnvValueUpdate(index0, index1)} />
-          </p>
-        ))}
-        <Button
-          className="button"
-          style={{ marginLeft: "40%", marginBottom: "10px", backgroundColor: "#0B3862" }}
-          onClick={() => this.addEnvs(index0)}
-        >
-          <MdAddCircle size="20px" className="add" />
-          Ajouter
-        </Button>
-      </>
-    );
-  }
-
   getServicesInfos() {
     const { appli } = this.state;
     return appli.Services.map((service, index0) => (
@@ -278,10 +268,17 @@ class MarketplaceDetails extends Component {
               {this.displayNetworks(service)}
             </div>
           </Tab>
-          <Tab eventKey="labels" title="Labels">
+          <Tab eventKey="traefik" title="Traefik">
             <div className="navig">
-              <p>Labels : </p>
-              {this.displayLabels(service, index0)}
+              <p>Traefik : </p>
+              <p>
+                Domaine :
+                <Form.Control className="modif" type="text" value={service.Domain} onChange={this.handleDomainUpdate(index0)} />
+              </p>
+              <p>
+                httpPort :
+                <Form.Control className="modif" type="text" value={service.HttpPort} onChange={this.handleHttpPortUpdate(index0)} />
+              </p>
             </div>
           </Tab>
         </Tabs>

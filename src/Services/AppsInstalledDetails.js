@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, Form, Button, Tabs, Tab, Alert } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
-import { MdAddCircle } from "react-icons/md";
+import { MdAddCircle, MdDelete } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
 import { AiFillTool } from "react-icons/ai";
 import { connect } from "react-redux";
@@ -12,7 +12,7 @@ import "./MarketplaceDetails.css";
 
 class AppsInstalledDetails extends Component {
   state = {
-    appli: { Services: [] },
+    appli: { Services: [], checked: false },
     appliInfosMarket: { Stack: [], Developer: [] },
     modifyAppli: {},
     modify: "",
@@ -52,6 +52,36 @@ class AppsInstalledDetails extends Component {
     let appli = this.state.appli;
     appli.Services[index0].Volumes[index2].MountPoint = volume.target.value;
     this.setState({ appli });
+  };
+
+  handleDomainUpdate = (index0) => (domain) => {
+    let appli = this.state.appli;
+    appli.Services[index0].Domain = domain.target.value;
+    this.setState({ appli });
+  };
+
+  handleHttpPortUpdate = (index0) => (httpPort) => {
+    let appli = this.state.appli;
+    appli.Services[index0].HttpPort = httpPort.target.value;
+    this.setState({ appli });
+  };
+
+  handleSwitchUpdate = () => {
+    let appli = this.state.appli;
+    if (appli.checked) this.stopAppli();
+    else this.startAppli();
+    appli.checked = !appli.checked;
+    this.setState({ appli });
+  };
+  
+  startAppli = async () => {
+    const appli = this.state.appli;
+    await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Name}/start`);
+  };
+
+  stopAppli = async () => {
+    const appli = this.state.appli;
+    await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Name}/stop`);
   };
 
   addEnvs(index) {
@@ -127,7 +157,9 @@ class AppsInstalledDetails extends Component {
   formServicesPorts(index) {
     const { appli } = this.state;
     let ports = [];
-    appli.Services[index].Ports.map((port) => ports.push({ InputPort: port.InputPort, OutputPort: port.OutputPort }));
+    if (appli.Services[index].Ports) {
+      appli.Services[index].Ports.map((port) => ports.push({ InputPort: port.InputPort, OutputPort: port.OutputPort }));
+    }
     return ports;
   }
 
@@ -143,6 +175,8 @@ class AppsInstalledDetails extends Component {
     let services = [];
     appli.Services.map((service, index) =>
       services.push({
+        Domain: service.Domain,
+        HttpPort: service.HttpPort,
         Envs: this.formServicesEnvs(index),
         Image: service.Image,
         ImageVersion: service.ImageVersion,
@@ -214,23 +248,33 @@ class AppsInstalledDetails extends Component {
   }
 
   displayVolumes(service, index0) {
-    return service.Volumes.map((volume, index2) => (
-      <div key={index2} style={{ marginLeft: "25px" }}>
-        <p>Nom: {volume.Name}</p>
-        <p>
-          Point de montage :
-          <Form.Control className="modif" type="text" value={volume.MountPoint} onChange={this.handleVolumeMountPointUpdate(index0, index2)} />
-        </p>
-      </div>
-    ));
+    return (
+      <>
+        {service.Volumes &&
+          service.Volumes.map((volume, index2) => (
+            <div key={index2} style={{ marginLeft: "25px" }}>
+              <p>Nom: {volume.Name}</p>
+              <p>
+                Point de montage :
+                <Form.Control className="modif" type="text" value={volume.MountPoint} onChange={this.handleVolumeMountPointUpdate(index0, index2)} />
+              </p>
+            </div>
+          ))}
+      </>
+    );
   }
 
   displayNetworks(service) {
-    return service.Networks.map((network, index3) => (
-      <p key={index3} style={{ marginLeft: "25px" }}>
-        {network.Name}
-      </p>
-    ));
+    return (
+      <>
+        {service.Networks &&
+          service.Networks.map((network, index3) => (
+            <p key={index3} style={{ marginLeft: "25px" }}>
+              {network.Name}
+            </p>
+          ))}
+      </>
+    );
   }
 
   displayLabels(service, index0) {
@@ -260,7 +304,7 @@ class AppsInstalledDetails extends Component {
     const { appli } = this.state;
     return appli.Services.map((service, index0) => (
       <div key={index0} className="services-details">
-        <Form.Control className="service-name" type="text" value={appli.Name} onChange={this.handleNameUpdate(index0)} />
+        <Form.Control className="service-name" type="text" value={service.Name} onChange={this.handleNameUpdate(index0)} />
         <Tabs defaultActiveKey="image" transition={false} className="tabs">
           <Tab eventKey="image" title="Image">
             <div className="navig">
@@ -290,10 +334,17 @@ class AppsInstalledDetails extends Component {
               {this.displayNetworks(service)}
             </div>
           </Tab>
-          <Tab eventKey="labels" title="Labels">
+          <Tab eventKey="traefik" title="Traefik">
             <div className="navig">
-              <p>Labels : </p>
-              {this.displayLabels(service, index0)}
+              <p>Traefik : </p>
+              <p>
+                Domaine :
+                <Form.Control className="modif" type="text" value={service.Domain} onChange={this.handleDomainUpdate(index0)} />
+              </p>
+              <p>
+                httpPort :
+                <Form.Control className="modif" type="text" value={service.HttpPort} onChange={this.handleHttpPortUpdate(index0)} />
+              </p>
             </div>
           </Tab>
         </Tabs>
@@ -321,13 +372,40 @@ class AppsInstalledDetails extends Component {
     this.setState({ appli });
   };
 
+  removeAppli = async () => {
+    const appli = this.state.appliInfosMarket.Stack.Name;
+    const response = await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli}`, {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+    });
+    if (response.status === 200) {
+      this.props.history.push("/appsinstalled");
+    }
+  };
+
   getAppliInfo = async () => {
     const { appli } = this.props.location.state;
     this.setState({ appliInfosMarket: appli });
-    const response = await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Stack.Name}`);
-    let json = await response.json();
-    if (response.status === 200 && json.Ok) {
-      this.setState({ appli: json.Stack });
+    const response0 = await fetch(`http://192.168.10.151:8082/docker/v1/stack/${appli.Stack.Name}`);
+    let json0 = await response0.json();
+    if (response0.status === 200 && json0.Ok) {
+      const response1 = await fetch(`http://192.168.10.151:8082/docker/v1/active_stacks`);
+      let json1 = await response1.json();
+      if (response1.status === 200 && json1.Ok) {
+        let appliInfo = json0.Stack;
+        if (json1.Stacks.includes(appli.Stack.Name.toLowerCase())) {
+          appliInfo = {
+            ...appliInfo,
+            checked: true,
+          };
+        } else {
+          appliInfo = {
+            ...appliInfo,
+            checked: false,
+          };
+        }
+        this.setState({ appli: appliInfo });
+      }
     }
   };
 
@@ -337,7 +415,7 @@ class AppsInstalledDetails extends Component {
   }
 
   render() {
-    const { appliInfosMarket } = this.state;
+    const { appli, appliInfosMarket } = this.state;
     return (
       <Container fluid>
         <Row className="justify-content-center">
@@ -348,6 +426,16 @@ class AppsInstalledDetails extends Component {
               <Col className="info-appli">
                 <h2>{appliInfosMarket.Stack.Name}</h2>
                 <p style={{ fontSize: "20px", fontWeight: "lighter" }}>{appliInfosMarket.Developer.Name}</p>
+                <Form.Switch
+                  id={appliInfosMarket.Stack.ID}
+                  checked={appli.checked}
+                  label={appli.checked ? "ON" : "OFF"}
+                  onChange={this.handleSwitchUpdate}
+                />
+                <Button className="button button1" style={{ margin: 0, marginTop: 15 }} onClick={() => this.removeAppli()}>
+                  <MdDelete size="20px" className="delete" />
+                  SUPPRIMER
+                </Button>
               </Col>
             </Row>
             <div className="text-appli">
