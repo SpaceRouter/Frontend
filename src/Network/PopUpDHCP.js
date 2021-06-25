@@ -40,7 +40,7 @@ export default class PopUpDHCP extends Component {
   };
 
   addDhcp = async () => {
-    const response = await fetch(`${domainName}/addfix`, {
+    const response = await fetch(`${domainName}/dhcp/addfix`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -56,7 +56,7 @@ export default class PopUpDHCP extends Component {
 
   modifyDhcp = async () => {
     const { hostname, hostnameBack, mac, macBack, ip } = this.state;
-    const response = await fetch(`${domainName}/deletefix`, {
+    const response = await fetch(`${domainName}/dhcp/deletefix`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -65,7 +65,7 @@ export default class PopUpDHCP extends Component {
       }),
     });
     if (response.status === 200) {
-      await fetch(`${domainName}/addfix`, {
+      await fetch(`${domainName}/dhcp/addfix`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -94,7 +94,7 @@ export default class PopUpDHCP extends Component {
       });
     }
     if (index !== "" && index !== prevState.index) {
-      const response = await fetch(`${domainName}/data`);
+      const response = await fetch(`${domainName}/dhcp/leases`);
       let json = await response.json();
       if (response.status === 200) {
         this.setState({

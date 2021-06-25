@@ -144,7 +144,7 @@ class AppsInstalledDetails extends Component {
   formServicesEnvs(index) {
     const { appli } = this.state;
     let envs = [];
-    appli.Services[index].Envs.map((env) => envs.push({ Name: env.Name, Value: env.DefaultValue }));
+    appli.Services[index].Envs.map((env) => envs.push({ Name: env.Name, Value: env.Value }));
     return envs;
   }
 

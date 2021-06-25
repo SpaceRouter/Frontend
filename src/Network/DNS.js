@@ -74,7 +74,7 @@ class DNS extends Component {
   }
 
   deleteDns = async (DNSInfos) => {
-    const response = await fetch(`${domainName}/delete`, {
+    const response = await fetch(`${domainName}/dns/delete`, {
       method: "DELETE",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -111,7 +111,7 @@ class DNS extends Component {
   }
 
   reload = async () => {
-    const response = await fetch(`${domainName}/zone`);
+    const response = await fetch(`${domainName}/dns/zone`);
     let json = await response.json();
     if (response.status === 200) {
       this.setState({ DNSList: json["opengate.lan."], reload: "ok" }, () => {
@@ -129,7 +129,7 @@ class DNS extends Component {
   };
 
   getDNSInfo = async () => {
-    const response = await fetch(`${domainName}/zone`);
+    const response = await fetch(`${domainName}/dns/zone`);
     let json = await response.json();
     if (response.status === 200) {
       this.setState({ DNSList: json["opengate.lan."] });

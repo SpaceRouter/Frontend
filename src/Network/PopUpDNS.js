@@ -43,7 +43,7 @@ export default class PopUpDNS extends Component {
   };
 
   addDns = async () => {
-    const response = await fetch(`${domainName}/add`, {
+    const response = await fetch(`${domainName}/dns/add`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -59,7 +59,7 @@ export default class PopUpDNS extends Component {
   };
 
   modifyDns = async () => {
-    await fetch(`${domainName}/update`, {
+    await fetch(`${domainName}/dns/update`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -84,7 +84,7 @@ export default class PopUpDNS extends Component {
       });
     }
     if (index !== "" && index !== prevState.index) {
-      const response = await fetch(`${domainName}/zone`);
+      const response = await fetch(`${domainName}/dns/zone`);
       let json = await response.json();
       if (response.status === 200) {
         this.setState({

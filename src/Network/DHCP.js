@@ -72,7 +72,7 @@ class DHCP extends Component {
   }
 
   deleteDhcp = async (hostname, mac) => {
-    const response = await fetch(`${domainName}0/deletefix`, {
+    const response = await fetch(`${domainName}/dhcp/deletefix`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -142,7 +142,7 @@ class DHCP extends Component {
   }
 
   reload = async () => {
-    const response = await fetch(`${domainName}/data`);
+    const response = await fetch(`${domainName}/dhcp/leases`);
     let json = await response.json();
     if (response.status === 200) {
       this.setState({ dhcp: json, reload: "ok" }, () => {
@@ -160,9 +160,9 @@ class DHCP extends Component {
   };
 
   getDhcpInfos = async () => {
-    const response0 = await fetch(`${domainName}/data`);
+    const response0 = await fetch(`${domainName}/dhcp/leases`);
     let json0 = await response0.json();
-    const response1 = await fetch(`${domainName}/scope`);
+    const response1 = await fetch(`${domainName}/dhcp/scope`);
     let json1 = await response1.json();
     if (response0.status === 200 && response1.status === 200) {
       this.setState({ dhcp: json0, scope: Object.values(json1.scope[0]) });

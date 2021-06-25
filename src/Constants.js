@@ -1,4 +1,4 @@
-export const domainName = "api.opengate.lan"
+export const domainName = "http://api.opengate.lan"
 
 export const DNS_records = [
   "NONE",
