@@ -25,7 +25,7 @@ class Navigation extends Component {
   handleClick = () => {
     this.props.updateSideBarState(!this.props.isOpenSideBar);
   };
-
+  import "./Navigation.css";
   logout = () => {
     removeCookie("jwt_token");
     this.props.updateAuth(0);
